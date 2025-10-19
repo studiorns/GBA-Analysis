@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Brand Ambassador Campaign Repository | DCT Abu Dhabi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* SONER Logo Animation */
+        @keyframes sonerScan { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes sonerBlip { 0%, 20%, 100% { opacity: 0; } 2%, 15% { opacity: 1; } 3% { transform: scale(1.2); } }
+        
+        .soner-logo { display: flex; align-items: center; color: white; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 300; }
+        .soner-radar { width: 24px; height: 24px; border-radius: 50%; border: 1px solid white; margin: 0 3px; position: relative; background-color: rgba(255, 255, 255, 0.05); overflow: hidden; }
+        .soner-scanner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: sonerScan 4s linear infinite; transform-origin: center; }
+        .soner-scanner::before { content: ''; position: absolute; top: 0; left: 50%; width: 50%; height: 50%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4)); transform-origin: bottom left; clip-path: polygon(0 0, 100% 0, 0 100%); }
+        .soner-scanner::after { content: ''; position: absolute; top: 0; left: 50%; width: 50%; height: 1px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1)); transform-origin: left center; box-shadow: 0 0 4px rgba(255, 255, 255, 0.8); }
+        .soner-blip { position: absolute; width: 2px; height: 2px; background-color: white; border-radius: 50%; opacity: 0; box-shadow: 0 0 4px white; }
+        .soner-blip:nth-child(1) { top: 25%; left: 30%; animation: sonerBlip 4s 1s infinite; }
+        .soner-blip:nth-child(2) { top: 65%; left: 60%; animation: sonerBlip 4s 2.5s infinite; }
+        .soner-tagline { color: white; font-size: 8px; text-transform: uppercase; font-weight: 500; letter-spacing: 0.5em; margin-left: 10px; opacity: 0.8; }
+        
+        .soner-logo-link {
+            text-decoration: none;
+            color: inherit;
+            display: inline-block;
+            transition: opacity 0.3s ease;
+        }
+        
+        .soner-logo-link:hover {
+            opacity: 0.85;
+        }
+        
+        :root {
+            --primary: #4285f4;
+            --primary-light: #1a2233;
+            --primary-dark: #8ab4f8;
+            --secondary: #34a853;
+            --secondary-light: #1a2a1e;
+            --warning: #fbbc04;
+            --danger: #ea4335;
+            --gray-100: #1e1e1e;
+            --gray-200: #2d2d2d;
+            --gray-300: #3d3d3d;
+            --gray-500: #777777;
+            --gray-600: #a0a0a0;
+            --gray-700: #c0c0c0;
+            --bg-color: #000000;
+            --card-bg: #121212;
+            --section-bg: #181818;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: #ffffff;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        
+        header {
+            background: linear-gradient(135deg, #1a73e8, #174ea6);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 700; line-height: 1.2; }
+        .subtitle { font-size: 1.3rem; opacity: 0.95; margin-bottom: 25px; font-weight: 400; }
+        
+        .intro-section {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.15), rgba(66, 133, 244, 0.05));
+            border-left: 4px solid var(--primary);
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .campaign-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--card-bg), var(--section-bg));
+            border: 2px solid var(--gray-300);
+            border-radius: 12px;
+            padding: 30px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(66, 133, 244, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .stat-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            opacity: 0.8;
+        }
+        
+        .stat-value {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--gray-700);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin: 50px 0 30px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .category-section {
+            margin: 50px 0;
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 20px 25px;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .category-info h3 {
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+        
+        .category-info p {
+            font-size: 0.95rem;
+            color: var(--gray-700);
+            margin: 0;
+        }
+        
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+            margin: 0;
+        }
+        
+        @media screen and (min-width: 1200px) {
+            .nav-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .nav-card {
+            background: linear-gradient(135deg, var(--card-bg), var(--section-bg));
+            border: 2px solid var(--gray-300);
+            border-radius: 12px;
+            padding: 28px;
+            padding-top: 32px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(66, 133, 244, 0.4);
+            border-color: var(--primary);
+        }
+        
+        .nav-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+        
+        .nav-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-top: 2px;
+        }
+        
+        .nav-card h3 {
+            font-size: 1.35rem;
+            color: var(--primary-dark);
+            margin: 0 0 8px 0;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .card-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(66, 133, 244, 0.15);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        
+        .nav-card p {
+            color: var(--gray-700);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.98rem;
+            flex-grow: 1;
+        }
+        
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-dark);
+        }
+        
+        .nav-link:hover i {
+            transform: translateX(4px);
+        }
+        
+        .icon-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            width: 46px;
+            height: 46px;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.2), rgba(66, 133, 244, 0.1));
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-card:hover .icon-wrapper {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.3), rgba(66, 133, 244, 0.15));
+            transform: scale(1.05);
+        }
+        
+        .icon-wrapper i {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 1px solid var(--gray-300);
+            color: var(--gray-700);
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .nav-grid { grid-template-columns: 1fr; }
+        }
+        
+        @media screen and (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .subtitle { font-size: 1.1rem; }
+            .campaign-stats { grid-template-columns: 1fr; }
+            .intro-section { padding: 25px; font-size: 1rem; }
+            .category-header { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+                <a href="https://studiorns.github.io/DCTMarketAnalysisRepository/" class="soner-logo-link" target="_blank" rel="noopener noreferrer">
+                    <div class="soner-logo">
+                        S<div class="soner-radar">
+                            <div class="soner-scanner"></div>
+                            <div class="soner-blip"></div>
+                            <div class="soner-blip"></div>
+                        </div>NER
+                        <span class="soner-tagline">Strategic Intelligence</span>
+                    </div>
+                </a>
+            </div>
+            <h1>Global Brand Ambassador Campaign</h1>
+            <p class="subtitle">A Comprehensive Analysis Repository</p>
+            <p style="opacity: 0.9; font-size: 1.05rem;">Department of Culture and Tourism - Abu Dhabi</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        
+        <!-- Introduction -->
+        <div class="intro-section">
+            <p style="margin-bottom: 20px;">
+                This repository provides comprehensive documentation and analysis of Abu Dhabi's Global Brand Ambassador campaign featuring Chris Hemsworth and Elsa Pataky (Nov 2024 to Mar 2025). The campaign represents a strategic shift in destination marketing, combining celebrity endorsement with data-driven precision to address perception barriers and drive measurable brand outcomes.
+            </p>
+            <p style="margin-bottom: 20px;">
+                The analysis spans strategic foundations, campaign execution, brand impact, paid media performance, market comparisons, and performance assessment. This deep-dive focuses on four Tier 1 markets (United States, United Kingdom, Germany, and France), with campaign data available across 27 markets globally. These reports examine Abu Dhabi's approach to attribution in celebrity-led destination marketing.
+            </p>
+            <p style="margin: 0; font-weight: 600; color: var(--primary-dark);">
+                <i class="fas fa-chart-line"></i> Navigate through the sections below to explore the full story of strategy, execution, and impact.
+            </p>
+        </div>
+        
+        <!-- Campaign Overview Stats -->
+        <div class="campaign-stats">
+            <div class="stat-card">
+                <div class="stat-value">5 Months</div>
+                <div class="stat-label">Campaign Duration</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">4 Markets</div>
+                <div class="stat-label">Deep-Dive Analysis</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">27 Markets</div>
+                <div class="stat-label">Data Available</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">Multi-Channel</div>
+                <div class="stat-label">Distribution</div>
+            </div>
+        </div>
+        
+        <!-- Navigation Cards -->
+        <h2><i class="fas fa-compass"></i> Campaign Repository</h2>
+        
+        <div class="nav-grid">
+            
+            <!-- 1. Strategic Foundations -->
+            <div class="nav-card">
+                <div class="icon-wrapper">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="card-header">
+                    <div class="nav-number">1</div>
+                </div>
+                <span class="card-tag">Strategy</span>
+                <h3>Strategic Foundations: Why Celebrity Endorsement</h3>
+                <p>
+                    Explore the psychological principles, competitive context, and strategic rationale behind celebrity partnerships in destination marketing.
+                </p>
+                <a href="strategic_foundations.html" class="nav-link">
+                    Explore Foundations <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <!-- 2. Campaign Execution -->
+            <div class="nav-card">
+                <div class="icon-wrapper">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <div class="card-header">
+                    <div class="nav-number">2</div>
+                </div>
+                <span class="card-tag">Execution</span>
+                <h3>Campaign Execution: How We Did It</h3>
+                <p>
+                    Dive into the operational details of campaign implementation: content production, media distribution, and timeline execution.
+                </p>
+                <a href="campaign_execution.html" class="nav-link">
+                    View Execution <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <!-- 3. Brand Impact Analysis -->
+            <div class="nav-card">
+                <div class="icon-wrapper">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="card-header">
+                    <div class="nav-number">3</div>
+                </div>
+                <span class="card-tag">Impact</span>
+                <h3>Brand Transformation: The Cultural Impact</h3>
+                <p>
+                    Analyze the campaign's impact on brand perception, awareness, and emotional connection across priority markets.
+                </p>
+                <a href="brand_impact_analysis.html" class="nav-link">
+                    Explore Impact <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <!-- 4. Paid Media Performance -->
+            <div class="nav-card">
+                <div class="icon-wrapper">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="card-header">
+                    <div class="nav-number">4</div>
+                </div>
+                <span class="card-tag">Performance</span>
+                <h3>Media Performance Intelligence</h3>
+                <p>
+                    Review comprehensive paid media performance across channels, markets, and content types with data-driven analysis.
+                </p>
+                <a href="paid_media_analysis.html" class="nav-link">
+                    View Performance <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <!-- 5. Market Comparison -->
+            <div class="nav-card">
+                <div class="icon-wrapper">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="card-header">
+                    <div class="nav-number">5</div>
+                </div>
+                <span class="card-tag">Markets</span>
+                <h3>Market Comparison Dashboard</h3>
+                <p>
+                    Compare campaign performance across France, Germany, United Kingdom, and United States with market-specific insights.
+                </p>
+                <a href="market_comparison_dashboard.html" class="nav-link">
+                    Compare Markets <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <!-- 6. Performance Index -->
+            <div class="nav-card">
+                <div class="icon-wrapper">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="card-header">
+                    <div class="nav-number">6</div>
+                </div>
+                <span class="card-tag">Assessment</span>
+                <h3>Celebrity Campaign Performance Index</h3>
+                <p>
+                    Access the executive summary of campaign performance, efficiency metrics, and benchmarks across all dimensions.
+                </p>
+                <a href="celebrity_roi_executive_summary.html" class="nav-link">
+                    View Performance Index <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+        </div>
+        
+        <!-- Usage Guide -->
+        <div style="background-color: var(--section-bg); border-radius: 12px; padding: 35px; margin: 50px 0; border: 1px solid var(--gray-300);">
+            <h2 style="margin-top: 0;"><i class="fas fa-info-circle"></i> How to Use This Repository</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 25px;">
+                <div>
+                    <h3 style="color: var(--primary-dark); font-size: 1.2rem; margin-bottom: 12px;"><i class="fas fa-user-tie"></i> For Executives</h3>
+                    <p style="color: var(--gray-700); line-height: 1.7;">Start with <strong>Strategic Foundations</strong> and <strong>Performance Index</strong> for the complete strategic narrative and performance summary.</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--primary-dark); font-size: 1.2rem; margin-bottom: 12px;"><i class="fas fa-chart-line"></i> For Analysts</h3>
+                    <p style="color: var(--gray-700); line-height: 1.7;">Focus on <strong>Media Performance Intelligence</strong> and <strong>Market Comparison</strong> for detailed performance metrics and market insights.</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--primary-dark); font-size: 1.2rem; margin-bottom: 12px;"><i class="fas fa-palette"></i> For Creatives</h3>
+                    <p style="color: var(--gray-700); line-height: 1.7;">Review <strong>Campaign Execution</strong> and <strong>Brand Transformation</strong> to understand content strategy and creative impact.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p style="margin: 0; color: var(--gray-700); font-size: 0.9rem;">© 2025 Research & Insights Unit | Strategic Marketing & Communications | Department of Culture and Tourism – Abu Dhabi</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

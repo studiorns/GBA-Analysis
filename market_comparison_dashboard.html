@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Comparison Dashboard: Celebrity Campaign Performance | DCT Abu Dhabi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* SONER Logo Animation */
+        @keyframes sonerScan { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes sonerBlip { 0%, 20%, 100% { opacity: 0; } 2%, 15% { opacity: 1; } 3% { transform: scale(1.2); } }
+        
+        .soner-logo { display: flex; align-items: center; color: white; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 300; }
+        .soner-radar { width: 24px; height: 24px; border-radius: 50%; border: 1px solid white; margin: 0 3px; position: relative; background-color: rgba(255, 255, 255, 0.05); overflow: hidden; }
+        .soner-scanner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: sonerScan 4s linear infinite; transform-origin: center; }
+        .soner-scanner::before { content: ''; position: absolute; top: 0; left: 50%; width: 50%; height: 50%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4)); transform-origin: bottom left; clip-path: polygon(0 0, 100% 0, 0 100%); }
+        .soner-scanner::after { content: ''; position: absolute; top: 0; left: 50%; width: 50%; height: 1px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1)); transform-origin: left center; box-shadow: 0 0 4px rgba(255, 255, 255, 0.8); }
+        .soner-blip { position: absolute; width: 2px; height: 2px; background-color: white; border-radius: 50%; opacity: 0; box-shadow: 0 0 4px white; }
+        .soner-blip:nth-child(1) { top: 25%; left: 30%; animation: sonerBlip 4s 1s infinite; }
+        .soner-blip:nth-child(2) { top: 65%; left: 60%; animation: sonerBlip 4s 2.5s infinite; }
+        .soner-tagline { color: white; font-size: 8px; text-transform: uppercase; font-weight: 500; letter-spacing: 0.5em; margin-left: 10px; opacity: 0.8; }
+        
+        :root {
+            --primary: #4285f4;
+            --primary-light: #1a2233;
+            --primary-dark: #8ab4f8;
+            --secondary: #34a853;
+            --secondary-light: #1a2a1e;
+            --warning: #fbbc04;
+            --warning-light: #332a1a;
+            --danger: #ea4335;
+            --danger-light: #331f1e;
+            --gray-100: #1e1e1e;
+            --gray-200: #2d2d2d;
+            --gray-300: #3d3d3d;
+            --gray-400: #4d4d4d;
+            --gray-500: #777777;
+            --gray-600: #a0a0a0;
+            --gray-700: #c0c0c0;
+            --gray-800: #e0e0e0;
+            --gray-900: #f0f0f0;
+            --bg-color: #000000;
+            --card-bg: #121212;
+            --section-bg: #181818;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: #ffffff;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        
+        header {
+            background: linear-gradient(135deg, #1a73e8, #174ea6);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 600; line-height: 1.2; }
+        .subtitle { font-size: 1.2rem; opacity: 0.9; margin-bottom: 20px; }
+        h2 { 
+            font-size: 1.8rem; 
+            color: var(--primary); 
+            margin: 40px 0 25px; 
+            border-bottom: 2px solid var(--primary); 
+            padding-bottom: 12px;
+            font-weight: 600;
+        }
+        h3 { 
+            font-size: 1.4rem; 
+            color: var(--primary-dark); 
+            margin: 30px 0 18px;
+            font-weight: 600;
+        }
+        h4 {
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin: 20px 0 12px;
+            font-weight: 600;
+        }
+        
+        .section {
+            background-color: var(--section-bg);
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .hero-statement {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            text-align: center;
+            margin: 30px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 25px 0;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .comparison-table thead tr {
+            background-color: var(--gray-200);
+        }
+        
+        .comparison-table th {
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-dark);
+            border: 1px solid var(--gray-300);
+            position: sticky;
+            top: 0;
+            background-color: var(--gray-200);
+            z-index: 10;
+        }
+        
+        .comparison-table th.metric-header {
+            text-align: left;
+            min-width: 200px;
+            position: sticky;
+            left: 0;
+            background-color: var(--gray-200);
+            z-index: 11;
+        }
+        
+        .comparison-table td {
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--gray-300);
+            font-size: 1rem;
+        }
+        
+        .comparison-table td.metric-name {
+            font-weight: 600;
+            text-align: left;
+            background-color: var(--card-bg);
+            position: sticky;
+            left: 0;
+            z-index: 5;
+            border-right: 2px solid var(--gray-400);
+        }
+        
+        .comparison-table tr:hover td:not(.metric-name) {
+            background-color: var(--gray-200);
+        }
+        
+        .info-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .info-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(234, 67, 53, 0.1), rgba(234, 67, 53, 0.05));
+            border: 2px solid var(--danger);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .highlight-box h4 {
+            color: var(--danger);
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box.success {
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.1), rgba(52, 168, 83, 0.05));
+            border-color: var(--secondary);
+        }
+        
+        .highlight-box.success h4 {
+            color: var(--secondary);
+        }
+        
+        .highlight-box.info {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+            border-color: var(--primary);
+        }
+        
+        .highlight-box.info h4 {
+            color: var(--primary);
+        }
+        
+        .highlight-box.warning {
+            background: linear-gradient(135deg, rgba(251, 188, 4, 0.1), rgba(251, 188, 4, 0.05));
+            border-color: var(--warning);
+        }
+        
+        .highlight-box.warning h4 {
+            color: var(--warning);
+        }
+        
+        .breadcrumb {
+            background: linear-gradient(135deg, rgba(26, 35, 51, 0.6), rgba(26, 35, 51, 0.4));
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            color: var(--gray-700);
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb-nav a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .breadcrumb-nav a:hover {
+            color: var(--primary-dark);
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 10px;
+            color: var(--gray-500);
+        }
+        
+        .breadcrumb-current {
+            color: var(--gray-700);
+        }
+        
+        footer {
+            background-color: var(--gray-100);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--gray-300);
+            color: #ffffff;
+        }
+        
+        @media screen and (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.2rem; }
+            .section { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 15px;">
+                <div class="soner-logo">
+                    S<div class="soner-radar">
+                        <div class="soner-scanner"></div>
+                        <div class="soner-blip"></div>
+                        <div class="soner-blip"></div>
+                    </div>NER
+                    <span class="soner-tagline">Strategic Intelligence</span>
+                </div>
+            </div>
+            <h1>Market Comparison Dashboard</h1>
+            <p class="subtitle">Head-to-Head Celebrity Campaign Performance Analysis Across Brand, Media & Cost Efficiency</p>
+            <p>Department of Culture and Tourism - Abu Dhabi | Strategic Marketing & Communications</p>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Campaign Repository</a>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-current">Market Comparison Dashboard</span>
+            </nav>
+        </div>
+    </div>
+    
+    <div class="container">
+        
+        <!-- Opening Statement -->
+        <div class="hero-statement">
+            "UK and USA lead celebrity campaign effectiveness with 67% and 50% barrier improvement rates respectively, while Germany requires mid-funnel optimization and France needs creative execution improvements."
+        </div>
+        
+        <!-- Part 1: Market Comparison -->
+        <section class="section">
+            <h2><i class="fas fa-chart-bar"></i> Part 1: Comprehensive Market Comparison</h2>
+            
+            <p style="color: #ffffff; margin-bottom: 30px; font-size: 1.05rem;">
+                Head-to-head comparison of celebrity campaign performance across UK, USA, Germany, and France. Markets ordered by overall effectiveness. Color coding: <span style="background: rgba(52, 168, 83, 0.4); padding: 2px 8px; border-radius: 4px; color: #ffffff; font-weight: 600;">Strongest Performance</span> <span style="background: rgba(52, 168, 83, 0.25); padding: 2px 8px; border-radius: 4px; color: var(--secondary);">Good Performance</span> <span style="background: rgba(234, 67, 53, 0.3); padding: 2px 8px; border-radius: 4px; color: var(--danger);">Needs Attention</span> <span style="background: rgba(234, 67, 53, 0.5); padding: 2px 8px; border-radius: 4px; color: #ffffff; font-weight: 600;">Critical Issue</span>
+            </p>
+            
+            <!-- Brand Health Metrics -->
+            <h3>1. Brand Health Performance</h3>
+            
+            <div style="overflow-x: auto;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th class="metric-header">Brand Metric</th>
+                            <th>UK</th>
+                            <th>USA</th>
+                            <th>Germany</th>
+                            <th>France</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="metric-name">Awareness Growth (Q3'24→Q1'25)</td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+0.4pp</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+1.9pp</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.25);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+1.8pp</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+0.8pp</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Consideration Growth (Q3'24→Q1'25)</td>
+                            <td style="background: rgba(52, 168, 83, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+1.7pp</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+2.0pp</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">+0.5pp</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Lowest</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+1.1pp</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Intent Growth (Q3'24→Q1'25)</td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+1.3pp</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+0.9pp</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+0.8pp</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+1.6pp</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Consideration Lift (Celeb vs Non-Celeb)</td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+0.9pp</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest Advantage</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.25);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+0.7pp</div>
+                            </td>
+                            <td style="background: rgba(119, 119, 119, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--gray-700);">0pp</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Equal</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+0.9pp</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest Advantage</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Intent Lift (Celeb vs Non-Celeb)</td>
+                            <td style="background: rgba(234, 67, 53, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">-0.5pp</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.1);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+0.1pp</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+0.8pp</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest Advantage</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.1);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+0.1pp</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Ad Diagnostics Metrics -->
+            <h3>2. Ad Diagnostics Quality</h3>
+            
+            <div style="overflow-x: auto;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th class="metric-header">Ad Quality Metric</th>
+                            <th>UK</th>
+                            <th>USA</th>
+                            <th>Germany</th>
+                            <th>France</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="metric-name">Ad Recall (Combined %)</td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">66%</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">56%</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">48%</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Lowest</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">59%</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Definitely Remember (%)</td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">31%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">42%</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest Quality</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">22%</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">10%</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Lowest</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Brand Association (%)</td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">37%</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">31%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">27%</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">19%</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Lowest</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Ad Appeal (T2B %)</td>
+                            <td style="background: rgba(52, 168, 83, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">87%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">93%</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">68%</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">60%</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Lowest</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Ad Diagnostics Win Rate</td>
+                            <td style="background: rgba(52, 168, 83, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">3 of 3</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">100% Wins</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">2 of 3</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">67%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">2 of 3</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">67%</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">1 of 3</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">33%</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Media Performance -->
+            <h3>3. Media Performance (META & YouTube)</h3>
+            
+            <div style="overflow-x: auto;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th class="metric-header">Platform Metric</th>
+                            <th>UK</th>
+                            <th>USA</th>
+                            <th>Germany</th>
+                            <th>France</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: var(--primary-light);">
+                            <td class="metric-name" colspan="5" style="text-align: center; color: var(--primary-dark); font-size: 1.1rem;">
+                                <i class="fab fa-facebook"></i> META PLATFORM
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">VTR %</td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">27.0%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">35.3%</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">27.7%</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">25.5%</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Lowest</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">CPV Efficiency Improvement</td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">-25%</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Good</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">-42%</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Strong</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.1);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">-18%</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Modest</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">-61%</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Excellent</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Time Spent Change</td>
+                            <td style="background: rgba(52, 168, 83, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+63%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+124%</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.25);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+118%</div>
+                            </td>
+                            <td style="background: rgba(119, 119, 119, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--gray-700);">0%</div>
+                            </td>
+                        </tr>
+                        <tr style="background-color: rgba(255, 0, 0, 0.05);">
+                            <td class="metric-name" colspan="5" style="text-align: center; color: #ff0000; font-size: 1.1rem;">
+                                <i class="fab fa-youtube"></i> YOUTUBE PLATFORM
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">VTR %</td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">41.8%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">48.6%</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">40.5%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">43.5%</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">CPV Efficiency Change</td>
+                            <td style="background: rgba(234, 67, 53, 0.5);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+159%</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Worst</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.5);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+232%</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Critical</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.5);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+114%</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">+93%</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">CTR %</td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">0.216%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">0.174%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">0.336%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">0.364%</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Time Spent Change</td>
+                            <td style="background: rgba(234, 67, 53, 0.1);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">-8.5%</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.1);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">-12%</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.5);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">-56%</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Worst</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">+56%</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Best</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Barrier Performance -->
+            <h3>4. Barrier Perception Performance</h3>
+            
+            <div style="overflow-x: auto;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th class="metric-header">Barrier Metric</th>
+                            <th>UK</th>
+                            <th>USA</th>
+                            <th>Germany</th>
+                            <th>France</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="metric-name">Barriers Improved (out of 6)</td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">4 of 6</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">67% - Highest</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">3 of 6</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">50%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">3 of 6</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">50%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">3 of 6</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">50%</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Strongest Improvement</td>
+                            <td>
+                                <div style="font-size: 0.9rem; color: var(--secondary);">Knowledge</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600);">-1.7pp</div>
+                            </td>
+                            <td>
+                                <div style="font-size: 0.9rem; color: var(--secondary);">Children Entertainment</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600);">-4.0pp</div>
+                            </td>
+                            <td>
+                                <div style="font-size: 0.9rem; color: var(--secondary);">Value for Money</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600);">-1.2pp</div>
+                            </td>
+                            <td>
+                                <div style="font-size: 0.9rem; color: var(--secondary);">Things to Do</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600);">-0.2pp</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Safety Perception Change</td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">-0.4pp</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Only Improvement</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.5);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+5.8pp</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Worst</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.5);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+5.1pp</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.5);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">+2.7pp</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Cost & Investment Efficiency -->
+            <h3>5. Cost & Investment Efficiency</h3>
+            
+            <div style="overflow-x: auto;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th class="metric-header">Efficiency Metric</th>
+                            <th>UK</th>
+                            <th>USA</th>
+                            <th>Germany</th>
+                            <th>France</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="metric-name">Total Investment</td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">$2.10M</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">25.6% of total</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">$2.82M</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">34.4% of total</div>
+                            </td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">$1.80M</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">22.0% of total</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">$1.48M</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">18.0% of total</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Cost per Total Brand Health Point</td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">$618K</div>
+                            </td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">$588K</div>
+                            </td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">$581K</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">$423K</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Most Efficient</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Cost per Consideration Point</td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">$1.23M</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Most Efficient</div>
+                            </td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">$1.41M</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.3);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">$3.61M</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Least Efficient</div>
+                            </td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">$1.34M</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Cost per Intent Point</td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">$1.62M</div>
+                            </td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--warning);">$3.13M</div>
+                            </td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">$2.25M</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">$925K</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Most Efficient</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">Media Effectiveness<br><span style="font-size: 0.85rem; font-weight: normal;">(Points per 1B Impressions)</span></td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--warning);">13.23</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">-13% vs avg</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: #ffffff;">18.39</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Highest +21%</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">16.96</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">+12% vs avg</div>
+                            </td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">12.54</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">-17% vs avg</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="metric-name">CPM (Context)</td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--warning);">$7.36</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">1.61x vs France</div>
+                            </td>
+                            <td style="background: rgba(234, 67, 53, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--danger);">$10.02</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">2.19x vs France</div>
+                            </td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--warning);">$8.75</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">1.91x vs France</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.2);">
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">$4.57</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Baseline</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Composite ROI Score - Separate Summary Table -->
+            <h3 style="margin-top: 35px;"><i class="fas fa-trophy"></i> Composite ROI Score</h3>
+            
+            <div style="overflow-x: auto;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th class="metric-header">Summary Metric</th>
+                            <th>UK</th>
+                            <th>USA</th>
+                            <th>Germany</th>
+                            <th>France</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: var(--gray-200); font-weight: 700;">
+                            <td class="metric-name"><i class="fas fa-trophy"></i> Composite ROI Score</td>
+                            <td style="background: rgba(52, 168, 83, 0.4);">
+                                <div style="font-weight: 700; font-size: 1.3rem; color: #ffffff;">29.1</div>
+                                <div style="font-size: 0.85rem; color: #ffffff; margin-top: 3px;">Best Balanced</div>
+                            </td>
+                            <td style="background: rgba(52, 168, 83, 0.25);">
+                                <div style="font-weight: 700; font-size: 1.3rem; color: var(--secondary);">27.7</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Growth + Efficiency</div>
+                            </td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.3rem; color: var(--primary);">23.4</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Media Efficient</div>
+                            </td>
+                            <td>
+                                <div style="font-weight: 700; font-size: 1.3rem; color: var(--warning);">19.8</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-600); margin-top: 3px;">Needs Optimization</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="info-card" style="border-left: 4px solid var(--primary); margin-top: 25px;">
+                <h4><i class="fas fa-info-circle"></i> ROI Methodology & Insights</h4>
+                <p style="color: #ffffff; margin: 0; line-height: 1.8; font-size: 0.95rem;">
+                    <strong>Composite ROI Score Formula:</strong> Weighted combination of (1) Brand Health Growth (30%), (2) Barrier Improvement Rate (25%), (3) Ad Diagnostics Win Rate (25%), and (4) Media Effectiveness (20%). Scores normalized 0-100 across markets for comparison.
+                    <br><br>
+                    <strong>UK (29.1 - Best Balanced):</strong> Leads execution quality with 67% barrier improvement and 100% ad diagnostics wins. Despite moderate media effectiveness (13.23), superior creative performance delivers best overall ROI balance.
+                    <br><br>
+                    <strong>USA (27.7 - Growth + Efficiency):</strong> Dominates media effectiveness (18.39 points/1B impressions) despite 2.19x higher CPM than France. Highest brand growth (4.8pp) validates that creative quality trumps media costs.
+                    <br><br>
+                    <strong>Germany (23.4 - Media Efficient):</strong> Strong media effectiveness (16.96, ranked 2nd) but weakest consideration conversion (+0.5pp) limits overall score. Requires mid-funnel creative optimization.
+                    <br><br>
+                    <strong>France (19.8 - Needs Optimization):</strong> Paradox of cost efficiency: Best cost per total brand health point ($423K) but weakest media effectiveness (12.54) and ad diagnostics (33%). Low CPM cannot compensate for creative execution gaps.
+                </p>
+            </div>
+            
+        </section>
+        
+        <!-- Part 2: Strategic Insights -->
+        <section class="section">
+            <h2><i class="fas fa-lightbulb"></i> Part 2: Strategic Insights & Future Campaign Recommendations</h2>
+            
+            <h3>Market-Specific Learnings</h3>
+            
+            <div class="info-card" style="border-left: 4px solid var(--secondary);">
+                <h4><i class="fas fa-crown"></i> UK: Sustain Dominance Strategy</h4>
+                <p style="color: #ffffff; margin-bottom: 15px;"><strong>Performance Summary:</strong></p>
+                <ul style="margin: 10px 0 15px 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>Best overall performer:</strong> 67% barrier improvement rate (4 of 6 barriers)</li>
+                    <li><strong>Ad diagnostics dominance:</strong> 100% win rate (3 of 3 metrics)</li>
+                    <li><strong>Highest consideration lift:</strong> +7.5pp with +0.9pp celebrity advantage</li>
+                    <li><strong>Brand association leader:</strong> 37% (highest across all markets)</li>
+                </ul>
+                <p style="color: #ffffff; margin-bottom: 10px;"><strong>Future Campaign Recommendations:</strong></p>
+                <ul style="margin: 10px 0 0 20px; color: #ffffff; line-height: 1.8;">
+                    <li>No major strategy changes needed - current approach validates celebrity effectiveness</li>
+                    <li>Continue investment at current levels; UK demonstrates highest ROI across all metrics</li>
+                    <li>Replicate UK creative framework in other markets for consistency</li>
+                    <li>Maintain celebrity visibility with 8-12 week creative refresh cycles</li>
+                </ul>
+            </div>
+            
+            <div class="info-card" style="border-left: 4px solid var(--primary);">
+                <h4><i class="fas fa-rocket"></i> USA: Capitalize on Growth Momentum</h4>
+                <p style="color: #ffffff; margin-bottom: 15px;"><strong>Performance Summary:</strong></p>
+                <ul style="margin: 10px 0 15px 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>Highest total growth:</strong> 4.8 points (awareness +1.9pp, consideration +2.0pp)</li>
+                    <li><strong>Strongest ad appeal:</strong> 93% (highest across all markets and campaigns)</li>
+                    <li><strong>Family positioning strength:</strong> -4.0pp children entertainment improvement</li>
+                    <li><strong>Quality traffic leader:</strong> +124% time spent on site from META</li>
+                </ul>
+                <p style="color: #ffffff; margin-bottom: 10px;"><strong>Future Campaign Recommendations:</strong></p>
+                <ul style="margin: 10px 0 0 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>Amplify family-focused content:</strong> Children entertainment barrier shows proven success</li>
+                    <li>Maintain balanced awareness + consideration messaging that drove growth</li>
+                    <li>Leverage 93% ad appeal advantage through sustained celebrity visibility</li>
+                    <li><strong>Priority:</strong> Address safety perception worsening (+5.8pp) through PR coordination</li>
+                    <li>Consider Chris Hemsworth family content given strong children entertainment results</li>
+                </ul>
+            </div>
+            
+            <div class="info-card" style="border-left: 4px solid var(--warning);">
+                <h4><i class="fas fa-wrench"></i> Germany: Fix Awareness-to-Consideration Gap</h4>
+                <p style="color: #ffffff; margin-bottom: 15px;"><strong>Performance Summary:</strong></p>
+                <ul style="margin: 10px 0 15px 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>Awareness success:</strong> +1.8pp growth (tied for highest)</li>
+                    <li><strong>Consideration failure:</strong> +0.5pp (lowest across all markets)</li>
+                    <li><strong>Conversion disconnect:</strong> 3.6x gap between awareness and consideration growth</li>
+                    <li><strong>Creative wear-out:</strong> -40% META VTR decline indicates rapid fatigue</li>
+                </ul>
+                <p style="color: #ffffff; margin-bottom: 10px;"><strong>Future Campaign Recommendations:</strong></p>
+                <ul style="margin: 10px 0 0 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>Problem diagnosis:</strong> Awareness is working; consideration conversion is not</li>
+                    <li>Test message variants emphasizing rational benefits and specific experiences</li>
+                    <li>Address authenticity concern (+2.1pp worsening) with destination credibility content</li>
+                    <li><strong>Aggressive creative refresh:</strong> 4-8 week cycles to combat rapid fatigue</li>
+                    <li>Do not increase awareness investment; focus on mid-funnel optimization</li>
+                    <li>Consider localized German celebrity partnerships to complement Chris Hemsworth</li>
+                </ul>
+            </div>
+            
+            <div class="info-card" style="border-left: 4px solid var(--danger);">
+                <h4><i class="fas fa-palette"></i> France: Enhance Creative Appeal & Association</h4>
+                <p style="color: #ffffff; margin-bottom: 15px;"><strong>Performance Summary:</strong></p>
+                <ul style="margin: 10px 0 15px 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>Strong intent conversion:</strong> +1.6pp (highest intent lift)</li>
+                    <li><strong>Bottom-funnel strength:</strong> +0.9pp consideration lift advantage</li>
+                    <li><strong>Ad diagnostics weakness:</strong> 60% appeal, 19% association (both lowest)</li>
+                    <li><strong>Memory quality gap:</strong> 10% "definitely remember" (lowest by far)</li>
+                </ul>
+                <p style="color: #ffffff; margin-bottom: 10px;"><strong>Future Campaign Recommendations:</strong></p>
+                <ul style="margin: 10px 0 0 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>Address top-funnel creative execution gaps:</strong> Lowest ad appeal (60%) and brand association (19%) indicate creative isn't resonating despite strong bottom-funnel performance</li>
+                    <li>Test localized creative variants with French cultural references and complementary French influencer partnerships</li>
+                    <li>Preserve bottom-funnel momentum - strong intent growth validates current conversion messaging</li>
+                    <li>Address children entertainment concern (+4.3pp worsening) with family-focused content</li>
+                    <li><strong>META platform strength:</strong> -61% CPV efficiency (best across all markets) - increase META budget allocation</li>
+                </ul>
+            </div>
+            
+            <h3>Cross-Market Strategic Lessons</h3>
+            
+            <div class="highlight-box success">
+                <h4><i class="fas fa-check-circle"></i> What Worked: Validated Successes</h4>
+                <ul style="margin: 10px 0 0 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>English-speaking market advantage:</strong> UK (67% barrier improvement) and USA (4.8 total growth points) demonstrate strongest performance, suggesting cultural and linguistic affinity with Chris Hemsworth drives superior resonance</li>
+                    <li><strong>Celebrity appeal superiority:</strong> 67% ad diagnostics win rate (8 of 12 metrics) validates celebrity strategy</li>
+                    <li><strong>META cost efficiency:</strong> All markets achieved CPV improvements (-18% to -61%), making META ideal for reach-focused objectives</li>
+                    <li><strong>Quality traffic generation:</strong> 3 of 4 markets showed substantial time-on-site improvements (+63% to +124%) from META</li>
+                    <li><strong>Brand decline reversal:</strong> Only campaign period to recover consideration to pre-crisis levels (+2.5pp from Q3'24 low)</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box warning">
+                <h4><i class="fas fa-exclamation-triangle"></i> What Didn't Work: Critical Challenges</h4>
+                <ul style="margin: 10px 0 0 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>Safety perception deterioration:</strong> Worsened in 3 of 4 markets (USA +5.8pp, Germany +5.1pp, France +2.7pp) due to external geopolitical factors beyond marketing control</li>
+                    <li><strong>YouTube cost escalation:</strong> CPV increased +93% to +232% across all markets, undermining platform ROI despite strong engagement</li>
+                    <li><strong>Creative wear-out variability:</strong> Germany (-40% META VTR) declined 2.2x faster than USA (-18%), indicating market-specific fatigue rates</li>
+                    <li><strong>France creative execution gap:</strong> Lowest ad appeal (60%) and association (19%) despite strong intent conversion suggests localization needs</li>
+                </ul>
+            </div>
+            
+            <h3>Platform-Specific Insights</h3>
+            
+            <div class="info-card" style="border-left: 4px solid #4285f4;">
+                <h4><i class="fab fa-facebook"></i> META Platform: Cost Efficiency Champion</h4>
+                <p style="color: #ffffff; margin-bottom: 15px;"><strong>Validated Strengths:</strong></p>
+                <ul style="margin: 10px 0 15px 20px; color: #ffffff; line-height: 1.8;">
+                    <li>Universal cost efficiency: All markets achieved CPV reductions (-18% to -61%)</li>
+                    <li>Quality traffic: 3 of 4 markets showed time-on-site gains (+63% to +124%)</li>
+                    <li>Benchmark compliance: All markets maintained 25-40% VTR range</li>
+                </ul>
+                <p style="color: #ffffff; margin-bottom: 10px;"><strong>Future Campaign Guidance:</strong></p>
+                <ul style="margin: 10px 0 0 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>Budget allocation:</strong> Prioritize France (-61% CPV) and USA (-42% CPV) for cost-efficient reach</li>
+                    <li><strong>Creative refresh cycles:</strong> Germany requires 4-8 weeks; USA tolerates 8-12 weeks</li>
+                    <li>Recommended split: 60-70% of total paid budget to META for awareness objectives</li>
+                </ul>
+            </div>
+            
+            <div class="info-card" style="border-left: 4px solid #ff0000;">
+                <h4><i class="fab fa-youtube"></i> YouTube Platform: Engagement vs. Cost Trade-off</h4>
+                <p style="color: #ffffff; margin-bottom: 15px;"><strong>Validated Strengths:</strong></p>
+                <ul style="margin: 10px 0 15px 20px; color: #ffffff; line-height: 1.8;">
+                    <li>CTR improvement trajectory: Substantial growth (+91% to +360%) across all markets</li>
+                    <li>Above-benchmark VTR: 40.53%-48.60% vs 32% industry standard (+27% to +52%)</li>
+                    <li>Engagement consistency: Sustained performance throughout campaign period</li>
+                </ul>
+                <p style="color: #ffffff; margin-bottom: 10px;"><strong>Critical Challenges:</strong></p>
+                <ul style="margin: 10px 0 15px 20px; color: #ffffff; line-height: 1.8;">
+                    <li>Cost escalation: CPV increased +93% to +232% across all markets</li>
+                    <li>ROI pressure: Higher costs require justification via engagement quality</li>
+                </ul>
+                <p style="color: #ffffff; margin-bottom: 10px;"><strong>Future Campaign Guidance:</strong></p>
+                <ul style="margin: 10px 0 0 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>Strategic use:</strong> Deploy for high-intent engagement (CTR) vs broad reach (CPV)</li>
+                    <li><strong>Format optimization:</strong> 30s assets generated +631% CTR in France, +501% in USA</li>
+                    <li>Recommended split: 30-40% of total paid budget to YouTube for engagement objectives</li>
+                    <li>Balance YouTube's +360% CTR gains against META's -61% CPV efficiency</li>
+                </ul>
+            </div>
+            
+            <h3>Final Recommendations Summary</h3>
+            
+            <div class="highlight-box info">
+                <h4><i class="fas fa-star"></i> Bottom Line for Future Celebrity Campaigns</h4>
+                <p style="color: #ffffff; margin: 0; line-height: 1.8;">
+                    <strong>Continue celebrity strategy</strong> with market-specific optimizations: UK requires no changes (67% barrier improvement validates approach), USA should amplify family content (+124% quality traffic), Germany needs aggressive creative refresh (4-8 week cycles) and mid-funnel focus, France requires localized creative to improve 60% ad appeal and 19% association rates while preserving strong +1.6pp intent growth. Platform allocation: 60-70% META for cost-efficient reach, 30-40% YouTube for high-intent engagement. Safety concerns require cross-functional PR response beyond marketing scope.
+                </p>
+            </div>
+            
+        </section>
+        
+        <!-- Continue Reading Navigation -->
+        <section class="section" style="margin-top: 50px; background: linear-gradient(135deg, rgba(66, 133, 244, 0.08), rgba(66, 133, 244, 0.03)); border: 2px solid var(--primary);">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <a href="index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--gray-700); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--primary-dark)'" onmouseout="this.style.color='var(--gray-700)'">
+                    <i class="fas fa-arrow-left"></i> Back to Campaign Repository
+                </a>
+            </div>
+            
+            <div style="text-align: center;">
+                <h3 style="color: var(--primary-dark); margin-bottom: 15px; font-size: 1.5rem;">
+                    <i class="fas fa-book-open"></i> Continue Reading
+                </h3>
+                <a href="celebrity_roi_executive_summary.html" style="display: block; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="background-color: var(--card-bg); border: 2px solid var(--primary); border-radius: 12px; padding: 30px; margin: 0 auto; max-width: 600px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+                            <div style="flex: 1; text-align: left;">
+                                <div style="color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Next</div>
+                                <h4 style="color: var(--primary-dark); margin: 0 0 10px 0; font-size: 1.3rem;">Celebrity ROI Executive Summary</h4>
+                                <p style="color: var(--gray-700); margin: 0; font-size: 0.95rem; line-height: 1.6;">Composite performance index, investment breakdown, strategic verdict, and bottom-line assessment of campaign effectiveness.</p>
+                            </div>
+                            <div style="color: var(--primary); font-size: 2rem;">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p style="margin: 0; color: var(--gray-700); font-size: 0.9rem;">© 2025 Research & Insights Unit | Strategic Marketing & Communications | Department of Culture and Tourism – Abu Dhabi</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

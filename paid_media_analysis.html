@@ -1,0 +1,2748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paid Media Performance Analysis: Celebrity vs Non-Celebrity | DCT Abu Dhabi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+    <style>
+        /* SONER Logo Animation */
+        @keyframes sonerScan { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes sonerBlip { 0%, 20%, 100% { opacity: 0; } 2%, 15% { opacity: 1; } 3% { transform: scale(1.2); } }
+        
+        .soner-logo { display: flex; align-items: center; color: white; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 300; }
+        .soner-radar { width: 24px; height: 24px; border-radius: 50%; border: 1px solid white; margin: 0 3px; position: relative; background-color: rgba(255, 255, 255, 0.05); overflow: hidden; }
+        .soner-scanner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: sonerScan 4s linear infinite; transform-origin: center; }
+        .soner-scanner::before { content: ''; position: absolute; top: 0; left: 50%; width: 50%; height: 50%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4)); transform-origin: bottom left; clip-path: polygon(0 0, 100% 0, 0 100%); }
+        .soner-scanner::after { content: ''; position: absolute; top: 0; left: 50%; width: 50%; height: 1px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1)); transform-origin: left center; box-shadow: 0 0 4px rgba(255, 255, 255, 0.8); }
+        .soner-blip { position: absolute; width: 2px; height: 2px; background-color: white; border-radius: 50%; opacity: 0; box-shadow: 0 0 4px white; }
+        .soner-blip:nth-child(1) { top: 25%; left: 30%; animation: sonerBlip 4s 1s infinite; }
+        .soner-blip:nth-child(2) { top: 65%; left: 60%; animation: sonerBlip 4s 2.5s infinite; }
+        .soner-tagline { color: white; font-size: 8px; text-transform: uppercase; font-weight: 500; letter-spacing: 0.5em; margin-left: 10px; opacity: 0.8; }
+        
+        :root {
+            --primary: #4285f4;
+            --primary-light: #1a2233;
+            --primary-dark: #8ab4f8;
+            --secondary: #34a853;
+            --secondary-light: #1a2a1e;
+            --warning: #fbbc04;
+            --warning-light: #332a1a;
+            --danger: #ea4335;
+            --danger-light: #331f1e;
+            --gray-100: #1e1e1e;
+            --gray-200: #2d2d2d;
+            --gray-300: #3d3d3d;
+            --gray-400: #4d4d4d;
+            --gray-500: #777777;
+            --gray-600: #a0a0a0;
+            --gray-700: #c0c0c0;
+            --gray-800: #e0e0e0;
+            --gray-900: #f0f0f0;
+            --bg-color: #000000;
+            --card-bg: #121212;
+            --section-bg: #181818;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: #ffffff;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        
+        header {
+            background: linear-gradient(135deg, #1a73e8, #174ea6);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 600; line-height: 1.2; }
+        .subtitle { font-size: 1.2rem; opacity: 0.9; margin-bottom: 20px; }
+        h2 { 
+            font-size: 1.8rem; 
+            color: var(--primary); 
+            margin: 40px 0 25px; 
+            border-bottom: 2px solid var(--primary); 
+            padding-bottom: 12px;
+            font-weight: 600;
+        }
+        h3 { 
+            font-size: 1.4rem; 
+            color: var(--primary-dark); 
+            margin: 30px 0 18px;
+            font-weight: 600;
+        }
+        h4 {
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin: 20px 0 12px;
+            font-weight: 600;
+        }
+        
+        .section {
+            background-color: var(--section-bg);
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .hero-statement {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            text-align: center;
+            margin: 30px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .metric-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--gray-300);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(66, 133, 244, 0.3);
+        }
+        
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            font-size: 0.95rem;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+        
+        .quote-box {
+            background-color: var(--gray-200);
+            border-left: 4px solid var(--secondary);
+            padding: 25px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #ffffff;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.7;
+        }
+        
+        .quote-box strong {
+            color: var(--primary-dark);
+            font-style: normal;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(234, 67, 53, 0.1), rgba(234, 67, 53, 0.05));
+            border: 2px solid var(--danger);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .highlight-box h4 {
+            color: var(--danger);
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box.success {
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.1), rgba(52, 168, 83, 0.05));
+            border-color: var(--secondary);
+        }
+        
+        .highlight-box.success h4 {
+            color: var(--secondary);
+        }
+        
+        .highlight-box.info {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+            border-color: var(--primary);
+        }
+        
+        .highlight-box.info h4 {
+            color: var(--primary);
+        }
+        
+        .highlight-box.warning {
+            background: linear-gradient(135deg, rgba(251, 188, 4, 0.1), rgba(251, 188, 4, 0.05));
+            border-color: var(--warning);
+        }
+        
+        .highlight-box.warning h4 {
+            color: var(--warning);
+        }
+        
+        .info-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .info-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+        
+        .chart-container {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid var(--gray-300);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        thead tr {
+            background-color: var(--gray-200);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-dark);
+            border-right: 1px solid var(--gray-300);
+        }
+        
+        th:last-child {
+            border-right: none;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--gray-300);
+            border-right: 1px solid var(--gray-300);
+        }
+        
+        td:last-child {
+            border-right: none;
+        }
+        
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tbody tr:hover {
+            background-color: var(--gray-200);
+        }
+        
+        .main-section-header {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-right: 30px;
+            transition: color 0.2s ease;
+        }
+        
+        .main-section-header:hover { 
+            color: var(--primary-dark); 
+        }
+        
+        .main-section-header:after {
+            content: '\f078';
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            font-size: 0.8em;
+        }
+        
+        .main-section-header.collapsed:after {
+            transform: translateY(-50%) rotate(-90deg);
+        }
+        
+        .main-section-content {
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.3s ease-out;
+            max-height: 9999px;
+            opacity: 1;
+        }
+        
+        .main-section-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .market-profile-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid var(--gray-300);
+        }
+        
+        .market-profile-card h4 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .positive { color: var(--secondary); font-weight: bold; }
+        .negative { color: var(--danger); font-weight: bold; }
+        .neutral { color: var(--warning); font-weight: bold; }
+        
+        .radar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 30px auto;
+            max-width: 1000px;
+        }
+        
+        /* Toggle Button Styles */
+        .metric-toggle-btn, .duration-toggle-btn {
+            background-color: var(--gray-300);
+            color: #ffffff;
+            border: 2px solid var(--gray-400);
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .metric-toggle-btn:hover, .duration-toggle-btn:hover {
+            background-color: var(--gray-400);
+            transform: translateY(-2px);
+        }
+        
+        .metric-toggle-btn.active {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
+        }
+        
+        .duration-toggle-btn.active {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+            box-shadow: 0 4px 12px rgba(52, 168, 83, 0.4);
+        }
+        
+        /* Comparison Table Styles */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background-color: var(--gray-200);
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-dark);
+            border: 1px solid var(--gray-300);
+        }
+        
+        .comparison-table th.platform-header {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+        }
+        
+        .comparison-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .comparison-table td.market-name {
+            font-weight: 600;
+            text-align: left;
+            background-color: var(--gray-200);
+        }
+        
+        .comparison-table tr:hover {
+            background-color: var(--gray-200);
+        }
+        
+        .best-performer {
+            background-color: rgba(52, 168, 83, 0.15);
+            font-weight: bold;
+        }
+        
+        .worst-performer {
+            background-color: rgba(234, 67, 53, 0.15);
+        }
+        
+        .change-positive {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .change-negative {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        /* Calculator Styles */
+        .weight-preset-btn {
+            background-color: var(--gray-300);
+            color: #ffffff;
+            border: 2px solid var(--gray-400);
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .weight-preset-btn:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
+        }
+        
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            border: none;
+        }
+        
+        .calc-results-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .calc-results-table th {
+            background-color: var(--gray-200);
+            padding: 12px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-dark);
+            border: 1px solid var(--gray-300);
+        }
+        
+        .calc-results-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .calc-winner {
+            background-color: rgba(52, 168, 83, 0.2);
+            font-weight: bold;
+        }
+        
+        .winning-score {
+            color: var(--secondary) !important;
+            font-weight: bold;
+        }
+        
+        .calc-verdict {
+            background-color: var(--gray-200);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        /* Platform Guidelines Styles */
+        .platform-guidelines {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .platform-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .platform-body {
+            padding: 25px;
+        }
+        
+        .platform-section {
+            margin-bottom: 20px;
+        }
+        
+        .platform-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .platform-section ul {
+            color: #ffffff;
+        }
+        
+        .platform-section li {
+            margin-bottom: 8px;
+        }
+        
+        .breadcrumb {
+            background: linear-gradient(135deg, rgba(26, 35, 51, 0.6), rgba(26, 35, 51, 0.4));
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            color: var(--gray-700);
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb-nav a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .breadcrumb-nav a:hover {
+            color: var(--primary-dark);
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 10px;
+            color: var(--gray-500);
+        }
+        
+        .breadcrumb-current {
+            color: var(--gray-700);
+        }
+        
+        footer {
+            background-color: var(--gray-100);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--gray-300);
+            color: #ffffff;
+        }
+        
+        @media screen and (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.2rem; }
+            .section { padding: 25px; }
+            .metric-grid { grid-template-columns: 1fr; }
+            .radar-grid { grid-template-columns: 1fr; gap: 20px; margin: 20px 0; }
+            
+            /* Calculator Mobile Optimizations */
+            
+            /* Stack results vertically on mobile */
+            #calculatorResults > div[style*="grid"] {
+                grid-template-columns: 1fr !important;
+                gap: 30px !important;
+            }
+            
+            /* Touch-friendly sliders */
+            input[type="range"] {
+                height: 12px !important;
+            }
+            
+            input[type="range"]::-webkit-slider-thumb {
+                width: 24px;
+                height: 24px;
+            }
+            
+            input[type="range"]::-moz-range-thumb {
+                width: 24px;
+                height: 24px;
+            }
+            
+            /* Larger input boxes for touch */
+            input[type="number"] {
+                width: 70px !important;
+                padding: 8px 12px !important;
+                font-size: 1.1rem !important;
+                min-height: 44px;
+            }
+            
+            /* Touch-friendly buttons */
+            .weight-preset-btn {
+                padding: 12px 16px;
+                font-size: 0.85rem;
+                min-height: 44px;
+            }
+            
+            .metric-toggle-btn, .duration-toggle-btn {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+                min-height: 44px;
+            }
+            
+            /* Scrollable tables on mobile */
+            .calc-results-table, .comparison-table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .calc-results-table thead,
+            .calc-results-table tbody,
+            .calc-results-table tr {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+            }
+            
+            .comparison-table thead,
+            .comparison-table tbody,
+            .comparison-table tr {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+            }
+            
+            /* Smaller table cells on mobile */
+            .calc-results-table th,
+            .calc-results-table td {
+                padding: 8px 6px;
+                font-size: 0.9rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px 6px;
+                font-size: 0.85rem;
+            }
+            
+            /* Verdict box mobile optimization */
+            .calc-verdict {
+                padding: 15px !important;
+                font-size: 1rem !important;
+            }
+            
+            .calc-verdict > div {
+                font-size: 0.9rem !important;
+            }
+            
+            /* Compact weight summary */
+            #calculatorResults > div:first-child h4 {
+                font-size: 0.95rem !important;
+            }
+            
+            /* Results headers */
+            #calculatorResults h3 {
+                font-size: 1.1rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 15px;">
+                <div class="soner-logo">
+                    S<div class="soner-radar">
+                        <div class="soner-scanner"></div>
+                        <div class="soner-blip"></div>
+                        <div class="soner-blip"></div>
+                    </div>NER
+                    <span class="soner-tagline">Strategic Intelligence</span>
+                </div>
+            </div>
+            <h1>Paid Media Performance Analysis</h1>
+            <p class="subtitle">Celebrity vs Non-Celebrity Campaign Effectiveness Across META and YouTube Platforms</p>
+            <p>Department of Culture and Tourism - Abu Dhabi | Strategic Marketing & Communications</p>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Campaign Repository</a>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-current">Paid Media Analysis</span>
+            </nav>
+        </div>
+    </div>
+    
+    <div class="container">
+        
+        <!-- Opening Statement -->
+        <div class="hero-statement">
+            "The celebrity campaign performed effectively across all markets, validating the strategic approach and identifying clear optimisation pathways."
+        </div>
+        
+        <!-- Executive Performance Summary -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-chart-line"></i> Executive Summary</h2>
+            <div class="main-section-content collapsed">
+                
+                <div style="text-align: center; padding: 12px 20px; background-color: var(--gray-200); border-radius: 8px; margin-bottom: 25px; border-left: 3px solid var(--primary);">
+                    <p style="margin: 0; color: var(--gray-700); font-size: 0.95rem; font-weight: 500;">
+                        <i class="fas fa-calendar-alt" style="color: var(--primary); margin-right: 8px;"></i>
+                        Analysis Period: Q1 2024 (Brand Continuation) vs Q1 2025 (Celebrity Campaign)
+                    </p>
+                </div>
+                
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">+631%</div>
+                        <div class="metric-label"><strong>Peak CTR Growth</strong><br>France YouTube 30s assets<br><em style="color: var(--primary-dark); font-size: 0.9rem;">Record engagement performance</em></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">7% to 67%</div>
+                        <div class="metric-label"><strong>Cost Efficiency Range</strong><br>META CPV improvements<br><em style="color: var(--primary-dark); font-size: 0.9rem;">All markets achieved gains</em></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">+124%</div>
+                        <div class="metric-label"><strong>Quality Improvement</strong><br>USA time spent on site<br><em style="color: var(--primary-dark); font-size: 0.9rem;">Best traffic quality across markets</em></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">3 of 4</div>
+                        <div class="metric-label"><strong>Quality Traffic Growth</strong><br>Markets: +63% to +124% time spent<br><em style="color: var(--primary-dark); font-size: 0.9rem;">META-driven quality improvements</em></div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box info">
+                    <h4><i class="fas fa-info-circle"></i> Context: Creative Wear-Out Effect</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        The same celebrity assets ran continuously from Q4 2024 through Q1 2025 without refresh, causing META VTR declines (-18% to -40%) due to creative wear-out. These declines represent fatigue, not campaign failure. Fresh creative would likely restore or exceed Brand Q1'24 performance levels. This underscores the critical need for market-specific creative refresh cycles.
+                    </p>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- META Platform Analysis -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-video"></i> META Platform Performance Analysis</h2>
+            <div class="main-section-content collapsed">
+                
+                <h3>Overall Asset Performance</h3>
+                
+                <div class="chart-container">
+                    <canvas id="metaVTRChart" height="100"></canvas>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Market</th>
+                            <th>Brand Q1'24 VTR%</th>
+                            <th>Celebrity Q1'25 VTR%</th>
+                            <th>Change</th>
+                            <th>Benchmark Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>France</strong></td>
+                            <td>33.96%</td>
+                            <td>25.52%</td>
+                            <td class="negative">-25%</td>
+                            <td><span class="neutral">At threshold (25-40%)</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Germany</strong></td>
+                            <td>46.15%</td>
+                            <td>27.72%</td>
+                            <td class="negative">-40%</td>
+                            <td><span class="positive">Within range (25-40%)</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>UK</strong></td>
+                            <td>37.25%</td>
+                            <td>26.97%</td>
+                            <td class="negative">-28%</td>
+                            <td><span class="neutral">At threshold (25-40%)</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>USA</strong></td>
+                            <td>43.07%</td>
+                            <td>35.28%</td>
+                            <td class="negative">-18%</td>
+                            <td><span class="positive">Mid-range (25-40%)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="quote-box">
+                    <strong>Analysis:</strong> Brand Q1'24 VTR performance ranged from 33.96% to 46.15%, exceeding the 25-40% benchmark range in all markets. Celebrity Q1'25 VTR ranged from 25.52% to 35.28%, with France (25.52%), UK (26.97%), and Germany (27.72%) at the lower end of the benchmark range, and USA (35.28%) at mid-range. Despite VTR declines of -18% to -40%, all markets remained at or above the 25% minimum threshold.
+                </div>
+                
+                <h3>Cost Efficiency Performance</h3>
+                
+                <div class="chart-container">
+                    <canvas id="metaCPVChart" height="100"></canvas>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Market</th>
+                            <th>Brand Q1'24 CPV</th>
+                            <th>Celebrity Q1'25 CPV</th>
+                            <th>Change</th>
+                            <th>Efficiency Ranking</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: rgba(52, 168, 83, 0.1);">
+                            <td><strong>France</strong></td>
+                            <td>$0.0132</td>
+                            <td>$0.0052</td>
+                            <td class="positive">-61%</td>
+                            <td>1st - Highest efficiency</td>
+                        </tr>
+                        <tr>
+                            <td><strong>USA</strong></td>
+                            <td>$0.0170</td>
+                            <td>$0.0099</td>
+                            <td class="positive">-42%</td>
+                            <td>2nd - Strong efficiency</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UK</strong></td>
+                            <td>$0.0150</td>
+                            <td>$0.0112</td>
+                            <td class="positive">-25%</td>
+                            <td>3rd - Moderate efficiency</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Germany</strong></td>
+                            <td>$0.0126</td>
+                            <td>$0.0104</td>
+                            <td class="positive">-18%</td>
+                            <td>4th - Lowest efficiency</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="highlight-box success">
+                    <h4><i class="fas fa-check-circle"></i> Key Finding: Universal Cost Efficiency</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        All markets achieved CPV efficiency improvements, ranging from -18% (Germany) to -61% (France). France achieved highest efficiency despite moderate video engagement decline, while Germany achieved lowest efficiency with lowest video engagement. This demonstrates that cost efficiency and engagement performance are not directly correlated.
+                    </p>
+                </div>
+                
+                <h3>Quality Impact Assessment</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Market</th>
+                            <th>Brand Q1'24 Time</th>
+                            <th>Celebrity Q1'25 Time</th>
+                            <th>Change</th>
+                            <th>Quality Assessment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: rgba(52, 168, 83, 0.1);">
+                            <td><strong>USA</strong></td>
+                            <td>0:01:38</td>
+                            <td>0:03:40</td>
+                            <td class="positive">+124%</td>
+                            <td>Highest improvement</td>
+                        </tr>
+                        <tr style="background-color: rgba(52, 168, 83, 0.1);">
+                            <td><strong>Germany</strong></td>
+                            <td>0:02:20</td>
+                            <td>0:05:05</td>
+                            <td class="positive">+118%</td>
+                            <td>Strong improvement</td>
+                        </tr>
+                        <tr style="background-color: rgba(52, 168, 83, 0.05);">
+                            <td><strong>UK</strong></td>
+                            <td>0:02:34</td>
+                            <td>0:04:12</td>
+                            <td class="positive">+63%</td>
+                            <td>Moderate improvement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>France</strong></td>
+                            <td>0:02:30</td>
+                            <td>0:02:29</td>
+                            <td class="neutral">On par</td>
+                            <td>Stable performance</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="quote-box">
+                    <strong>Strategic Insight:</strong> Three of four markets showed substantial website time spent improvements from META-driven traffic. Markets maintaining higher video engagement (USA) demonstrated both strong cost efficiency and quality improvements across multiple performance dimensions.
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- YouTube Platform Analysis -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-play-circle"></i> YouTube Platform Performance Analysis</h2>
+            <div class="main-section-content collapsed">
+                
+                <h3>Video Engagement Performance</h3>
+                
+                <div class="chart-container">
+                    <canvas id="youtubeVTRChart" height="100"></canvas>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Market</th>
+                            <th>Brand Q1'24 VTR%</th>
+                            <th>Celebrity Q1'25 VTR%</th>
+                            <th>Change</th>
+                            <th>vs Benchmark (~32%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: rgba(52, 168, 83, 0.1);">
+                            <td><strong>Germany</strong></td>
+                            <td>34.23%</td>
+                            <td>40.53%</td>
+                            <td class="positive">+18%</td>
+                            <td>+27% above benchmark</td>
+                        </tr>
+                        <tr style="background-color: rgba(52, 168, 83, 0.1);">
+                            <td><strong>France</strong></td>
+                            <td>38.48%</td>
+                            <td>43.47%</td>
+                            <td class="positive">+13%</td>
+                            <td>+36% above benchmark</td>
+                        </tr>
+                        <tr style="background-color: rgba(52, 168, 83, 0.05);">
+                            <td><strong>UK</strong></td>
+                            <td>38.75%</td>
+                            <td>41.79%</td>
+                            <td class="positive">+8%</td>
+                            <td>+31% above benchmark</td>
+                        </tr>
+                        <tr>
+                            <td><strong>USA</strong></td>
+                            <td>58.80%</td>
+                            <td>48.60%</td>
+                            <td class="negative">-17%</td>
+                            <td>+52% above benchmark</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="highlight-box info">
+                    <h4><i class="fas fa-chart-bar"></i> Benchmark Context</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        All celebrity campaigns significantly exceeded YouTube's ~32% VTR benchmark (40.53% to 48.60%). Brand Q1'24 campaigns also performed above benchmark, with USA significantly exceeding at 58.8%. Even with USA's VTR decline, celebrity campaign performance remains 52% above industry standard.
+                    </p>
+                </div>
+                
+                <h3>Click-Through Performance</h3>
+                
+                <div class="chart-container">
+                    <canvas id="youtubeCTRChart" height="100"></canvas>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Market</th>
+                            <th>Brand Q1'24 CTR%</th>
+                            <th>Celebrity Q1'25 CTR%</th>
+                            <th>Growth</th>
+                            <th>Performance Ranking</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: rgba(251, 188, 4, 0.1);">
+                            <td><strong>France</strong></td>
+                            <td>0.079%</td>
+                            <td>0.364%</td>
+                            <td class="positive">+360%</td>
+                            <td>1st - Exceptional growth</td>
+                        </tr>
+                        <tr>
+                            <td><strong>USA</strong></td>
+                            <td>0.042%</td>
+                            <td>0.174%</td>
+                            <td class="positive">+313%</td>
+                            <td>2nd - Strong growth</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UK</strong></td>
+                            <td>0.082%</td>
+                            <td>0.216%</td>
+                            <td class="positive">+164%</td>
+                            <td>3rd - Solid growth</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Germany</strong></td>
+                            <td>0.176%</td>
+                            <td>0.336%</td>
+                            <td class="positive">+91%</td>
+                            <td>4th - Moderate growth</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="quote-box">
+                    <strong>Analysis:</strong> All markets showed substantial CTR improvements with celebrity creative (+91% to +360%). Celebrity campaigns improved CTR proximity to 0.65% benchmark, with France (0.364%) and Germany (0.336%) closest to industry standard.
+                </div>
+                
+                <h3>Quality Impact Assessment</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Market</th>
+                            <th>Brand Q1'24 Time</th>
+                            <th>Celebrity Q1'25 Time</th>
+                            <th>Change</th>
+                            <th>Quality Assessment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: rgba(52, 168, 83, 0.1);">
+                            <td><strong>France</strong></td>
+                            <td>0:02:25</td>
+                            <td>0:03:46</td>
+                            <td class="positive">+56%</td>
+                            <td>Substantial improvement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UK</strong></td>
+                            <td>0:02:33</td>
+                            <td>0:02:20</td>
+                            <td class="neutral">-8.5%</td>
+                            <td>Minimal decline</td>
+                        </tr>
+                        <tr>
+                            <td><strong>USA</strong></td>
+                            <td>0:03:49</td>
+                            <td>0:03:22</td>
+                            <td class="neutral">-12%</td>
+                            <td>Moderate decline</td>
+                        </tr>
+                        <tr style="background-color: rgba(234, 67, 53, 0.05);">
+                            <td><strong>Germany</strong></td>
+                            <td>0:04:29</td>
+                            <td>0:01:59</td>
+                            <td class="negative">-56%</td>
+                            <td>Significant decline</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="quote-box">
+                    <strong>Strategic Insight:</strong> YouTube quality metrics showed mixed results - France achieved substantial website time spent improvement (+56%), while UK and USA showed minimal to moderate declines (-8.5% to -12%). Germany experienced significant decline (-56%), contrasting with its strong META time spent improvement (+118%). This platform-specific quality divergence suggests different traffic composition between META and YouTube sources.
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Cross-Platform Performance Dashboard -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-table"></i> Cross-Platform Performance Dashboard</h2>
+            <div class="main-section-content collapsed">
+                
+                <p style="color: #ffffff; margin-bottom: 25px; font-size: 1.05rem;">
+                    Interactive comparison of META and YouTube performance across all markets. Toggle between metrics and asset durations to identify platform strengths and optimization opportunities.
+                </p>
+                
+                <!-- Metric Toggle Buttons -->
+                <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <button class="metric-toggle-btn active" data-metric="vtr">
+                        <i class="fas fa-eye"></i> VTR %
+                    </button>
+                    <button class="metric-toggle-btn" data-metric="ctr">
+                        <i class="fas fa-mouse-pointer"></i> CTR %
+                    </button>
+                    <button class="metric-toggle-btn" data-metric="cpv">
+                        <i class="fas fa-dollar-sign"></i> CPV
+                    </button>
+                    <button class="metric-toggle-btn" data-metric="time">
+                        <i class="fas fa-clock"></i> Time Spent
+                    </button>
+                    <button class="metric-toggle-btn" data-metric="bounce">
+                        <i class="fas fa-sign-out-alt"></i> Bounce Rate
+                    </button>
+                </div>
+                
+                <!-- Duration Toggle -->
+                <div style="display: flex; gap: 10px; margin-bottom: 25px;">
+                    <button class="duration-toggle-btn active" data-duration="overall">
+                        Overall Assets
+                    </button>
+                    <button class="duration-toggle-btn" data-duration="30s">
+                        30s Assets
+                    </button>
+                </div>
+                
+                <!-- Comparison Table -->
+                <div id="comparisonTableContainer"></div>
+                
+                <div class="quote-box" style="margin-top: 25px;">
+                    <strong>How to Use:</strong> Click metric buttons above to switch between VTR, CTR, CPV, Time Spent, and Bounce Rate. Toggle between Overall and 30s assets to compare performance. Green highlighting indicates best performer per platform; red indicates areas requiring attention.
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Campaign Performance Calculator -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-calculator"></i> Campaign Performance Score Calculator</h2>
+            <div class="main-section-content collapsed">
+                
+                <p style="color: #ffffff; margin-bottom: 25px; font-size: 1.05rem;">
+                    Adjust the importance weights for VTR, CTR, and CPV to see how different prioritizations affect the overall campaign performance scores. This interactive tool helps evaluate which campaign performed better under various strategic objectives.
+                </p>
+                
+                <!-- Weight Controls -->
+                <div style="background-color: var(--card-bg); border-radius: 10px; padding: 20px; margin-bottom: 20px; border: 2px solid var(--primary);">
+                    <h3 style="color: var(--primary-dark); margin-bottom: 15px; font-size: 1.2rem;">Adjust Performance Weights (Must Total 100%)</h3>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <label style="font-weight: 600; color: #ffffff;">VTR (Video View-Through Rate)</label>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <input type="number" id="vtrInput" min="0" max="100" value="60" 
+                                       style="width: 60px; padding: 5px 10px; background-color: var(--gray-300); border: 1px solid var(--gray-400); border-radius: 5px; color: #ffffff; font-size: 1rem; text-align: center;">
+                                <span id="vtrWeight" style="font-size: 1.2rem; font-weight: bold; color: var(--primary);">60%</span>
+                            </div>
+                        </div>
+                        <input type="range" id="vtrSlider" min="0" max="100" value="60" 
+                               style="width: 100%; height: 8px; border-radius: 5px; background: linear-gradient(to right, var(--primary) 0%, var(--primary) 60%, var(--gray-400) 60%, var(--gray-400) 100%); outline: none; -webkit-appearance: none;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <label style="font-weight: 600; color: #ffffff;">CTR (Click-Through Rate)</label>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <input type="number" id="ctrInput" min="0" max="100" value="20" 
+                                       style="width: 60px; padding: 5px 10px; background-color: var(--gray-300); border: 1px solid var(--gray-400); border-radius: 5px; color: #ffffff; font-size: 1rem; text-align: center;">
+                                <span id="ctrWeight" style="font-size: 1.2rem; font-weight: bold; color: var(--secondary);">20%</span>
+                            </div>
+                        </div>
+                        <input type="range" id="ctrSlider" min="0" max="100" value="20" 
+                               style="width: 100%; height: 8px; border-radius: 5px; background: linear-gradient(to right, var(--secondary) 0%, var(--secondary) 20%, var(--gray-400) 20%, var(--gray-400) 100%); outline: none; -webkit-appearance: none;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <label style="font-weight: 600; color: #ffffff;">CPV (Cost Per View - Lower is Better)</label>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <input type="number" id="cpvInput" min="0" max="100" value="20" 
+                                       style="width: 60px; padding: 5px 10px; background-color: var(--gray-300); border: 1px solid var(--gray-400); border-radius: 5px; color: #ffffff; font-size: 1rem; text-align: center;">
+                                <span id="cpvWeight" style="font-size: 1.2rem; font-weight: bold; color: var(--warning);">20%</span>
+                            </div>
+                        </div>
+                        <input type="range" id="cpvSlider" min="0" max="100" value="20" 
+                               style="width: 100%; height: 8px; border-radius: 5px; background: linear-gradient(to right, var(--warning) 0%, var(--warning) 20%, var(--gray-400) 20%, var(--gray-400) 100%); outline: none; -webkit-appearance: none;">
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background-color: var(--gray-200); border-radius: 8px; margin-bottom: 15px;">
+                        <span style="font-weight: 600; color: #ffffff;">Total Weight:</span>
+                        <span id="totalWeight" style="font-size: 1.3rem; font-weight: bold; color: var(--primary);">100%</span>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="weight-preset-btn" data-vtr="33" data-ctr="33" data-cpv="34">
+                            <i class="fas fa-balance-scale"></i> Equal Weight
+                        </button>
+                        <button class="weight-preset-btn" data-vtr="60" data-ctr="20" data-cpv="20">
+                            <i class="fas fa-video"></i> Engagement Focus
+                        </button>
+                        <button class="weight-preset-btn" data-vtr="20" data-ctr="20" data-cpv="60">
+                            <i class="fas fa-dollar-sign"></i> Cost Focus
+                        </button>
+                        <button class="weight-preset-btn" data-vtr="70" data-ctr="15" data-cpv="15">
+                            <i class="fas fa-eye"></i> VTR Priority
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Results Tables -->
+                <div id="calculatorResults">
+                    <!-- Results will be dynamically inserted here -->
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Market Performance Profiles -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-globe"></i> Market Performance Characteristics</h2>
+            <div class="main-section-content collapsed">
+                
+                <div style="background-color: var(--gray-200); border-radius: 10px; padding: 20px; margin-bottom: 25px; border-left: 4px solid var(--primary);">
+                    <h4 style="color: var(--primary-dark); margin-bottom: 12px;"><i class="fas fa-info-circle"></i> How to Read These Charts</h4>
+                    <p style="color: #ffffff; margin: 0; line-height: 1.8;">
+                        The radar charts display <strong>percentage change from Brand Q1'24 baseline (center at 0%)</strong>. The Celebrity Q1'25 campaign is shown as colored shapes:
+                    </p>
+                    <ul style="color: #ffffff; margin: 10px 0 0 20px; line-height: 1.8;">
+                        <li><strong>Expansion outward (positive %)</strong> = Performance improvement</li>
+                        <li><strong>Contraction inward (negative %)</strong> = Performance decline</li>
+                        <li><strong>CPV axes inverted:</strong> Cost reduction shows as positive (efficiency gain)</li>
+                    </ul>
+                </div>
+                
+                <div class="radar-grid">
+                    <div class="chart-container">
+                        <canvas id="ukRadar" height="400"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="usaRadar" height="400"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="germanyRadar" height="400"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="franceRadar" height="400"></canvas>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Strategic Recommendations -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-lightbulb"></i> Learnings for Future Celebrity Campaigns</h2>
+            <div class="main-section-content collapsed">
+                
+                <h3>Market Performance Summary</h3>
+                
+                <div class="info-card" style="border-left: 4px solid var(--secondary);">
+                    <h4><i class="fas fa-flag"></i> France</h4>
+                    <p style="color: #ffffff; margin: 10px 0; line-height: 1.8;">
+                        <strong>META Performance:</strong> Delivered strong efficiency (+61% CPV reduction) with stable quality (0% change) but engagement declined (-25% VTR). 
+                        <br><br>
+                        <strong>YouTube Performance:</strong> Mixed results - excellent quality growth (+56% time spent) and VTR improvement (+13%), but severe cost escalation (-93% CPV efficiency). 
+                        <br><br>
+                        <strong style="color: var(--secondary);">Future Campaign Learning:</strong> META demonstrates exceptional cost efficiency making it ideal primary platform for reach-focused objectives.
+                    </p>
+                </div>
+                
+                <div class="info-card" style="border-left: 4px solid var(--danger);">
+                    <h4><i class="fas fa-flag"></i> Germany</h4>
+                    <p style="color: #ffffff; margin: 10px 0; line-height: 1.8;">
+                        <strong>META Performance:</strong> Achieved exceptional quality gains (+118% time spent) despite lowest engagement (-40% VTR) and modest efficiency (+18% CPV). 
+                        <br><br>
+                        <strong>YouTube Performance:</strong> Demonstrated strong VTR growth (+18%) but suffered worst-in-class quality decline (-56% time spent) and severe cost escalation (-114% CPV efficiency). 
+                        <br><br>
+                        <strong style="color: var(--danger);">Future Campaign Learning:</strong> Rapid creative wear-out indicates need for aggressive refresh cycles; YouTube cost escalation suggests platform reassessment.
+                    </p>
+                </div>
+                
+                <div class="info-card" style="border-left: 4px solid var(--primary);">
+                    <h4><i class="fas fa-flag"></i> United Kingdom</h4>
+                    <p style="color: #ffffff; margin: 10px 0; line-height: 1.8;">
+                        <strong>META Performance:</strong> Showed balanced improvement (VTR -28%, CPV +25% efficiency, quality +63%) indicating stable performance across metrics. 
+                        <br><br>
+                        <strong>YouTube Performance:</strong> Achieved modest VTR growth (+8%) but experienced extreme cost escalation (-159% CPV efficiency) and slight quality decline (-8.5%). 
+                        <br><br>
+                        <strong style="color: var(--primary);">Future Campaign Learning:</strong> META's balanced performance validates continued investment; YouTube's extreme cost escalation warrants spend reallocation considerations.
+                    </p>
+                </div>
+                
+                <div class="info-card" style="border-left: 4px solid var(--secondary);">
+                    <h4><i class="fas fa-flag"></i> United States</h4>
+                    <p style="color: #ffffff; margin: 10px 0; line-height: 1.8;">
+                        <strong>META Performance:</strong> Demonstrated best-in-class resilience - lowest VTR decline (-18%), strong efficiency gains (+42% CPV), and exceptional quality improvement (+124% time spent). 
+                        <br><br>
+                        <strong>YouTube Performance:</strong> Showed concerning trends - VTR decline (-17%), quality slip (-12%), and catastrophic cost escalation (-232% CPV efficiency). 
+                        <br><br>
+                        <strong style="color: var(--secondary);">Future Campaign Learning:</strong> USA demonstrates optimal celebrity market-fit; META achieves best-in-class efficiency and quality performance.
+                    </p>
+                </div>
+                
+                <h3>Platform Optimization Guidelines for Future Campaigns</h3>
+                
+                <p style="color: #ffffff; margin-bottom: 20px; font-size: 1.05rem;">
+                    Evidence-based learnings from Q1 2025 celebrity campaign performance across META and YouTube platforms. All recommendations derived from actual campaign data and benchmarked against industry standards.
+                </p>
+                
+                <!-- Platform Guidelines Container -->
+                <div class="platform-guidelines">
+                    <!-- META Platform Card -->
+                    <div class="platform-card">
+                        <div class="platform-header" style="background-color: var(--primary); color: #ffffff; padding: 15px; border-radius: 10px 10px 0 0; font-size: 1.3rem; font-weight: 700;">
+                            <i class="fab fa-facebook"></i> META PLATFORM
+                        </div>
+                        <div class="platform-body">
+                            <div class="platform-section">
+                                <h4 style="color: var(--secondary); margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-check-circle"></i> Validated Strengths</h4>
+                                <ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
+                                    <li><strong>Universal cost efficiency:</strong> All markets achieved CPV reductions (-18% to -61%)</li>
+                                    <li><strong>Quality traffic:</strong> 3 of 4 markets showed time-on-site gains (+63% to +124%)</li>
+                                    <li><strong>Benchmark compliance:</strong> All markets maintained 25-40% VTR range</li>
+                                </ul>
+                            </div>
+                            <div class="platform-section">
+                                <h4 style="color: var(--warning); margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-exclamation-triangle"></i> Observed Challenges</h4>
+                                <ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
+                                    <li><strong>Engagement decline:</strong> VTR decreased -18% to -40% across markets</li>
+                                    <li><strong>Variable fatigue:</strong> Germany (-40%) declined faster than USA (-18%)</li>
+                                    <li><strong>Creative longevity:</strong> Extended asset usage (Q4'24-Q1'25) showed market-specific wear</li>
+                                </ul>
+                            </div>
+                            <div class="platform-section">
+                                <h4 style="color: var(--primary-dark); margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-lightbulb"></i> Evidence-Based Guidelines</h4>
+                                <ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
+                                    <li><strong>Budget allocation:</strong> Prioritize France (-61% CPV) and USA (-42% CPV) for cost-efficient reach</li>
+                                    <li><strong>Creative refresh:</strong> Germany requires 4-8 week cycles; USA tolerates 8-12 weeks</li>
+                                    <li><strong>Asset format:</strong> 30s videos delivered -67% CPV in France vs -61% overall</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- YouTube Platform Card -->
+                    <div class="platform-card">
+                        <div class="platform-header" style="background-color: #ff0000; color: #ffffff; padding: 15px; border-radius: 10px 10px 0 0; font-size: 1.3rem; font-weight: 700;">
+                            <i class="fab fa-youtube"></i> YOUTUBE PLATFORM
+                        </div>
+                        <div class="platform-body">
+                            <div class="platform-section">
+                                <h4 style="color: var(--secondary); margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-check-circle"></i> Validated Strengths</h4>
+                                <ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
+                                    <li><strong>CTR improvement trajectory:</strong> Substantial growth (+91% to +360%) narrowed gap to 0.65% benchmark, though all markets remain below target</li>
+                                    <li><strong>Above-benchmark VTR:</strong> 40.53%-48.60% vs 32% industry standard (+27% to +52%)</li>
+                                    <li><strong>Engagement consistency:</strong> Sustained performance throughout campaign period</li>
+                                </ul>
+                            </div>
+                            <div class="platform-section">
+                                <h4 style="color: var(--warning); margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-exclamation-triangle"></i> Observed Challenges</h4>
+                                <ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
+                                    <li><strong>Cost escalation:</strong> CPV increased +93% to +232% across all markets</li>
+                                    <li><strong>ROI pressure:</strong> Higher costs require justification via engagement quality</li>
+                                    <li><strong>Value assessment:</strong> Cost increases outpaced engagement gains in some markets</li>
+                                </ul>
+                            </div>
+                            <div class="platform-section">
+                                <h4 style="color: var(--primary-dark); margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-lightbulb"></i> Evidence-Based Guidelines</h4>
+                                <ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
+                                    <li><strong>Strategic use:</strong> Deploy for high-intent engagement (CTR) vs broad reach (CPV)</li>
+                                    <li><strong>Format optimization:</strong> 30s assets generated +631% CTR in France, +501% in USA</li>
+                                    <li><strong>Budget sizing:</strong> Balance YouTube's +360% CTR gains against META's -61% CPV efficiency</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quote-box" style="margin-top: 25px;">
+                    <strong>Application for Future Campaigns:</strong> META demonstrated superior cost efficiency for reach-focused objectives, while YouTube excelled at driving click-through engagement. The data suggests a portfolio approach: allocate 60-70% of budget to META for efficient awareness, 30-40% to YouTube for high-intent traffic. Creative refresh cycles should be market-specific, with Germany requiring the most frequent updates and USA tolerating longer asset lifecycles.
+                </div>
+                
+                <div class="highlight-box warning">
+                    <h4><i class="fas fa-exclamation-circle"></i> Critical Insight: Benchmark Performance Validates Strategy</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        Despite video engagement declines from extended asset usage, all celebrity campaigns maintained performance at or above industry benchmarks. This demonstrates that perceived "declines" represent normalization to healthy industry-standard levels from exceptional Brand baseline performance, not underperformance. The strategic approach remains valid; execution should focus on market-specific creative refresh optimization.
+                    </p>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Continue Reading Navigation -->
+        <section class="section" style="margin-top: 50px; background: linear-gradient(135deg, rgba(66, 133, 244, 0.08), rgba(66, 133, 244, 0.03)); border: 2px solid var(--primary);">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <a href="index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--gray-700); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--primary-dark)'" onmouseout="this.style.color='var(--gray-700)'">
+                    <i class="fas fa-arrow-left"></i> Back to Campaign Repository
+                </a>
+            </div>
+            
+            <div style="text-align: center;">
+                <h3 style="color: var(--primary-dark); margin-bottom: 15px; font-size: 1.5rem;">
+                    <i class="fas fa-book-open"></i> Continue Reading
+                </h3>
+                <a href="market_comparison_dashboard.html" style="display: block; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="background-color: var(--card-bg); border: 2px solid var(--primary); border-radius: 12px; padding: 30px; margin: 0 auto; max-width: 600px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+                            <div style="flex: 1; text-align: left;">
+                                <div style="color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Next</div>
+                                <h4 style="color: var(--primary-dark); margin: 0 0 10px 0; font-size: 1.3rem;">Market Comparison Dashboard</h4>
+                                <p style="color: var(--gray-700); margin: 0; font-size: 0.95rem; line-height: 1.6;">Head-to-head comparison across France, Germany, UK, and USA with performance rankings and strategic insights.</p>
+                            </div>
+                            <div style="color: var(--primary); font-size: 2rem;">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p style="margin: 0; color: var(--gray-700); font-size: 0.9rem;">© 2025 Research & Insights Unit | Strategic Marketing & Communications | Department of Culture and Tourism – Abu Dhabi</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Collapsible sections functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const headers = document.querySelectorAll('.main-section-header');
+            headers.forEach(header => {
+                // Set all sections as collapsed by default
+                header.classList.add('collapsed');
+                const content = header.nextElementSibling;
+                if (content && content.classList.contains('main-section-content')) {
+                    content.classList.add('collapsed');
+                }
+                
+                // Add click handler for toggling
+                header.addEventListener('click', function() {
+                    this.classList.toggle('collapsed');
+                    const content = this.nextElementSibling;
+                    if (content && content.classList.contains('main-section-content')) {
+                        content.classList.toggle('collapsed');
+                    }
+                });
+            });
+            
+            // Initialize charts
+            initializeCharts();
+            
+            // Initialize comparison table
+            initializeComparisonTable();
+        });
+        
+        // Cross-Platform Comparison Table Data and Functionality
+        const performanceData = {
+            overall: {
+                vtr: {
+                    meta: {
+                        france: { brand: 33.96, celebrity: 25.52, change: -25 },
+                        germany: { brand: 46.15, celebrity: 27.72, change: -40 },
+                        uk: { brand: 37.25, celebrity: 26.97, change: -28 },
+                        usa: { brand: 43.07, celebrity: 35.28, change: -18 }
+                    },
+                    youtube: {
+                        france: { brand: 38.48, celebrity: 43.47, change: 13 },
+                        germany: { brand: 34.23, celebrity: 40.53, change: 18 },
+                        uk: { brand: 38.75, celebrity: 41.79, change: 8 },
+                        usa: { brand: 58.80, celebrity: 48.60, change: -17 }
+                    }
+                },
+                ctr: {
+                    meta: {
+                        france: { brand: 0.38, celebrity: 0.22, change: -42 },
+                        germany: { brand: 0.26, celebrity: 0.16, change: -40 },
+                        uk: { brand: 0.28, celebrity: 0.19, change: -29 },
+                        usa: { brand: 0.33, celebrity: 0.22, change: -34 }
+                    },
+                    youtube: {
+                        france: { brand: 0.079, celebrity: 0.364, change: 360 },
+                        germany: { brand: 0.176, celebrity: 0.336, change: 91 },
+                        uk: { brand: 0.082, celebrity: 0.216, change: 164 },
+                        usa: { brand: 0.042, celebrity: 0.174, change: 313 }
+                    }
+                },
+                cpv: {
+                    meta: {
+                        france: { brand: 0.0132, celebrity: 0.0052, change: -61 },
+                        germany: { brand: 0.0126, celebrity: 0.0104, change: -18 },
+                        uk: { brand: 0.0150, celebrity: 0.0112, change: -25 },
+                        usa: { brand: 0.0170, celebrity: 0.0099, change: -42 }
+                    },
+                    youtube: {
+                        france: { brand: 0.0082, celebrity: 0.0158, change: 93 },
+                        germany: { brand: 0.0098, celebrity: 0.0209, change: 114 },
+                        uk: { brand: 0.0080, celebrity: 0.0207, change: 159 },
+                        usa: { brand: 0.0077, celebrity: 0.0257, change: 232 }
+                    }
+                },
+                time: {
+                    meta: {
+                        france: { brand: 150, celebrity: 149, change: 0 },
+                        germany: { brand: 140, celebrity: 305, change: 118 },
+                        uk: { brand: 154, celebrity: 252, change: 63 },
+                        usa: { brand: 98, celebrity: 220, change: 124 }
+                    },
+                    youtube: {
+                        france: { brand: 145, celebrity: 226, change: 56 },
+                        germany: { brand: 269, celebrity: 119, change: -56 },
+                        uk: { brand: 153, celebrity: 140, change: -8.5 },
+                        usa: { brand: 229, celebrity: 202, change: -12 }
+                    }
+                },
+                bounce: {
+                    meta: {
+                        france: { brand: 36.28, celebrity: 53.31, change: 47 },
+                        germany: { brand: 40.00, celebrity: 58.77, change: 47 },
+                        uk: { brand: 36.96, celebrity: 55.96, change: 51 },
+                        usa: { brand: 36.25, celebrity: 64.64, change: 78 }
+                    },
+                    youtube: {
+                        france: { brand: 31.41, celebrity: 40.42, change: 29 },
+                        germany: { brand: 27.55, celebrity: 39.94, change: 45 },
+                        uk: { brand: 28.41, celebrity: 36.13, change: 27 },
+                        usa: { brand: 25.48, celebrity: 38.14, change: 50 }
+                    }
+                }
+            },
+            '30s': {
+                vtr: {
+                    meta: {
+                        france: { brand: 28.35, celebrity: 25.58, change: -10 },
+                        germany: { brand: 47.14, celebrity: 27.61, change: -41 },
+                        uk: { brand: 38.48, celebrity: 26.97, change: -30 },
+                        usa: { brand: 42.21, celebrity: 35.86, change: -15 }
+                    },
+                    youtube: {
+                        france: { brand: 41.65, celebrity: 43.47, change: 4 },
+                        germany: { brand: 42.04, celebrity: 40.53, change: -4 },
+                        uk: { brand: 48.20, celebrity: 41.79, change: -13 },
+                        usa: { brand: 67.68, celebrity: 48.60, change: -28 }
+                    }
+                },
+                ctr: {
+                    meta: {
+                        france: { brand: 0.35, celebrity: 0.23, change: -35 },
+                        germany: { brand: 0.23, celebrity: 0.17, change: -28 },
+                        uk: { brand: 0.24, celebrity: 0.19, change: -19 },
+                        usa: { brand: 0.30, celebrity: 0.23, change: -24 }
+                    },
+                    youtube: {
+                        france: { brand: 0.050, celebrity: 0.364, change: 631 },
+                        germany: { brand: 0.132, celebrity: 0.336, change: 154 },
+                        uk: { brand: 0.058, celebrity: 0.216, change: 273 },
+                        usa: { brand: 0.029, celebrity: 0.174, change: 501 }
+                    }
+                },
+                cpv: {
+                    meta: {
+                        france: { brand: 0.0138, celebrity: 0.0046, change: -67 },
+                        germany: { brand: 0.0103, celebrity: 0.0096, change: -7 },
+                        uk: { brand: 0.0137, celebrity: 0.0112, change: -18 },
+                        usa: { brand: 0.0164, celebrity: 0.0091, change: -44 }
+                    },
+                    youtube: {
+                        france: { brand: 0.0075, celebrity: 0.0158, change: 112 },
+                        germany: { brand: 0.0087, celebrity: 0.0209, change: 139 },
+                        uk: { brand: 0.0070, celebrity: 0.0207, change: 195 },
+                        usa: { brand: 0.0071, celebrity: 0.0257, change: 262 }
+                    }
+                }
+                // Note: Time spent and bounce rate data not available for 30s assets
+            }
+        };
+        
+        let currentMetric = 'vtr';
+        let currentDuration = 'overall';
+        
+        function initializeComparisonTable() {
+            // Add event listeners to metric toggle buttons
+            document.querySelectorAll('.metric-toggle-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.metric-toggle-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentMetric = this.dataset.metric;
+                    renderComparisonTable();
+                });
+            });
+            
+            // Add event listeners to duration toggle buttons
+            document.querySelectorAll('.duration-toggle-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.duration-toggle-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentDuration = this.dataset.duration;
+                    
+                    // Update metric button states based on available data
+                    updateMetricButtonStates();
+                    
+                    renderComparisonTable();
+                });
+            });
+            
+            // Update metric button states
+            updateMetricButtonStates();
+            
+            // Initial render
+            renderComparisonTable();
+        }
+        
+        function updateMetricButtonStates() {
+            // Disable time and bounce buttons for 30s duration
+            const timeBtn = document.querySelector('[data-metric="time"]');
+            const bounceBtn = document.querySelector('[data-metric="bounce"]');
+            
+            if (currentDuration === '30s') {
+                timeBtn.disabled = true;
+                bounceBtn.disabled = true;
+                timeBtn.style.opacity = '0.5';
+                bounceBtn.style.opacity = '0.5';
+                timeBtn.style.cursor = 'not-allowed';
+                bounceBtn.style.cursor = 'not-allowed';
+                
+                // If currently on time or bounce, switch to VTR
+                if (currentMetric === 'time' || currentMetric === 'bounce') {
+                    currentMetric = 'vtr';
+                    document.querySelectorAll('.metric-toggle-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelector('[data-metric="vtr"]').classList.add('active');
+                }
+            } else {
+                timeBtn.disabled = false;
+                bounceBtn.disabled = false;
+                timeBtn.style.opacity = '1';
+                bounceBtn.style.opacity = '1';
+                timeBtn.style.cursor = 'pointer';
+                bounceBtn.style.cursor = 'pointer';
+            }
+        }
+        
+        function renderComparisonTable() {
+            // Check if data exists for current metric and duration
+            if (!performanceData[currentDuration][currentMetric]) {
+                const container = document.getElementById('comparisonTableContainer');
+                container.innerHTML = `
+                    <div style="background-color: var(--gray-200); border: 2px solid var(--warning); border-radius: 12px; padding: 30px; text-align: center;">
+                        <i class="fas fa-info-circle" style="font-size: 3rem; color: var(--warning); margin-bottom: 15px;"></i>
+                        <h3 style="color: var(--warning); margin-bottom: 10px;">Data Not Available</h3>
+                        <p style="color: #ffffff; font-size: 1.1rem;">
+                            Time Spent and Bounce Rate metrics are only available for Overall Assets.
+                            <br>These metrics are not tracked at the 30s creative duration level.
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const data = performanceData[currentDuration][currentMetric];
+            const metaData = data.meta;
+            const youtubeData = data.youtube;
+            
+            let html = '<table class="comparison-table">';
+            html += '<thead><tr>';
+            html += '<th rowspan="2">Market</th>';
+            html += '<th colspan="3" class="platform-header">META</th>';
+            html += '<th colspan="3" class="platform-header">YouTube</th>';
+            html += '</tr><tr>';
+            html += '<th>Brand Q1\'24</th><th>Celebrity Q1\'25</th><th>Change</th>';
+            html += '<th>Brand Q1\'24</th><th>Celebrity Q1\'25</th><th>Change</th>';
+            html += '</tr></thead><tbody>';
+            
+            const markets = ['uk', 'usa', 'germany', 'france'];
+            const marketNames = { france: 'France', germany: 'Germany', uk: 'UK', usa: 'USA' };
+            
+            // Find best/worst performers per platform
+            const metaBest = findBestPerformer(metaData, currentMetric);
+            const metaWorst = findWorstPerformer(metaData, currentMetric);
+            const youtubeBest = findBestPerformer(youtubeData, currentMetric);
+            const youtubeWorst = findWorstPerformer(youtubeData, currentMetric);
+            
+            markets.forEach(market => {
+                const meta = metaData[market];
+                const youtube = youtubeData[market];
+                
+                html += '<tr>';
+                html += `<td class="market-name">${marketNames[market]}</td>`;
+                
+                // META columns
+                const metaClass = market === metaBest ? ' best-performer' : (market === metaWorst ? ' worst-performer' : '');
+                html += `<td${metaClass}>${formatValue(meta.brand, currentMetric)}</td>`;
+                html += `<td${metaClass}>${formatValue(meta.celebrity, currentMetric)}</td>`;
+                // For CPV and Bounce, negative change is good; for others, positive is good
+                const metaChangeClass = (currentMetric === 'cpv' || currentMetric === 'bounce') 
+                    ? (meta.change <= 0 ? 'change-positive' : 'change-negative')
+                    : (meta.change >= 0 ? 'change-positive' : 'change-negative');
+                html += `<td${metaClass}><span class="${metaChangeClass}">${meta.change > 0 ? '+' : ''}${meta.change}%</span></td>`;
+                
+                // YouTube columns
+                const youtubeClass = market === youtubeBest ? ' best-performer' : (market === youtubeWorst ? ' worst-performer' : '');
+                html += `<td${youtubeClass}>${formatValue(youtube.brand, currentMetric)}</td>`;
+                html += `<td${youtubeClass}>${formatValue(youtube.celebrity, currentMetric)}</td>`;
+                // For CPV and Bounce, negative change is good; for others, positive is good
+                const youtubeChangeClass = (currentMetric === 'cpv' || currentMetric === 'bounce') 
+                    ? (youtube.change <= 0 ? 'change-positive' : 'change-negative')
+                    : (youtube.change >= 0 ? 'change-positive' : 'change-negative');
+                html += `<td${youtubeClass}><span class="${youtubeChangeClass}">${youtube.change > 0 ? '+' : ''}${youtube.change}%</span></td>`;
+                
+                html += '</tr>';
+            });
+            
+            html += '</tbody></table>';
+            
+            document.getElementById('comparisonTableContainer').innerHTML = html;
+        }
+        
+        function formatValue(value, metric) {
+            switch(metric) {
+                case 'vtr':
+                case 'ctr':
+                    return value.toFixed(2) + '%';
+                case 'cpv':
+                    return '$' + value.toFixed(4);
+                case 'time':
+                    const minutes = Math.floor(value / 60);
+                    const seconds = value % 60;
+                    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                case 'bounce':
+                    return value.toFixed(2) + '%';
+                default:
+                    return value;
+            }
+        }
+        
+        function findBestPerformer(data, metric) {
+            const markets = ['france', 'germany', 'uk', 'usa'];
+            let best = markets[0];
+            let bestValue = data[best].celebrity;
+            
+            markets.forEach(market => {
+                const value = data[market].celebrity;
+                // For CPV and bounce rate, lower is better
+                if (metric === 'cpv' || metric === 'bounce') {
+                    if (value < bestValue) {
+                        bestValue = value;
+                        best = market;
+                    }
+                } else {
+                    if (value > bestValue) {
+                        bestValue = value;
+                        best = market;
+                    }
+                }
+            });
+            
+            return best;
+        }
+        
+        function findWorstPerformer(data, metric) {
+            const markets = ['france', 'germany', 'uk', 'usa'];
+            let worst = markets[0];
+            let worstValue = data[worst].celebrity;
+            
+            markets.forEach(market => {
+                const value = data[market].celebrity;
+                // For CPV and bounce rate, higher is worse
+                if (metric === 'cpv' || metric === 'bounce') {
+                    if (value > worstValue) {
+                        worstValue = value;
+                        worst = market;
+                    }
+                } else {
+                    if (value < worstValue) {
+                        worstValue = value;
+                        worst = market;
+                    }
+                }
+            });
+            
+            return worst;
+        }
+        
+        function initializeCharts() {
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { 
+                        display: true, 
+                        labels: { color: '#ffffff' } 
+                    }
+                },
+                scales: {
+                    y: { 
+                        ticks: { color: '#ffffff' }, 
+                        grid: { color: '#3d3d3d' } 
+                    },
+                    x: { 
+                        ticks: { color: '#ffffff' }, 
+                        grid: { color: '#3d3d3d' } 
+                    }
+                }
+            };
+            
+            // META VTR Chart
+            const metaVTRCtx = document.getElementById('metaVTRChart');
+            if (metaVTRCtx) {
+                new Chart(metaVTRCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['UK', 'USA', 'Germany', 'France'],
+                        datasets: [{
+                            label: 'Brand Q1\'24',
+                            data: [37.25, 43.07, 46.15, 33.96],
+                            backgroundColor: '#777777',
+                            borderColor: '#777777',
+                            borderWidth: 1
+                        }, {
+                            label: 'Celebrity Q1\'25',
+                            data: [26.97, 35.28, 27.72, 25.52],
+                            backgroundColor: '#fbbc04',
+                            borderColor: '#fbbc04',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        ...chartOptions,
+                        plugins: {
+                            ...chartOptions.plugins,
+                            title: {
+                                display: true,
+                                text: 'META Platform: View-Through Rate (VTR%) Comparison',
+                                color: '#8ab4f8',
+                                font: { size: 16, weight: 'bold' }
+                            },
+                            annotation: {
+                                annotations: {
+                                    benchmarkZone: {
+                                        type: 'box',
+                                        yMin: 25,
+                                        yMax: 40,
+                                        backgroundColor: 'rgba(66, 133, 244, 0.1)',
+                                        borderColor: 'rgba(66, 133, 244, 0.3)',
+                                        borderWidth: 0,
+                                        label: {
+                                            display: true,
+                                            content: 'Acceptable Range (25-40%)',
+                                            position: 'start',
+                                            color: 'rgba(66, 133, 244, 0.8)',
+                                            font: {
+                                                size: 11,
+                                                weight: 'normal'
+                                            }
+                                        }
+                                    },
+                                    lowerThreshold: {
+                                        type: 'line',
+                                        yMin: 25,
+                                        yMax: 25,
+                                        borderColor: 'rgba(66, 133, 244, 0.6)',
+                                        borderWidth: 2,
+                                        borderDash: [5, 5],
+                                        label: {
+                                            display: true,
+                                            content: 'Min Threshold (25%)',
+                                            position: 'end',
+                                            color: 'rgba(66, 133, 244, 0.8)',
+                                            font: {
+                                                size: 10
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // META CPV Chart
+            const metaCPVCtx = document.getElementById('metaCPVChart');
+            if (metaCPVCtx) {
+                new Chart(metaCPVCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['UK', 'USA', 'Germany', 'France'],
+                        datasets: [{
+                            label: 'Brand Q1\'24',
+                            data: [0.0150, 0.0170, 0.0126, 0.0132],
+                            backgroundColor: '#777777'
+                        }, {
+                            label: 'Celebrity Q1\'25',
+                            data: [0.0112, 0.0099, 0.0104, 0.0052],
+                            backgroundColor: '#34a853'
+                        }]
+                    },
+                    options: {
+                        ...chartOptions,
+                        plugins: {
+                            ...chartOptions.plugins,
+                            title: {
+                                display: true,
+                                text: 'META Platform: Cost Per View (CPV) Efficiency',
+                                color: '#8ab4f8',
+                                font: { size: 16, weight: 'bold' }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // YouTube VTR Chart
+            const youtubeVTRCtx = document.getElementById('youtubeVTRChart');
+            if (youtubeVTRCtx) {
+                new Chart(youtubeVTRCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['UK', 'USA', 'Germany', 'France'],
+                        datasets: [{
+                            label: 'Brand Q1\'24',
+                            data: [38.75, 58.80, 34.23, 38.48],
+                            backgroundColor: '#777777'
+                        }, {
+                            label: 'Celebrity Q1\'25',
+                            data: [41.79, 48.60, 40.53, 43.47],
+                            backgroundColor: '#fbbc04'
+                        }]
+                    },
+                    options: {
+                        ...chartOptions,
+                        plugins: {
+                            ...chartOptions.plugins,
+                            title: {
+                                display: true,
+                                text: 'YouTube Platform: View-Through Rate (VTR%) Comparison',
+                                color: '#8ab4f8',
+                                font: { size: 16, weight: 'bold' }
+                            },
+                            annotation: {
+                                annotations: {
+                                    benchmarkLine: {
+                                        type: 'line',
+                                        yMin: 32,
+                                        yMax: 32,
+                                        borderColor: '#4285f4',
+                                        borderWidth: 2,
+                                        borderDash: [5, 5],
+                                        label: {
+                                            display: true,
+                                            content: 'Benchmark (32%)',
+                                            position: 'end',
+                                            color: 'rgba(66, 133, 244, 0.8)',
+                                            font: {
+                                                size: 10
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // YouTube CTR Chart
+            const youtubeCTRCtx = document.getElementById('youtubeCTRChart');
+            if (youtubeCTRCtx) {
+                new Chart(youtubeCTRCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['UK', 'USA', 'Germany', 'France'],
+                        datasets: [{
+                            label: 'Brand Q1\'24',
+                            data: [0.082, 0.042, 0.176, 0.079],
+                            backgroundColor: '#777777'
+                        }, {
+                            label: 'Celebrity Q1\'25',
+                            data: [0.216, 0.174, 0.336, 0.364],
+                            backgroundColor: '#34a853'
+                        }]
+                    },
+                    options: {
+                        ...chartOptions,
+                        plugins: {
+                            ...chartOptions.plugins,
+                            title: {
+                                display: true,
+                                text: 'YouTube Platform: Click-Through Rate (CTR%) Performance',
+                                color: '#8ab4f8',
+                                font: { size: 16, weight: 'bold' }
+                            },
+                            annotation: {
+                                annotations: {
+                                    benchmarkLine: {
+                                        type: 'line',
+                                        yMin: 0.65,
+                                        yMax: 0.65,
+                                        borderColor: '#4285f4',
+                                        borderWidth: 2,
+                                        borderDash: [5, 5],
+                                        label: {
+                                            display: true,
+                                            content: 'Benchmark (0.65%)',
+                                            position: 'end',
+                                            color: 'rgba(66, 133, 244, 0.8)',
+                                            font: {
+                                                size: 10
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Radar chart options - Clean style with hidden scale labels
+            const radarOptions = {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    r: {
+                        min: -250,  // Extended to accommodate YouTube CPV changes
+                        max: 150,   // Extended to accommodate META Quality gains
+                        ticks: { 
+                            display: false,  // Hide tick labels for cleaner look
+                            backdropColor: 'transparent',
+                            stepSize: 50
+                        },
+                        grid: { 
+                            color: function(context) {
+                                // Highlight the 0% baseline
+                                if (context.tick.value === 0) {
+                                    return '#4285f4';
+                                }
+                                return 'rgba(61, 61, 61, 0.3)';  // Subtle grid
+                            },
+                            lineWidth: function(context) {
+                                if (context.tick.value === 0) {
+                                    return 2;
+                                }
+                                return 1;
+                            }
+                        },
+                        pointLabels: { 
+                            color: '#ffffff',
+                            font: { size: 11, weight: '600' }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { 
+                        display: true,
+                        position: 'bottom',
+                        labels: { 
+                            color: '#ffffff',
+                            padding: 15,
+                            font: { size: 12 },
+                            generateLabels: function(chart) {
+                                return [
+                                    {
+                                        text: 'Brand Q1\'24 Baseline',
+                                        fillStyle: 'rgba(119, 119, 119, 0.2)',
+                                        strokeStyle: '#777777',
+                                        lineWidth: 2
+                                    },
+                                    {
+                                        text: 'Celebrity Q1\'25',
+                                        fillStyle: chart.data.datasets[1].backgroundColor,
+                                        strokeStyle: chart.data.datasets[1].borderColor,
+                                        lineWidth: 2
+                                    }
+                                ];
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                const value = context.parsed.r;
+                                if (value === 0) {
+                                    return label + 'No change';
+                                }
+                                return label + (value > 0 ? '+' : '') + value.toFixed(1) + '%';
+                            }
+                        }
+                    }
+                }
+            };
+            
+            // Radar chart data - Using actual percentage changes from Brand baseline
+            // Positive values = improvement/expansion, Negative values = decline/contraction
+            // For CPV: Cost reduction is inverted to positive (efficiency gain)
+            // Axes: META CPV Efficiency, META VTR, META Quality, YT CPV Efficiency, YT VTR, YT Quality
+            const radarData = {
+                france: {
+                    brand: [0, 0, 0, 0, 0, 0],  // 0% baseline (center)
+                    celebrity: [61, -25, 0, -93, 13, 56]  // Actual % changes: +61% CPV efficiency, -25% VTR, 0% Quality, -93% CPV efficiency, +13% VTR, +56% Quality
+                },
+                germany: {
+                    brand: [0, 0, 0, 0, 0, 0],
+                    celebrity: [18, -40, 118, -114, 18, -56]  // +18% CPV efficiency, -40% VTR, +118% Quality, -114% CPV efficiency, +18% VTR, -56% Quality
+                },
+                uk: {
+                    brand: [0, 0, 0, 0, 0, 0],
+                    celebrity: [25, -28, 63, -159, 8, -8.5]  // +25% CPV efficiency, -28% VTR, +63% Quality, -159% CPV efficiency, +8% VTR, -8.5% Quality
+                },
+                usa: {
+                    brand: [0, 0, 0, 0, 0, 0],
+                    celebrity: [42, -18, 124, -232, -17, -12]  // +42% CPV efficiency, -18% VTR, +124% Quality, -232% CPV efficiency, -17% VTR, -12% Quality
+                }
+            };
+            
+            const labels = ['META CPV', 'META VTR', 'META Time Spend', 'YT CPV', 'YT VTR', 'YT Time Spend'];
+            
+            // France Radar
+            const franceRadarCtx = document.getElementById('franceRadar');
+            if (franceRadarCtx) {
+                new Chart(franceRadarCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Brand Q1\'24',
+                            data: radarData.france.brand,
+                            backgroundColor: 'rgba(119, 119, 119, 0.2)',
+                            borderColor: '#777777',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#777777'
+                        }, {
+                            label: 'Celebrity Q1\'25',
+                            data: radarData.france.celebrity,
+                            backgroundColor: 'rgba(66, 133, 244, 0.2)',
+                            borderColor: '#4285f4',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#4285f4'
+                        }]
+                    },
+                    options: {
+                        ...radarOptions,
+                        plugins: {
+                            ...radarOptions.plugins,
+                            title: {
+                                display: true,
+                                text: 'France Performance Profile',
+                                color: '#8ab4f8',
+                                font: { size: 14, weight: 'bold' }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Germany Radar
+            const germanyRadarCtx = document.getElementById('germanyRadar');
+            if (germanyRadarCtx) {
+                new Chart(germanyRadarCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Brand Q1\'24',
+                            data: radarData.germany.brand,
+                            backgroundColor: 'rgba(119, 119, 119, 0.2)',
+                            borderColor: '#777777',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#777777'
+                        }, {
+                            label: 'Celebrity Q1\'25',
+                            data: radarData.germany.celebrity,
+                            backgroundColor: 'rgba(234, 67, 53, 0.2)',
+                            borderColor: '#ea4335',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#ea4335'
+                        }]
+                    },
+                    options: {
+                        ...radarOptions,
+                        plugins: {
+                            ...radarOptions.plugins,
+                            title: {
+                                display: true,
+                                text: 'Germany Performance Profile',
+                                color: '#8ab4f8',
+                                font: { size: 14, weight: 'bold' }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // UK Radar
+            const ukRadarCtx = document.getElementById('ukRadar');
+            if (ukRadarCtx) {
+                new Chart(ukRadarCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Brand Q1\'24',
+                            data: radarData.uk.brand,
+                            backgroundColor: 'rgba(119, 119, 119, 0.2)',
+                            borderColor: '#777777',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#777777'
+                        }, {
+                            label: 'Celebrity Q1\'25',
+                            data: radarData.uk.celebrity,
+                            backgroundColor: 'rgba(66, 133, 244, 0.2)',
+                            borderColor: '#4285f4',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#4285f4'
+                        }]
+                    },
+                    options: {
+                        ...radarOptions,
+                        plugins: {
+                            ...radarOptions.plugins,
+                            title: {
+                                display: true,
+                                text: 'UK Performance Profile',
+                                color: '#8ab4f8',
+                                font: { size: 14, weight: 'bold' }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // USA Radar
+            const usaRadarCtx = document.getElementById('usaRadar');
+            if (usaRadarCtx) {
+                new Chart(usaRadarCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Brand Q1\'24',
+                            data: radarData.usa.brand,
+                            backgroundColor: 'rgba(119, 119, 119, 0.2)',
+                            borderColor: '#777777',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#777777'
+                        }, {
+                            label: 'Celebrity Q1\'25',
+                            data: radarData.usa.celebrity,
+                            backgroundColor: 'rgba(52, 168, 83, 0.2)',
+                            borderColor: '#34a853',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#34a853'
+                        }]
+                    },
+                    options: {
+                        ...radarOptions,
+                        plugins: {
+                            ...radarOptions.plugins,
+                            title: {
+                                display: true,
+                                text: 'USA Performance Profile',
+                                color: '#8ab4f8',
+                                font: { size: 14, weight: 'bold' }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        // ========================================
+        // CAMPAIGN PERFORMANCE CALCULATOR
+        // ========================================
+        
+        // Calculator performance data with all metrics
+        const calculatorData = {
+            overall: {
+                meta: {
+                    france: { vtr: 25.52, ctr: 0.22, cpv: 0.0052, vtr_brand: 33.96, ctr_brand: 0.38, cpv_brand: 0.0132 },
+                    germany: { vtr: 27.72, ctr: 0.16, cpv: 0.0104, vtr_brand: 46.15, ctr_brand: 0.26, cpv_brand: 0.0126 },
+                    uk: { vtr: 26.97, ctr: 0.19, cpv: 0.0112, vtr_brand: 37.25, ctr_brand: 0.28, cpv_brand: 0.0150 },
+                    usa: { vtr: 35.28, ctr: 0.22, cpv: 0.0099, vtr_brand: 43.07, ctr_brand: 0.33, cpv_brand: 0.0170 }
+                },
+                youtube: {
+                    france: { vtr: 43.47, ctr: 0.364, cpv: 0.0158, vtr_brand: 38.48, ctr_brand: 0.079, cpv_brand: 0.0082 },
+                    germany: { vtr: 40.53, ctr: 0.336, cpv: 0.0209, vtr_brand: 34.23, ctr_brand: 0.176, cpv_brand: 0.0098 },
+                    uk: { vtr: 41.79, ctr: 0.216, cpv: 0.0207, vtr_brand: 38.75, ctr_brand: 0.082, cpv_brand: 0.0080 },
+                    usa: { vtr: 48.60, ctr: 0.174, cpv: 0.0257, vtr_brand: 58.80, ctr_brand: 0.042, cpv_brand: 0.0077 }
+                }
+            },
+            '30s': {
+                meta: {
+                    france: { vtr: 25.58, ctr: 0.23, cpv: 0.0046, vtr_brand: 28.35, ctr_brand: 0.35, cpv_brand: 0.0138 },
+                    germany: { vtr: 27.61, ctr: 0.17, cpv: 0.0096, vtr_brand: 47.14, ctr_brand: 0.23, cpv_brand: 0.0103 },
+                    uk: { vtr: 26.97, ctr: 0.19, cpv: 0.0112, vtr_brand: 38.48, ctr_brand: 0.24, cpv_brand: 0.0137 },
+                    usa: { vtr: 35.86, ctr: 0.23, cpv: 0.0091, vtr_brand: 42.21, ctr_brand: 0.30, cpv_brand: 0.0164 }
+                },
+                youtube: {
+                    france: { vtr: 43.47, ctr: 0.364, cpv: 0.0158, vtr_brand: 41.65, ctr_brand: 0.050, cpv_brand: 0.0075 },
+                    germany: { vtr: 40.53, ctr: 0.336, cpv: 0.0209, vtr_brand: 42.04, ctr_brand: 0.132, cpv_brand: 0.0087 },
+                    uk: { vtr: 41.79, ctr: 0.216, cpv: 0.0207, vtr_brand: 48.20, ctr_brand: 0.058, cpv_brand: 0.0070 },
+                    usa: { vtr: 48.60, ctr: 0.174, cpv: 0.0257, vtr_brand: 67.68, ctr_brand: 0.029, cpv_brand: 0.0071 }
+                }
+            }
+        };
+        
+        // Initialize calculator
+        function initializeCalculator() {
+            const vtrSlider = document.getElementById('vtrSlider');
+            const ctrSlider = document.getElementById('ctrSlider');
+            const cpvSlider = document.getElementById('cpvSlider');
+            const vtrInput = document.getElementById('vtrInput');
+            const ctrInput = document.getElementById('ctrInput');
+            const cpvInput = document.getElementById('cpvInput');
+            const vtrWeight = document.getElementById('vtrWeight');
+            const ctrWeight = document.getElementById('ctrWeight');
+            const cpvWeight = document.getElementById('cpvWeight');
+            const totalWeight = document.getElementById('totalWeight');
+            
+            // Update slider background gradient
+            function updateSliderBackground(slider, value) {
+                const percent = value;
+                const color = slider.id === 'vtrSlider' ? 'var(--primary)' : 
+                             slider.id === 'ctrSlider' ? 'var(--secondary)' : 
+                             'var(--warning)';
+                slider.style.background = `linear-gradient(to right, ${color} 0%, ${color} ${percent}%, var(--gray-400) ${percent}%, var(--gray-400) 100%)`;
+            }
+            
+            // Update all controls with new values
+            function updateAllControls(vtr, ctr, cpv) {
+                // Update sliders
+                vtrSlider.value = vtr;
+                ctrSlider.value = ctr;
+                cpvSlider.value = cpv;
+                
+                // Update inputs
+                vtrInput.value = vtr;
+                ctrInput.value = ctr;
+                cpvInput.value = cpv;
+                
+                // Update displays
+                vtrWeight.textContent = vtr + '%';
+                ctrWeight.textContent = ctr + '%';
+                cpvWeight.textContent = cpv + '%';
+                totalWeight.textContent = (vtr + ctr + cpv) + '%';
+                
+                // Update slider backgrounds
+                updateSliderBackground(vtrSlider, vtr);
+                updateSliderBackground(ctrSlider, ctr);
+                updateSliderBackground(cpvSlider, cpv);
+                
+                // Update total color
+                const finalTotal = vtr + ctr + cpv;
+                totalWeight.style.color = finalTotal === 100 ? 'var(--secondary)' : 'var(--danger)';
+            }
+            
+            // Validate and adjust weights to ensure they total 100
+            function validateWeights(source) {
+                let vtr = parseInt(vtrSlider.value) || 0;
+                let ctr = parseInt(ctrSlider.value) || 0;
+                let cpv = parseInt(cpvSlider.value) || 0;
+                let total = vtr + ctr + cpv;
+                
+                // If total doesn't equal 100, proportionally adjust others
+                if (total !== 100 && total > 0) {
+                    const diff = 100 - total;
+                    
+                    // Distribute difference proportionally across the other two metrics
+                    if (source === 'vtr') {
+                        const otherTotal = ctr + cpv;
+                        if (otherTotal > 0) {
+                            const ctrRatio = ctr / otherTotal;
+                            const cpvRatio = cpv / otherTotal;
+                            ctr = Math.max(0, Math.min(100, Math.round(ctr + (diff * ctrRatio))));
+                            cpv = Math.max(0, Math.min(100, 100 - vtr - ctr));
+                        } else {
+                            cpv = 100 - vtr;
+                        }
+                    } else if (source === 'ctr') {
+                        const otherTotal = vtr + cpv;
+                        if (otherTotal > 0) {
+                            const vtrRatio = vtr / otherTotal;
+                            const cpvRatio = cpv / otherTotal;
+                            vtr = Math.max(0, Math.min(100, Math.round(vtr + (diff * vtrRatio))));
+                            cpv = Math.max(0, Math.min(100, 100 - vtr - ctr));
+                        } else {
+                            cpv = 100 - ctr;
+                        }
+                    } else { // source === 'cpv' or default
+                        const otherTotal = vtr + ctr;
+                        if (otherTotal > 0) {
+                            const vtrRatio = vtr / otherTotal;
+                            const ctrRatio = ctr / otherTotal;
+                            vtr = Math.max(0, Math.min(100, Math.round(vtr + (diff * vtrRatio))));
+                            ctr = Math.max(0, Math.min(100, 100 - vtr - cpv));
+                        } else {
+                            ctr = 100 - cpv;
+                        }
+                    }
+                }
+                
+                // Update all controls
+                updateAllControls(vtr, ctr, cpv);
+                
+                // Calculate and display scores
+                calculateScores(vtr, ctr, cpv);
+            }
+            
+            // Add slider event listeners
+            vtrSlider.addEventListener('input', () => validateWeights('vtr'));
+            ctrSlider.addEventListener('input', () => validateWeights('ctr'));
+            cpvSlider.addEventListener('input', () => validateWeights('cpv'));
+            
+            // Add input field event listeners
+            vtrInput.addEventListener('input', function() {
+                let value = parseInt(this.value) || 0;
+                value = Math.max(0, Math.min(100, value));
+                vtrSlider.value = value;
+                validateWeights('vtr');
+            });
+            
+            ctrInput.addEventListener('input', function() {
+                let value = parseInt(this.value) || 0;
+                value = Math.max(0, Math.min(100, value));
+                ctrSlider.value = value;
+                validateWeights('ctr');
+            });
+            
+            cpvInput.addEventListener('input', function() {
+                let value = parseInt(this.value) || 0;
+                value = Math.max(0, Math.min(100, value));
+                cpvSlider.value = value;
+                validateWeights('cpv');
+            });
+            
+            // Preset buttons
+            document.querySelectorAll('.weight-preset-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const vtr = parseInt(this.dataset.vtr);
+                    const ctr = parseInt(this.dataset.ctr);
+                    const cpv = parseInt(this.dataset.cpv);
+                    updateAllControls(vtr, ctr, cpv);
+                    calculateScores(vtr, ctr, cpv);
+                });
+            });
+            
+            // Initial calculation with default values (Engagement Focus: 60/20/20)
+            updateAllControls(60, 20, 20);
+            calculateScores(60, 20, 20);
+        }
+        
+        // Calculate scores based on weights
+        function calculateScores(vtrWeight, ctrWeight, cpvWeight) {
+            const results = {
+                overall: calculateDurationScores('overall', vtrWeight, ctrWeight, cpvWeight),
+                '30s': calculateDurationScores('30s', vtrWeight, ctrWeight, cpvWeight)
+            };
+            
+            renderCalculatorResults(results, vtrWeight, ctrWeight, cpvWeight);
+        }
+        
+        // Calculate scores for a specific duration
+        function calculateDurationScores(duration, vtrWeight, ctrWeight, cpvWeight) {
+            const data = calculatorData[duration];
+            const markets = ['france', 'germany', 'uk', 'usa'];
+            const scores = {};
+            
+            // Get min/max values for normalization
+            const minMax = getMinMaxValues(duration);
+            
+            markets.forEach(market => {
+                // Calculate META scores
+                const metaBrandScore = calculatePlatformScore(
+                    data.meta[market].vtr_brand,
+                    data.meta[market].ctr_brand,
+                    data.meta[market].cpv_brand,
+                    vtrWeight, ctrWeight, cpvWeight, 'meta', minMax
+                );
+                
+                const metaCelebScore = calculatePlatformScore(
+                    data.meta[market].vtr,
+                    data.meta[market].ctr,
+                    data.meta[market].cpv,
+                    vtrWeight, ctrWeight, cpvWeight, 'meta', minMax
+                );
+                
+                // Calculate YouTube scores
+                const ytBrandScore = calculatePlatformScore(
+                    data.youtube[market].vtr_brand,
+                    data.youtube[market].ctr_brand,
+                    data.youtube[market].cpv_brand,
+                    vtrWeight, ctrWeight, cpvWeight, 'youtube', minMax
+                );
+                
+                const ytCelebScore = calculatePlatformScore(
+                    data.youtube[market].vtr,
+                    data.youtube[market].ctr,
+                    data.youtube[market].cpv,
+                    vtrWeight, ctrWeight, cpvWeight, 'youtube', minMax
+                );
+                
+                // Combined scores (average of META + YouTube for 0-100 scale)
+                const brandTotal = (metaBrandScore + ytBrandScore) / 2;
+                const celebTotal = (metaCelebScore + ytCelebScore) / 2;
+                
+                scores[market] = {
+                    brand: Math.round(brandTotal),
+                    celebrity: Math.round(celebTotal),
+                    winner: celebTotal > brandTotal ? 'celebrity' : (brandTotal > celebTotal ? 'brand' : 'tie'),
+                    margin: Math.abs(Math.round(celebTotal - brandTotal))
+                };
+            });
+            
+            return scores;
+        }
+        
+        // Calculate min/max values across all data for normalization
+        function getMinMaxValues(duration) {
+            const data = calculatorData[duration];
+            const markets = ['france', 'germany', 'uk', 'usa'];
+            const platforms = ['meta', 'youtube'];
+            
+            let minMax = {
+                vtr: { min: Infinity, max: -Infinity },
+                ctr: { min: Infinity, max: -Infinity },
+                cpv: { min: Infinity, max: -Infinity }
+            };
+            
+            markets.forEach(market => {
+                platforms.forEach(platform => {
+                    const platformData = data[platform][market];
+                    
+                    // Check Brand values
+                    minMax.vtr.min = Math.min(minMax.vtr.min, platformData.vtr_brand);
+                    minMax.vtr.max = Math.max(minMax.vtr.max, platformData.vtr_brand);
+                    minMax.ctr.min = Math.min(minMax.ctr.min, platformData.ctr_brand);
+                    minMax.ctr.max = Math.max(minMax.ctr.max, platformData.ctr_brand);
+                    minMax.cpv.min = Math.min(minMax.cpv.min, platformData.cpv_brand);
+                    minMax.cpv.max = Math.max(minMax.cpv.max, platformData.cpv_brand);
+                    
+                    // Check Celebrity values
+                    minMax.vtr.min = Math.min(minMax.vtr.min, platformData.vtr);
+                    minMax.vtr.max = Math.max(minMax.vtr.max, platformData.vtr);
+                    minMax.ctr.min = Math.min(minMax.ctr.min, platformData.ctr);
+                    minMax.ctr.max = Math.max(minMax.ctr.max, platformData.ctr);
+                    minMax.cpv.min = Math.min(minMax.cpv.min, platformData.cpv);
+                    minMax.cpv.max = Math.max(minMax.cpv.max, platformData.cpv);
+                });
+            });
+            
+            return minMax;
+        }
+        
+        // Calculate score for a single platform using min-max normalization
+        function calculatePlatformScore(vtr, ctr, cpv, vtrWeight, ctrWeight, cpvWeight, platform, minMax) {
+            // Normalize metrics to 0-100 scale using min-max normalization
+            let vtrScore, ctrScore, cpvScore;
+            
+            // VTR: Higher is better - normalize using (value - min) / (max - min)
+            const vtrRange = minMax.vtr.max - minMax.vtr.min;
+            vtrScore = vtrRange > 0 ? ((vtr - minMax.vtr.min) / vtrRange) * 100 : 50;
+            
+            // CTR: Higher is better - normalize using (value - min) / (max - min)
+            const ctrRange = minMax.ctr.max - minMax.ctr.min;
+            ctrScore = ctrRange > 0 ? ((ctr - minMax.ctr.min) / ctrRange) * 100 : 50;
+            
+            // CPV: Lower is better - inverse normalize using (max - value) / (max - min)
+            const cpvRange = minMax.cpv.max - minMax.cpv.min;
+            cpvScore = cpvRange > 0 ? ((minMax.cpv.max - cpv) / cpvRange) * 100 : 50;
+            
+            // Apply weights
+            const weightedScore = (vtrScore * vtrWeight/100) + (ctrScore * ctrWeight/100) + (cpvScore * cpvWeight/100);
+            
+            return weightedScore;
+        }
+        
+        // Render calculator results
+        function renderCalculatorResults(results, vtrWeight, ctrWeight, cpvWeight) {
+            const container = document.getElementById('calculatorResults');
+            
+            let html = '';
+            
+            // Weight summary - more compact
+            html += `
+                <div style="background-color: var(--gray-200); border-radius: 8px; padding: 15px; margin-bottom: 20px; border: 2px solid var(--primary);">
+                    <h4 style="color: var(--primary-dark); margin: 0; font-size: 1.1rem;">Current Weighting: VTR ${vtrWeight}% | CTR ${ctrWeight}% | CPV ${cpvWeight}%</h4>
+                </div>
+            `;
+            
+            // Side-by-side results grid
+            html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">';
+            
+            // Overall Assets Column
+            html += '<div>';
+            html += renderScoreTable(results.overall, 'Overall Assets');
+            html += '</div>';
+            
+            // 30s Assets Column
+            html += '<div>';
+            html += renderScoreTable(results['30s'], '30s Assets');
+            html += '</div>';
+            
+            html += '</div>'; // Close grid
+            
+            container.innerHTML = html;
+        }
+        
+        // Render score table
+        function renderScoreTable(scores, assetType) {
+            const markets = ['uk', 'usa', 'germany', 'france'];
+            const marketNames = { france: 'France', germany: 'Germany', uk: 'UK', usa: 'USA' };
+            
+            let brandWins = 0;
+            let celebWins = 0;
+            let ties = 0;
+            let brandTotal = 0;
+            let celebTotal = 0;
+            
+            let html = '<table class="calc-results-table"><thead>';
+            
+            // Add asset type header row spanning all columns
+            html += '<tr>';
+            html += `<th colspan="5" style="background-color: var(--primary); color: #ffffff; font-size: 1.2rem; text-align: center; padding: 15px; border: 2px solid var(--primary);">${assetType}</th>`;
+            html += '</tr>';
+            
+            // Add column headers
+            html += '<tr>';
+            html += '<th>Market</th><th>Brand Score</th><th>Celebrity Score</th><th>Winner</th><th>Margin</th>';
+            html += '</tr></thead><tbody>';
+            
+            markets.forEach(market => {
+                const score = scores[market];
+                const winnerClass = score.winner === 'celebrity' ? 'calc-winner' : (score.winner === 'brand' ? 'calc-winner' : '');
+                
+                if (score.winner === 'brand') brandWins++;
+                else if (score.winner === 'celebrity') celebWins++;
+                else ties++;
+                
+                brandTotal += score.brand;
+                celebTotal += score.celebrity;
+                
+                html += '<tr>';
+                html += `<td style="font-weight: 600;">${marketNames[market]}</td>`;
+                html += `<td><span${score.winner === 'brand' ? ' class="winning-score"' : ''}>${score.brand}</span></td>`;
+                html += `<td><span${score.winner === 'celebrity' ? ' class="winning-score"' : ''}>${score.celebrity}</span></td>`;
+                html += `<td${winnerClass ? ' class="' + winnerClass + '"' : ''}>${score.winner === 'tie' ? 'TIE' : (score.winner === 'celebrity' ? 'Celebrity <i class="fas fa-star" style="color: var(--warning);"></i>' : 'Brand <i class="fas fa-star" style="color: var(--warning);"></i>')}</td>`;
+                html += `<td>+${score.margin}</td>`;
+                html += '</tr>';
+            });
+            
+            html += '</tbody></table>';
+            
+            // Summary verdict with elegant visual score bars
+            const brandAvg = Math.round(brandTotal / 4);
+            const celebAvg = Math.round(celebTotal / 4);
+            const overallWinner = celebAvg > brandAvg ? 'CELEBRITY' : (brandAvg > celebAvg ? 'BRAND' : 'TIE');
+            const marginPoints = Math.abs(brandAvg - celebAvg);
+            const marginPercent = Math.round((marginPoints / Math.max(brandAvg, celebAvg)) * 100);
+            
+            const maxScore = Math.max(brandAvg, celebAvg, 1);
+            const brandBarWidth = (brandAvg / maxScore) * 100;
+            const celebBarWidth = (celebAvg / maxScore) * 100;
+            
+            html += '<div class="calc-verdict" style="margin-top: 20px; padding: 20px; background-color: var(--card-bg); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);">';
+            
+            // Brand bar
+            html += '<div style="margin-bottom: 15px;">';
+            html += '<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">';
+            html += `<div style="font-weight: 600; font-size: 1rem; color: ${overallWinner === 'BRAND' ? 'var(--primary)' : 'var(--gray-600)'}; letter-spacing: 0.5px;">BRAND CAMPAIGN</div>`;
+            html += `<div style="font-weight: 700; font-size: 1.4rem; color: var(--primary);">${brandAvg}</div>`;
+            html += '</div>';
+            html += '<div style="position: relative; height: 12px; background-color: var(--gray-400); border-radius: 6px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);">';
+            html += `<div style="position: absolute; top: 0; left: 0; height: 100%; width: ${brandBarWidth}%; background-color: var(--primary); border-radius: 6px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); ${overallWinner === 'BRAND' ? 'box-shadow: 0 0 12px rgba(66, 133, 244, 0.6);' : ''}"></div>`;
+            html += '</div>';
+            html += `<div style="margin-top: 6px; font-size: 0.85rem; color: var(--gray-600);">Won ${brandWins} of 4 markets</div>`;
+            html += '</div>';
+            
+            // Celebrity bar
+            html += '<div style="margin-bottom: 15px;">';
+            html += '<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">';
+            html += `<div style="font-weight: 600; font-size: 1rem; color: ${overallWinner === 'CELEBRITY' ? 'var(--secondary)' : 'var(--gray-600)'}; letter-spacing: 0.5px;">CELEBRITY CAMPAIGN</div>`;
+            html += `<div style="font-weight: 700; font-size: 1.4rem; color: var(--secondary);">${celebAvg}</div>`;
+            html += '</div>';
+            html += '<div style="position: relative; height: 12px; background-color: var(--gray-400); border-radius: 6px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);">';
+            html += `<div style="position: absolute; top: 0; left: 0; height: 100%; width: ${celebBarWidth}%; background-color: var(--secondary); border-radius: 6px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); ${overallWinner === 'CELEBRITY' ? 'box-shadow: 0 0 12px rgba(52, 168, 83, 0.6);' : ''}"></div>`;
+            html += '</div>';
+            html += `<div style="margin-top: 6px; font-size: 0.85rem; color: var(--gray-600);">Won ${celebWins} of 4 markets</div>`;
+            html += '</div>';
+            
+            // Divider
+            html += '<div style="height: 1px; background-color: var(--gray-400); margin: 15px 0;"></div>';
+            
+            // Winner announcement
+            html += '<div style="text-align: center; padding: 10px 0;">';
+            if (overallWinner === 'TIE') {
+                html += '<div style="font-size: 1.2rem; font-weight: 700; color: var(--gray-700);">Campaigns Tied</div>';
+            } else {
+                const winnerColor = overallWinner === 'CELEBRITY' ? 'var(--secondary)' : 'var(--primary)';
+                html += `<div style="font-size: 1.2rem; font-weight: 700; color: ${winnerColor}; margin-bottom: 5px;">${overallWinner.charAt(0) + overallWinner.slice(1).toLowerCase()} Campaign Wins</div>`;
+                html += `<div style="font-size: 0.9rem; color: var(--gray-600);">+${marginPoints} point advantage • ${marginPercent}% margin</div>`;
+            }
+            html += '</div>';
+            
+            html += '</div>';
+            
+            return html;
+        }
+        
+        // Initialize calculator when DOM is ready
+        if (document.getElementById('vtrSlider')) {
+            initializeCalculator();
+        }
+    </script>
+</body>
+</html>

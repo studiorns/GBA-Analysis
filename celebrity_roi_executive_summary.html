@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrity Campaign Performance Index Executive Summary | DCT Abu Dhabi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* SONER Logo Animation */
+        @keyframes sonerScan { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes sonerBlip { 0%, 20%, 100% { opacity: 0; } 2%, 15% { opacity: 1; } 3% { transform: scale(1.2); } }
+        
+        .soner-logo { display: flex; align-items: center; color: white; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 300; }
+        .soner-radar { width: 24px; height: 24px; border-radius: 50%; border: 1px solid white; margin: 0 3px; position: relative; background-color: rgba(255, 255, 255, 0.05); overflow: hidden; }
+        .soner-scanner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: sonerScan 4s linear infinite; transform-origin: center; }
+        .soner-scanner::before { content: ''; position: absolute; top: 0; left: 50%; width: 50%; height: 50%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4)); transform-origin: bottom left; clip-path: polygon(0 0, 100% 0, 0 100%); }
+        .soner-scanner::after { content: ''; position: absolute; top: 0; left: 50%; width: 50%; height: 1px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1)); transform-origin: left center; box-shadow: 0 0 4px rgba(255, 255, 255, 0.8); }
+        .soner-blip { position: absolute; width: 2px; height: 2px; background-color: white; border-radius: 50%; opacity: 0; box-shadow: 0 0 4px white; }
+        .soner-blip:nth-child(1) { top: 25%; left: 30%; animation: sonerBlip 4s 1s infinite; }
+        .soner-blip:nth-child(2) { top: 65%; left: 60%; animation: sonerBlip 4s 2.5s infinite; }
+        .soner-tagline { color: white; font-size: 8px; text-transform: uppercase; font-weight: 500; letter-spacing: 0.5em; margin-left: 10px; opacity: 0.8; }
+        
+        :root {
+            --primary: #4285f4;
+            --primary-dark: #8ab4f8;
+            --secondary: #34a853;
+            --warning: #fbbc04;
+            --danger: #ea4335;
+            --gray-100: #1e1e1e;
+            --gray-200: #2d2d2d;
+            --gray-300: #3d3d3d;
+            --gray-500: #777777;
+            --gray-600: #a0a0a0;
+            --gray-700: #c0c0c0;
+            --bg-color: #000000;
+            --card-bg: #121212;
+            --section-bg: #181818;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: #ffffff;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        
+        header {
+            background: linear-gradient(135deg, #1a73e8, #174ea6);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 600; line-height: 1.2; }
+        .subtitle { font-size: 1.2rem; opacity: 0.9; margin-bottom: 20px; }
+        h2 { 
+            font-size: 1.8rem; 
+            color: var(--primary); 
+            margin: 40px 0 25px; 
+            border-bottom: 2px solid var(--primary); 
+            padding-bottom: 12px;
+            font-weight: 600;
+        }
+        h3 { 
+            font-size: 1.4rem; 
+            color: var(--primary-dark); 
+            margin: 30px 0 18px;
+            font-weight: 600;
+        }
+        
+        .section {
+            background-color: var(--section-bg);
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .hero-statement {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            text-align: center;
+            margin: 30px 0;
+            padding: 35px;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            line-height: 1.6;
+        }
+        
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .metric-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--gray-300);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(66, 133, 244, 0.3);
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            font-size: 0.95rem;
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+        
+        .market-roi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+        
+        .market-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid var(--gray-300);
+            transition: all 0.3s ease;
+        }
+        
+        .market-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+            border-color: var(--primary);
+        }
+        
+        .market-card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+            font-size: 1.3rem;
+        }
+        
+        .market-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .market-strength {
+            background: rgba(66, 133, 244, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .market-metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-300);
+            font-size: 0.9rem;
+        }
+        
+        .market-metric:last-child { border-bottom: none; }
+        
+        .expandable-section {
+            margin: 30px 0;
+            border: 1px solid var(--gray-300);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .expand-button {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gray-200), var(--gray-300));
+            color: var(--primary-dark);
+            border: none;
+            padding: 18px 25px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .expand-button:hover {
+            background: linear-gradient(135deg, var(--gray-300), var(--gray-200));
+        }
+        
+        .expand-icon {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background-color: var(--section-bg);
+        }
+        
+        .expandable-content.expanded {
+            max-height: 5000px;
+        }
+        
+        .expandable-inner {
+            padding: 25px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        thead tr {
+            background-color: var(--gray-200);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-dark);
+            border-right: 1px solid var(--gray-300);
+        }
+        
+        th:last-child { border-right: none; }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--gray-300);
+            border-right: 1px solid var(--gray-300);
+        }
+        
+        td:last-child { border-right: none; }
+        
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background-color: var(--gray-200); }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .highlight-box h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box.success {
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.1), rgba(52, 168, 83, 0.05));
+            border-color: var(--secondary);
+        }
+        
+        .highlight-box.success h4 { color: var(--secondary); }
+        
+        .flow-step {
+            background: var(--gray-200);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .flow-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+        
+        .flow-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+        
+        .flow-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            float: right;
+        }
+        
+        .breadcrumb {
+            background: linear-gradient(135deg, rgba(26, 35, 51, 0.6), rgba(26, 35, 51, 0.4));
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            color: var(--gray-700);
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb-nav a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .breadcrumb-nav a:hover {
+            color: var(--primary-dark);
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 10px;
+            color: var(--gray-500);
+        }
+        
+        .breadcrumb-current {
+            color: var(--gray-700);
+        }
+        
+        footer {
+            background-color: var(--gray-100);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--gray-300);
+        }
+        
+        @media screen and (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .metric-grid { grid-template-columns: 1fr; }
+            .market-roi-grid { grid-template-columns: 1fr; }
+            .hero-statement { font-size: 1.2rem; padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 15px;">
+                <div class="soner-logo">
+                    S<div class="soner-radar">
+                        <div class="soner-scanner"></div>
+                        <div class="soner-blip"></div>
+                        <div class="soner-blip"></div>
+                    </div>NER
+                    <span class="soner-tagline">Strategic Intelligence</span>
+                </div>
+            </div>
+            <h1>Celebrity Campaign Performance Index</h1>
+            <p class="subtitle">Executive Summary | Image Transfer Theory in Practice</p>
+            <p>Department of Culture and Tourism - Abu Dhabi</p>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Campaign Repository</a>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-current">Celebrity Campaign Performance Index</span>
+            </nav>
+        </div>
+    </div>
+    
+    <div class="container">
+        
+        <!-- Hero Statement -->
+        <div class="hero-statement">
+            "$8.2M investment successfully transferred Chris Hemsworth's credibility to Abu Dhabi, reversing 18-month brand decline. Only positive period validates celebrity premium through measurable Performance Index."
+        </div>
+        
+        <!-- Investment at a Glance -->
+        <section class="section">
+            <h2><i class="fas fa-coins"></i> Investment at a Glance</h2>
+            
+            <div class="metric-grid">
+                <div class="metric-card" style="border-top: 4px solid var(--primary);">
+                    <div class="metric-value">$8.2M</div>
+                    <div class="metric-label">Total Investment<br><span style="color: var(--primary);">Paid Media + Celebrity Contract</span></div>
+                </div>
+                <div class="metric-card" style="border-top: 4px solid var(--secondary);">
+                    <div class="metric-value">+14.8pp</div>
+                    <div class="metric-label">Brand Health Growth<br><span style="color: var(--secondary);">Across 4 Tier 1 Markets</span></div>
+                </div>
+                <div class="metric-card" style="border-top: 4px solid var(--warning);">
+                    <div class="metric-value">67%</div>
+                    <div class="metric-label">Ad Superiority<br><span style="color: var(--warning);">vs Non-Celebrity Campaigns</span></div>
+                </div>
+                <div class="metric-card" style="border-top: 4px solid var(--danger);">
+                    <div class="metric-value">ONLY</div>
+                    <div class="metric-label">Positive Period<br><span style="color: var(--danger);">18-Month Decline Reversed</span></div>
+                </div>
+            </div>
+            
+            <table style="margin-top: 30px;">
+                <thead>
+                    <tr>
+                        <th>Market</th>
+                        <th>Total Investment</th>
+                        <th>Brand Growth</th>
+                        <th>Composite Performance Index</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>United Kingdom</strong></td>
+                        <td>$2.10M</td>
+                        <td style="color: var(--secondary); font-weight: 700;">+3.4pp</td>
+                        <td style="color: var(--secondary); font-weight: 700;">29.1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>United States</strong></td>
+                        <td>$2.82M</td>
+                        <td style="color: var(--secondary); font-weight: 700;">+4.8pp</td>
+                        <td style="color: var(--secondary); font-weight: 700;">27.7</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Germany</strong></td>
+                        <td>$1.80M</td>
+                        <td style="color: var(--primary); font-weight: 700;">+3.1pp</td>
+                        <td style="color: var(--primary); font-weight: 700;">23.4</td>
+                    </tr>
+                    <tr>
+                        <td><strong>France</strong></td>
+                        <td>$1.48M</td>
+                        <td style="color: var(--warning); font-weight: 700;">+3.5pp</td>
+                        <td style="color: var(--warning); font-weight: 700;">19.8</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Expandable: Investment Details -->
+        <div class="expandable-section">
+            <button class="expand-button" onclick="toggleSection('investment-details')">
+                <span><i class="fas fa-chart-pie"></i> View Investment Breakdown & CPM Analysis</span>
+                <span class="expand-icon" id="icon-investment-details">▼</span>
+            </button>
+            <div class="expandable-content" id="investment-details">
+                <div class="expandable-inner">
+                    <h3>Detailed Investment Breakdown</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Market</th>
+                                <th>Paid Media</th>
+                                <th>Contract Allocation</th>
+                                <th>Total</th>
+                                <th>% of Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>USA</td>
+                                <td>$2,615,361</td>
+                                <td>$203,704</td>
+                                <td>$2,819,065</td>
+                                <td>34.4%</td>
+                            </tr>
+                            <tr>
+                                <td>UK</td>
+                                <td>$1,893,879</td>
+                                <td>$203,704</td>
+                                <td>$2,097,583</td>
+                                <td>25.6%</td>
+                            </tr>
+                            <tr>
+                                <td>Germany</td>
+                                <td>$1,599,136</td>
+                                <td>$203,704</td>
+                                <td>$1,802,840</td>
+                                <td>22.0%</td>
+                            </tr>
+                            <tr>
+                                <td>France</td>
+                                <td>$1,274,529</td>
+                                <td>$203,704</td>
+                                <td>$1,478,233</td>
+                                <td>18.0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h3 style="margin-top: 30px;">CPM Analysis by Market</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Market</th>
+                                <th>Impressions</th>
+                                <th>CPM</th>
+                                <th>CPM vs France</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>USA</td>
+                                <td>260.9M</td>
+                                <td style="color: var(--danger); font-weight: 700;">$10.02</td>
+                                <td>2.19x higher</td>
+                            </tr>
+                            <tr>
+                                <td>UK</td>
+                                <td>257.1M</td>
+                                <td style="color: var(--warning); font-weight: 700;">$7.36</td>
+                                <td>1.61x higher</td>
+                            </tr>
+                            <tr>
+                                <td>Germany</td>
+                                <td>182.8M</td>
+                                <td style="color: var(--warning); font-weight: 700;">$8.75</td>
+                                <td>1.91x higher</td>
+                            </tr>
+                            <tr>
+                                <td>France</td>
+                                <td>279.1M</td>
+                                <td style="color: var(--secondary); font-weight: 700;">$4.57</td>
+                                <td>Baseline</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="highlight-box">
+                        <h4><i class="fas fa-info-circle"></i> CPM Context</h4>
+                        <p>USA pays 2.19x higher CPM than France, making cost-based comparisons unfair. Solution: Performance Index scoring uses Media Effectiveness (brand health points per billion impressions) for CPM-neutral performance measurement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- The Performance Index Story -->
+        <section class="section">
+            <h2><i class="fas fa-route"></i> The Performance Index Story</h2>
+            
+            <div class="flow-step">
+                <div class="flow-number">1</div>
+                <div class="flow-value">$8.2M</div>
+                <div class="flow-title">Investment</div>
+                <p style="color: var(--gray-700);">Total campaign investment across paid media ($7.4M) and celebrity partnership ($814K) in 4 Tier 1 markets over 5 months (Q4'24 + Q1'25)</p>
+            </div>
+            
+            <div class="flow-step">
+                <div class="flow-number">2</div>
+                <div class="flow-value">67%</div>
+                <div class="flow-title">Execution Excellence</div>
+                <p style="color: var(--gray-700);">Ad diagnostics superiority (8 of 12 metrics won) + 54% barrier improvement (13 of 24 improved) validates campaign execution quality</p>
+            </div>
+            
+            <div class="flow-step" style="border-left-color: var(--secondary);">
+                <div class="flow-number" style="background-color: var(--secondary);">3</div>
+                <div class="flow-value">+14.8pp</div>
+                <div class="flow-title">Brand Recovery</div>
+                <p style="color: var(--gray-700);">Only period to reverse 18-month decline. Total brand health growth across 4 markets: Awareness +4.9pp, Consideration+Intent +9.9pp</p>
+            </div>
+        </section>
+        
+        <!-- Expandable: Full Image Transfer Theory -->
+        <div class="expandable-section">
+            <button class="expand-button" onclick="toggleSection('transfer-theory')">
+                <span><i class="fas fa-exchange-alt"></i> View Complete Image Transfer Theory Flow</span>
+                <span class="expand-icon" id="icon-transfer-theory">▼</span>
+            </button>
+            <div class="expandable-content" id="transfer-theory">
+                <div class="expandable-inner">
+                    <h3>6-Step Image Transfer Process</h3>
+                    <p style="margin-bottom: 25px;">How $8.2M investment translated into measurable brand perception shifts through Chris Hemsworth's established credibility.</p>
+                    
+                    <div class="flow-step">
+                        <strong style="color: var(--primary-dark);">Step 1: Investment Input</strong>
+                        <div style="float: right; font-size: 1.5rem; color: var(--secondary); font-weight: 700;">$8.20M</div>
+                        <p style="margin-top: 10px;">Total campaign investment across paid media and celebrity partnership</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <strong style="color: var(--primary-dark);">Step 2: Celebrity's Brand Equity</strong>
+                        <div style="float: right; font-size: 1.5rem; color: var(--secondary); font-weight: 700;">$7.4B</div>
+                        <p style="margin-top: 10px;">Chris Hemsworth ($6.4B) + Elsa Pataky ($1B) combined PR value. Attributes: Attractiveness, Expertise, Trustworthiness</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <strong style="color: var(--primary-dark);">Step 3: Campaign Execution</strong>
+                        <div style="float: right; font-size: 1.5rem; color: var(--secondary); font-weight: 700;">1.0B</div>
+                        <p style="margin-top: 10px;">Total impressions delivered across multi-platform celebrity presence</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <strong style="color: var(--danger);">Step 4: Ad Effectiveness Validation</strong>
+                        <div style="float: right; font-size: 1.5rem; color: var(--danger); font-weight: 700;">67%</div>
+                        <p style="margin-top: 10px;">Ad diagnostics win rate confirms campaign quality vs non-celebrity campaigns</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <strong style="color: var(--warning);">Step 5: Barrier Reduction</strong>
+                        <div style="float: right; font-size: 1.5rem; color: var(--warning); font-weight: 700;">54%</div>
+                        <p style="margin-top: 10px;">Perception transformation: Barriers to visit reduced across markets</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <strong style="color: var(--secondary);">Step 6: Brand Health Impact</strong>
+                        <div style="float: right; font-size: 1.5rem; color: var(--secondary); font-weight: 700;">+14.8pp</div>
+                        <p style="margin-top: 10px;">Total brand funnel growth across 4 markets: USA +4.8pp, UK +3.4pp, France +3.5pp, Germany +3.1pp</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Market Performance -->
+        <section class="section">
+            <h2><i class="fas fa-chart-line"></i> Market Performance</h2>
+            
+            <div class="market-roi-grid">
+                <!-- UK -->
+                <div class="market-card" style="border-top: 4px solid var(--secondary);">
+                    <h3><i class="fas fa-trophy"></i> United Kingdom</h3>
+                    <div class="market-score">29.1</div>
+                    <div style="text-align: center; color: var(--secondary); font-weight: 600; margin-bottom: 20px;">Best Balanced Performance</div>
+                    <div class="market-strength">
+                        <strong>Key Strength:</strong> Leads execution effectiveness with 100% ad diagnostics win rate and 67% barrier improvement. Superior creative performance across all dimensions.
+                    </div>
+                    <div class="market-metric">
+                        <span>Brand Growth</span>
+                        <span style="color: var(--secondary); font-weight: 600;">+3.4pp</span>
+                    </div>
+                    <div class="market-metric">
+                        <span>Ad Diagnostics</span>
+                        <span style="color: var(--secondary); font-weight: 600;">100%</span>
+                    </div>
+                </div>
+                
+                <!-- USA -->
+                <div class="market-card" style="border-top: 4px solid var(--primary);">
+                    <h3><i class="fas fa-rocket"></i> United States</h3>
+                    <div class="market-score" style="color: var(--primary);">27.7</div>
+                    <div style="text-align: center; color: var(--primary); font-weight: 600; margin-bottom: 20px;">Growth + Efficiency Leader</div>
+                    <div class="market-strength">
+                        <strong>Key Strength:</strong> Highest brand growth (4.8pp) AND media effectiveness (18.39 points per 1B impressions). Proves creative quality trumps media cost.
+                    </div>
+                    <div class="market-metric">
+                        <span>Brand Growth</span>
+                        <span style="color: var(--primary); font-weight: 600;">+4.8pp</span>
+                    </div>
+                    <div class="market-metric">
+                        <span>Media Effectiveness</span>
+                        <span style="color: var(--primary); font-weight: 600;">18.39</span>
+                    </div>
+                </div>
+                
+                <!-- Germany -->
+                <div class="market-card" style="border-top: 4px solid var(--warning);">
+                    <h3><i class="fas fa-cog"></i> Germany</h3>
+                    <div class="market-score" style="color: var(--warning);">23.4</div>
+                    <div style="text-align: center; color: var(--warning); font-weight: 600; margin-bottom: 20px;">Media Efficient</div>
+                    <div class="market-strength">
+                        <strong>Key Strength:</strong> Strong media effectiveness (16.96, ranked 2nd) demonstrates efficient impression-to-impact conversion despite lowest brand growth.
+                    </div>
+                    <div class="market-metric">
+                        <span>Brand Growth</span>
+                        <span style="color: var(--warning); font-weight: 600;">+3.1pp</span>
+                    </div>
+                    <div class="market-metric">
+                        <span>Media Effectiveness</span>
+                        <span style="color: var(--warning); font-weight: 600;">16.96</span>
+                    </div>
+                </div>
+                
+                <!-- France -->
+                <div class="market-card" style="border-top: 4px solid var(--danger);">
+                    <h3><i class="fas fa-exclamation-triangle"></i> France</h3>
+                    <div class="market-score" style="color: var(--danger);">19.8</div>
+                    <div style="text-align: center; color: var(--danger); font-weight: 600; margin-bottom: 20px;">Needs Optimization</div>
+                    <div class="market-strength">
+                        <strong>Key Issue:</strong> Lowest media effectiveness (12.54) despite best cost efficiency. Needed most impressions (279M) for results - creative execution gap.
+                    </div>
+                    <div class="market-metric">
+                        <span>Brand Growth</span>
+                        <span style="color: var(--danger); font-weight: 600;">+3.5pp</span>
+                    </div>
+                    <div class="market-metric">
+                        <span>Ad Diagnostics</span>
+                        <span style="color: var(--danger); font-weight: 600;">33%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Expandable: Detailed Scoring Methodology -->
+        <div class="expandable-section">
+            <button class="expand-button" onclick="toggleSection('scoring-methodology')">
+                <span><i class="fas fa-calculator"></i> View Performance Index Scoring Methodology</span>
+                <span class="expand-icon" id="icon-scoring-methodology">▼</span>
+            </button>
+            <div class="expandable-content" id="scoring-methodology">
+                <div class="expandable-inner">
+                    <h3>Composite Performance Index Scoring Formula</h3>
+                    <div class="highlight-box">
+                        <h4><i class="fas fa-formula"></i> Weighted Scoring System</h4>
+                        <p style="font-family: monospace; line-height: 2;">
+                            <strong>Performance Index Score =</strong><br>
+                            &nbsp;&nbsp;(Weighted Brand Health Growth × 30%) +<br>
+                            &nbsp;&nbsp;(Barrier Improvement Rate × 25%) +<br>
+                            &nbsp;&nbsp;(Ad Diagnostics Win Rate × 25%) +<br>
+                            &nbsp;&nbsp;(Media Effectiveness × 20%)
+                        </p>
+                        <p style="margin-top: 15px;">
+                            <strong>Brand Health Weighting:</strong> Awareness (25%) + Consideration (35%) + Intent (40%)<br>
+                            <strong>Media Effectiveness:</strong> Brand health points per billion impressions (CPM-neutral)<br>
+                            <strong>Normalization:</strong> Proportional scoring where each dimension sums to 100 across markets
+                        </p>
+                    </div>
+                    
+                    <h3>Raw Performance Metrics by Market</h3>
+                    <p style="margin-bottom: 20px; color: var(--gray-700);">
+                        Underlying data used to calculate composite Performance Index scores. All metrics represent celebrity campaign performance.
+                    </p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Market</th>
+                                <th colspan="4" style="background-color: var(--primary-light); text-align: center;">Brand Health Growth</th>
+                                <th colspan="2" style="background-color: var(--secondary-light); text-align: center;">Barrier Performance</th>
+                                <th colspan="2" style="background-color: var(--warning-light); text-align: center;">Ad Diagnostics</th>
+                                <th colspan="3" style="background-color: var(--gray-300); text-align: center;">Media Effectiveness</th>
+                            </tr>
+                            <tr>
+                                <th style="font-size: 0.85rem;">Awareness<br>Change</th>
+                                <th style="font-size: 0.85rem;">Consideration<br>Change</th>
+                                <th style="font-size: 0.85rem;">Intent<br>Change</th>
+                                <th style="font-size: 0.85rem;">Weighted<br>Growth</th>
+                                <th style="font-size: 0.85rem;">Improved<br>(Fraction)</th>
+                                <th style="font-size: 0.85rem;">Improvement<br>Rate</th>
+                                <th style="font-size: 0.85rem;">Wins<br>(Fraction)</th>
+                                <th style="font-size: 0.85rem;">Win<br>Rate</th>
+                                <th style="font-size: 0.85rem;">Total<br>Impressions</th>
+                                <th style="font-size: 0.85rem;">Brand<br>Growth</th>
+                                <th style="font-size: 0.85rem;">Points per<br>1B Impr.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>UK</strong></td>
+                                <td>+0.4pp</td>
+                                <td>+1.7pp</td>
+                                <td>+1.3pp</td>
+                                <td style="color: var(--primary); font-weight: 700;">+3.4pp</td>
+                                <td>4 of 6</td>
+                                <td style="color: var(--secondary); font-weight: 700;">67%</td>
+                                <td>3 of 3</td>
+                                <td style="color: var(--secondary); font-weight: 700;">100%</td>
+                                <td>257.1M</td>
+                                <td>+3.4pp</td>
+                                <td style="color: var(--primary); font-weight: 700;">13.23</td>
+                            </tr>
+                            <tr>
+                                <td><strong>USA</strong></td>
+                                <td>+1.9pp</td>
+                                <td>+2.0pp</td>
+                                <td>+0.9pp</td>
+                                <td style="color: var(--secondary); font-weight: 700;">+4.8pp</td>
+                                <td>3 of 6</td>
+                                <td>50%</td>
+                                <td>2 of 3</td>
+                                <td>67%</td>
+                                <td>260.9M</td>
+                                <td>+4.8pp</td>
+                                <td style="color: var(--secondary); font-weight: 700;">18.39</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Germany</strong></td>
+                                <td>+1.8pp</td>
+                                <td>+0.5pp</td>
+                                <td>+0.8pp</td>
+                                <td style="color: var(--danger); font-weight: 700;">+3.1pp</td>
+                                <td>3 of 6</td>
+                                <td>50%</td>
+                                <td>2 of 3</td>
+                                <td>67%</td>
+                                <td>182.8M</td>
+                                <td>+3.1pp</td>
+                                <td style="color: var(--primary); font-weight: 700;">16.96</td>
+                            </tr>
+                            <tr>
+                                <td><strong>France</strong></td>
+                                <td>+0.8pp</td>
+                                <td>+1.1pp</td>
+                                <td>+1.6pp</td>
+                                <td style="color: var(--primary); font-weight: 700;">+3.5pp</td>
+                                <td>3 of 6</td>
+                                <td>50%</td>
+                                <td>1 of 3</td>
+                                <td style="color: var(--danger); font-weight: 700;">33%</td>
+                                <td>279.1M</td>
+                                <td>+3.5pp</td>
+                                <td style="color: var(--danger); font-weight: 700;">12.54</td>
+                            </tr>
+                            <tr style="background-color: var(--gray-200); font-weight: 700;">
+                                <td>TOTAL/AVG</td>
+                                <td>+4.9pp</td>
+                                <td>+5.3pp</td>
+                                <td>+4.6pp</td>
+                                <td style="color: var(--secondary);">+14.8pp</td>
+                                <td>13 of 24</td>
+                                <td>54%</td>
+                                <td>8 of 12</td>
+                                <td>67%</td>
+                                <td>980M</td>
+                                <td>+14.8pp</td>
+                                <td style="color: var(--primary);">15.10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="highlight-box" style="margin-top: 20px;">
+                        <h4><i class="fas fa-info-circle"></i> How to Read This Table</h4>
+                        <p style="color: #ffffff; margin: 0; line-height: 1.8;">
+                            <strong>Weighted Growth:</strong> Calculated using Awareness (25%) + Consideration (35%) + Intent (40%) to reflect conversion proximity.<br>
+                            <strong>Improvement Rate:</strong> Percentage of tracked barriers that showed improvement (e.g., 4 of 6 = 67%).<br>
+                            <strong>Win Rate:</strong> Percentage of ad diagnostics metrics where celebrity campaign beat non-celebrity benchmark.<br>
+                            <strong>Media Effectiveness:</strong> Brand health points generated per billion impressions - higher scores indicate more efficient conversion of reach into brand impact.
+                        </p>
+                    </div>
+                    
+                    <h3>Detailed Scoring Breakdown</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Market</th>
+                                <th>Brand Health<br>(30%)</th>
+                                <th>Barriers<br>(25%)</th>
+                                <th>Ad Diagnostics<br>(25%)</th>
+                                <th>Media Effectiveness<br>(20%)</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>UK</strong></td>
+                                <td>24.7</td>
+                                <td style="color: var(--secondary); font-weight: 700;">30.9</td>
+                                <td style="color: var(--secondary); font-weight: 700;">37.5</td>
+                                <td>21.6</td>
+                                <td style="color: var(--secondary); font-weight: 700;">29.1</td>
+                            </tr>
+                            <tr>
+                                <td><strong>USA</strong></td>
+                                <td style="color: var(--secondary); font-weight: 700;">31.2</td>
+                                <td>23.0</td>
+                                <td>25.1</td>
+                                <td style="color: var(--secondary); font-weight: 700;">30.1</td>
+                                <td style="color: var(--secondary); font-weight: 700;">27.7</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Germany</strong></td>
+                                <td>19.2</td>
+                                <td>23.0</td>
+                                <td>25.1</td>
+                                <td>27.7</td>
+                                <td>23.4</td>
+                            </tr>
+                            <tr>
+                                <td><strong>France</strong></td>
+                                <td>24.9</td>
+                                <td>23.0</td>
+                                <td style="color: var(--danger);">12.4</td>
+                                <td style="color: var(--danger);">20.5</td>
+                                <td style="color: var(--danger);">19.8</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Insight -->
+        <section class="section">
+            <h2><i class="fas fa-lightbulb"></i> Key Insight</h2>
+            
+            <div class="highlight-box" style="border-left: 4px solid var(--warning);">
+                <h4><i class="fas fa-star"></i> Creative Quality Trumps Media Cost</h4>
+                <div style="font-size: 1.1rem; line-height: 1.8;">
+                    <p style="margin-bottom: 15px;">
+                        <strong>USA leads media effectiveness with 18.39 brand health points per billion impressions</strong> - 47% more efficient than France (12.54) - despite paying 2.19x higher CPM ($10.02 vs $4.57).
+                    </p>
+                    <p style="margin-bottom: 15px;">
+                        This validates a critical principle: <strong>Creative execution quality is more valuable than media cost advantages.</strong> France's low CPM couldn't compensate for weak ad diagnostics (33% win rate, 60% appeal, 19% association).
+                    </p>
+                    <p style="margin: 0;">
+                        <strong>Strategic Implication:</strong> Invest in creative excellence over volume. USA delivered superior performance through quality impressions, not quantity.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Strategic Verdict -->
+        <section class="section">
+            <h2><i class="fas fa-check-circle"></i> Strategic Verdict</h2>
+            
+            <div class="hero-statement" style="background: linear-gradient(135deg, rgba(52, 168, 83, 0.15), rgba(52, 168, 83, 0.05)); border-left-color: var(--secondary);">
+                Celebrity Premium Justified: $814K investment was the difference between continued decline and measurable recovery
+            </div>
+            
+            <div class="metric-grid">
+                <div class="metric-card" style="border-left: 4px solid var(--secondary);">
+                    <div class="metric-value" style="color: var(--secondary);">✓</div>
+                    <div class="metric-label"><strong>Brand Trajectory Reversed</strong><br>Decline → Growth</div>
+                </div>
+                <div class="metric-card" style="border-left: 4px solid var(--secondary);">
+                    <div class="metric-value" style="color: var(--secondary);">✓</div>
+                    <div class="metric-label"><strong>Exclusive Performance</strong><br>Only Positive Period</div>
+                </div>
+                <div class="metric-card" style="border-left: 4px solid var(--secondary);">
+                    <div class="metric-value" style="color: var(--secondary);">✓</div>
+                    <div class="metric-label"><strong>Image Transfer Validated</strong><br>Theory → Practice</div>
+                </div>
+                <div class="metric-card" style="border-left: 4px solid var(--secondary);">
+                    <div class="metric-value" style="color: var(--secondary);">✓</div>
+                    <div class="metric-label"><strong>Measurable Superiority</strong><br>67% Ad Diagnostics</div>
+                </div>
+            </div>
+            
+            <div class="highlight-box success">
+                <h4><i class="fas fa-trophy"></i> Final Assessment</h4>
+                <p>
+                    The $8.2M celebrity campaign successfully transferred Chris Hemsworth's credibility to Abu Dhabi, creating the <strong>only period</strong> of brand growth in 18 months. With 67% ad diagnostics superiority, 54% barrier improvement, and +14.8pp brand health growth across 4 markets, the celebrity premium delivered measurable performance that justified the investment through exclusive performance advantage.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Expandable: Celebrity vs Non-Celebrity Comparison -->
+        <div class="expandable-section">
+            <button class="expand-button" onclick="toggleSection('celebrity-comparison')">
+                <span><i class="fas fa-balance-scale"></i> View Celebrity vs Non-Celebrity Performance Comparison</span>
+                <span class="expand-icon" id="icon-celebrity-comparison">▼</span>
+            </button>
+            <div class="expandable-content" id="celebrity-comparison">
+                <div class="expandable-inner">
+                    <h3>Celebrity vs Non-Celebrity Campaign Comparison</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Non-Celebrity Average<br><span style="font-size: 0.85rem; font-weight: normal;">(Q3'23-Q3'24)</span></th>
+                                <th>Celebrity Campaign<br><span style="font-size: 0.85rem; font-weight: normal;">(Q4'24-Q1'25)</span></th>
+                                <th>Performance Delta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Consideration Trend</strong></td>
+                                <td style="color: var(--danger);">Declining (-2.5pp)</td>
+                                <td style="color: var(--secondary);">Growing (+2.5pp)</td>
+                                <td><strong style="color: var(--secondary);">+5.0pp reversal</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ad Diagnostics</strong></td>
+                                <td>Varied (no anchor)</td>
+                                <td style="color: var(--secondary);">67% (8 of 12)</td>
+                                <td><strong style="color: var(--secondary);">Measurable superiority</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Barrier Performance</strong></td>
+                                <td>Mixed/declining</td>
+                                <td style="color: var(--secondary);">54% improvement</td>
+                                <td><strong style="color: var(--secondary);">Positive momentum</strong></td>
+                            </tr>
+                            <tr style="background-color: var(--gray-200);">
+                                <td><strong>Period Status</strong></td>
+                                <td style="color: var(--danger); font-weight: 700;">DECLINE PHASE</td>
+                                <td style="color: var(--secondary); font-weight: 700;">RECOVERY PHASE</td>
+                                <td><strong style="color: var(--secondary);">VALIDATED INFLECTION</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="highlight-box success">
+                        <h4><i class="fas fa-check-double"></i> Verdict Details</h4>
+                        <p>
+                            The $814K celebrity premium (~$203K per market) generated: (1) Brand trajectory reversal (decline → growth), (2) Ad effectiveness superiority (67% win rate), (3) Barrier improvement momentum (13 of 24), (4) Image Transfer validation (credibility → brand value).
+                        </p>
+                        <p style="margin-top: 15px;">
+                            <strong>Bottom Line:</strong> The celebrity investment was not incremental improvement - it was the <strong>difference between continued decline and measurable recovery</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Continue Reading Navigation -->
+    <div class="container">
+        <section class="section" style="margin-top: 50px; background: linear-gradient(135deg, rgba(66, 133, 244, 0.08), rgba(66, 133, 244, 0.03)); border: 2px solid var(--primary);">
+            <div style="text-align: center;">
+                <h3 style="color: var(--primary-dark); margin-bottom: 15px; font-size: 1.5rem;">
+                    <i class="fas fa-arrow-left"></i> Return to Campaign Repository
+                </h3>
+                <a href="index.html" style="display: block; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="background-color: var(--card-bg); border: 2px solid var(--primary); border-radius: 12px; padding: 30px; margin: 0 auto; max-width: 600px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+                            <div style="flex: 1; text-align: left;">
+                                <div style="color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Explore More</div>
+                                <h4 style="color: var(--primary-dark); margin: 0 0 10px 0; font-size: 1.3rem;">Back to Campaign Repository</h4>
+                                <p style="color: var(--gray-700); margin: 0; font-size: 0.95rem; line-height: 1.6;">Return to the main repository to explore strategic foundations, execution details, and additional analysis reports.</p>
+                            </div>
+                            <div style="color: var(--primary); font-size: 2rem;">
+                                <i class="fas fa-home"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p style="margin: 0; color: var(--gray-700); font-size: 0.9rem;">© 2025 Research & Insights Unit | Strategic Marketing & Communications | Department of Culture and Tourism – Abu Dhabi</p>
+        </div>
+    </footer>
+    
+    <script>
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId);
+            const icon = document.getElementById('icon-' + sectionId);
+            
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                icon.classList.remove('rotated');
+            } else {
+                content.classList.add('expanded');
+                icon.classList.add('rotated');
+            }
+        }
+    </script>
+</body>
+</html>
