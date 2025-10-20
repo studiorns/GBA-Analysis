@@ -28,13 +28,18 @@
             --secondary: #34a853;
             --secondary-light: #1a2a1e;
             --warning: #fbbc04;
+            --warning-light: #332a1a;
             --danger: #ea4335;
+            --danger-light: #331f1e;
             --gray-100: #1e1e1e;
             --gray-200: #2d2d2d;
             --gray-300: #3d3d3d;
+            --gray-400: #4d4d4d;
             --gray-500: #777777;
             --gray-600: #a0a0a0;
             --gray-700: #c0c0c0;
+            --gray-800: #e0e0e0;
+            --gray-900: #f0f0f0;
             --bg-color: #000000;
             --card-bg: #121212;
             --section-bg: #181818;
@@ -76,6 +81,12 @@
             margin: 30px 0 18px;
             font-weight: 600;
         }
+        h4 {
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin: 20px 0 12px;
+            font-weight: 600;
+        }
         
         .section {
             background-color: var(--section-bg);
@@ -99,7 +110,7 @@
         
         .metric-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin: 25px 0;
         }
@@ -131,6 +142,53 @@
             line-height: 1.5;
         }
         
+        .quote-box {
+            background-color: var(--gray-200);
+            border-left: 4px solid var(--secondary);
+            padding: 25px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #ffffff;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.7;
+        }
+        
+        .quote-box strong {
+            color: var(--primary-dark);
+            font-style: normal;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(234, 67, 53, 0.1), rgba(234, 67, 53, 0.05));
+            border: 2px solid var(--danger);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .highlight-box h4 {
+            color: var(--danger);
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box.success {
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.1), rgba(52, 168, 83, 0.05));
+            border-color: var(--secondary);
+        }
+        
+        .highlight-box.success h4 {
+            color: var(--secondary);
+        }
+        
+        .highlight-box.info {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+            border-color: var(--primary);
+        }
+        
+        .highlight-box.info h4 {
+            color: var(--primary);
+        }
+        
         .info-card {
             background-color: var(--card-bg);
             border-radius: 10px;
@@ -142,28 +200,6 @@
         .info-card h4 {
             color: var(--primary-dark);
             margin-bottom: 15px;
-        }
-        
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
-            border: 2px solid var(--primary);
-            border-radius: 12px;
-            padding: 25px;
-            margin: 25px 0;
-        }
-        
-        .highlight-box h4 {
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        
-        .highlight-box.success {
-            background: linear-gradient(135deg, rgba(52, 168, 83, 0.1), rgba(52, 168, 83, 0.05));
-            border-color: var(--secondary);
-        }
-        
-        .highlight-box.success h4 {
-            color: var(--secondary);
         }
         
         .comparison-grid {
@@ -181,7 +217,7 @@
         }
         
         .comparison-card h4 {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid var(--gray-300);
         }
@@ -200,6 +236,73 @@
         
         .comparison-card.influencer h4 {
             color: var(--secondary);
+        }
+        
+        .comparison-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .comparison-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-300);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .comparison-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .comparison-list i {
+            margin-right: 10px;
+            margin-top: 3px;
+            font-size: 0.9rem;
+        }
+        
+        .strategy-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .strategy-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+        
+        .framework-box {
+            background-color: var(--gray-200);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .framework-box h4 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .framework-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .framework-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .framework-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
         }
         
         table {
@@ -224,7 +327,9 @@
             border-right: 1px solid var(--gray-300);
         }
         
-        th:last-child { border-right: none; }
+        th:last-child {
+            border-right: none;
+        }
         
         td {
             padding: 15px;
@@ -232,12 +337,69 @@
             border-right: 1px solid var(--gray-300);
         }
         
-        td:last-child { border-right: none; }
-        tbody tr:last-child td { border-bottom: none; }
-        tbody tr:hover { background-color: var(--gray-200); }
+        td:last-child {
+            border-right: none;
+        }
         
-        .checkmark { color: var(--secondary); font-weight: bold; }
-        .crossmark { color: var(--danger); font-weight: bold; }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tbody tr:hover {
+            background-color: var(--gray-200);
+        }
+        
+        .checkmark {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .crossmark {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .main-section-header {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-right: 30px;
+            transition: color 0.2s ease;
+        }
+        
+        .main-section-header:hover { 
+            color: var(--primary-dark); 
+        }
+        
+        .main-section-header:after {
+            content: '\f078';
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            font-size: 0.8em;
+        }
+        
+        .main-section-header.collapsed:after {
+            transform: translateY(-50%) rotate(-90deg);
+        }
+        
+        .main-section-content {
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.3s ease-out;
+            max-height: 9999px;
+            opacity: 1;
+        }
+        
+        .main-section-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+        }
         
         .breadcrumb {
             background: linear-gradient(135deg, rgba(26, 35, 51, 0.6), rgba(26, 35, 51, 0.4));
@@ -294,6 +456,9 @@
             h2 { font-size: 1.5rem; }
             h3 { font-size: 1.2rem; }
             .section { padding: 25px; }
+        }
+        
+        @media screen and (max-width: 480px) {
             .metric-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -312,8 +477,8 @@
                 </div>
             </div>
             <h1>Strategic Foundations: Why Celebrity Endorsement</h1>
-            <p class="subtitle">The Psychology, Strategy, and Competitive Logic Behind High-Impact Partnerships</p>
-            <p>Department of Culture and Tourism - Abu Dhabi</p>
+            <p class="subtitle">Understanding the Psychology, Strategy, and Economics Behind High-Impact Partnerships</p>
+            <p>Department of Culture and Tourism - Abu Dhabi | Strategic Marketing & Communications</p>
         </div>
     </header>
     
@@ -332,396 +497,739 @@
         
         <!-- Opening Statement -->
         <div class="hero-statement">
-            "In a world saturated with advertising, how do you make people care about your destination? The answer lies in psychology, not popularity."
+            "In a world saturated with 5,000 advertisements per day, how do you make people care about your destination? The answer lies in psychology, not popularity."
         </div>
         
         <!-- Campaign Context -->
         <div class="section" style="background-color: var(--primary-light); border-left: 4px solid var(--primary);">
             <p style="font-size: 1.05rem; line-height: 1.8; margin: 0;">
-                This report provides the strategic foundation for understanding the Chris Hemsworth & Elsa Pataky Global Brand Ambassador campaign. The campaign pursued four objectives: establish positioning distinct from Dubai, communicate Abu Dhabi's welcoming culture, showcase diverse experiences, and demonstrate safety. This report explains the psychological principles, competitive context, and decision architecture that informed the partnership.
+                This report explains the strategic foundation behind the Chris Hemsworth & Elsa Pataky Global Brand Ambassador campaign (Q4 2024 - Q1 2025), examining the psychological principles, competitive context, and decision architecture that informed this partnership.
             </p>
         </div>
         
-        <!-- Part 1: Why Celebrity Endorsement Works -->
+        <!-- Executive Summary -->
         <section class="section">
-            <h2><i class="fas fa-brain"></i> Part 1: Why Celebrity Endorsement Works - The Psychology</h2>
+            <h2><i class="fas fa-compass"></i> Executive Summary</h2>
             
             <p style="font-size: 1.05rem; margin-bottom: 25px;">
-                Celebrity endorsement works because of three psychological principles. Success hinges on <strong>congruence</strong> (fit between celebrity and destination), <strong>credibility</strong> (expertise and trustworthiness), and <strong>authenticity</strong> (genuine connection). When executed correctly, celebrities act as trusted filters in a saturated marketplace.
+                Celebrity endorsement represents one of the highest-leverage strategic tools in destination marketing, capable of generating rapid brand awareness, transferring positive associations, and building consumer confidence. However, success hinges not on fame alone, but on three critical factors: <strong>congruence</strong> (the fit between celebrity and destination), <strong>credibility</strong> (expertise and trustworthiness), and <strong>authenticity</strong> (genuine connection to the brand).
             </p>
             
             <div class="metric-grid">
                 <div class="metric-card">
-                    <div class="metric-value">5,000</div>
-                    <div class="metric-label"><strong>Ads per Day</strong><br>Modern consumer exposure<br><em style="color: var(--primary-dark); font-size: 0.9rem;">Challenge: Banner blindness, cognitive overload</em></div>
+                    <div class="metric-value">6+ Dimensions</div>
+                    <div class="metric-label"><strong>Congruence Achieved</strong><br>Lifestyle alignment across family, wellness, adventure, values, personality<br><em style="color: var(--primary-dark); font-size: 0.9rem;">Critical Factor: Celebrity-destination fit</em></div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value">79%</div>
-                    <div class="metric-label"><strong>Trust UGC</strong><br>Over brand content<br><em style="color: var(--primary-dark); font-size: 0.9rem;">Challenge: Corporate credibility crisis</em></div>
+                    <div class="metric-value">Pre-Partnership</div>
+                    <div class="metric-label"><strong>Credibility Foundation</strong><br>Existing destination connection + genuine interest established before deal<br><em style="color: var(--primary-dark); font-size: 0.9rem;">Critical Factor: Expertise & trustworthiness signals</em></div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value">+4%</div>
-                    <div class="metric-label"><strong>Stock Impact</strong><br>Celebrity announcement effect<br><em style="color: var(--primary-dark); font-size: 0.9rem;">Measurable: Capital markets respond</em></div>
+                    <div class="metric-value">Family Involvement</div>
+                    <div class="metric-label"><strong>Authenticity Signal</strong><br>Rare willingness to feature children in production (uncommon in celebrity deals)<br><em style="color: var(--primary-dark); font-size: 0.9rem;">Critical Factor: Genuine connection demonstrated</em></div>
                 </div>
             </div>
             
-            <h3>The Three Psychological Principles</h3>
-            
-            <div class="info-card">
-                <h4><i class="fas fa-handshake"></i> 1. Source Credibility Model</h4>
-                <p style="margin-bottom: 15px;"><strong>Principle:</strong> Persuasiveness depends on the receiver's perception of the source's believability, determined by expertise and trustworthiness.</p>
-                <ul style="margin: 10px 0; padding-left: 20px; color: #ffffff;">
-                    <li><strong>Expertise:</strong> Perceived knowledge relevant to the product category (athlete endorses sports equipment)</li>
-                    <li><strong>Trustworthiness:</strong> Belief the endorser is honest, ethical, and unbiased (pre-existing relationship vs. pure transaction)</li>
-                </ul>
-                <p style="margin-top: 15px; color: var(--primary-dark); font-weight: 600;"><i class="fas fa-lightbulb"></i> Why It Matters: High credibility stimulates confidence, enhances desire, and increases booking motivation for unfamiliar destinations</p>
+            <div class="quote-box">
+                <strong>The Strategic Imperative:</strong> Modern DMO strategies integrate three distinct endorser archetypes - traditional celebrities for mass awareness, micro-influencers for conversion, and user-generated content for authenticity. Abu Dhabi's multi-vector approach with Chris Hemsworth, Deepika Padukone, Liu Yifei, and regional celebrities represents strategic precision over single-anchor dependency.
             </div>
-            
-            <div class="info-card">
-                <h4><i class="fas fa-exchange-alt"></i> 2. Meaning Transfer Theory</h4>
-                <p style="margin-bottom: 15px;"><strong>Principle:</strong> Symbolic traits and associations attached to a celebrity migrate to the brand through endorsement.</p>
-                <p style="margin: 10px 0; color: #ffffff;"><strong>How It Works:</strong> Celebrity possesses associations (adventurous, family-oriented) → Endorsement transfers these traits → Destination inherits associations (Abu Dhabi becomes "adventurous," "family-friendly")</p>
-                <p style="margin-top: 15px; color: var(--primary-dark); font-weight: 600;"><i class="fas fa-lightbulb"></i> Why It Matters: Especially powerful for lesser-known destinations lacking established cognitive schemas. Abu Dhabi fighting perceptions benefits from Hemsworth's relatability and authenticity</p>
-            </div>
-            
-            <div class="info-card">
-                <h4><i class="fas fa-puzzle-piece"></i> 3. Match-Up Hypothesis (Congruence)</h4>
-                <p style="margin-bottom: 15px;"><strong>Principle:</strong> Endorsement success depends on fit between celebrity image, product image, and target audience.</p>
-                <ul style="margin: 10px 0; padding-left: 20px; color: #ffffff;">
-                    <li>Beauty products require physical attractiveness</li>
-                    <li>Sports equipment requires athletic expertise</li>
-                    <li>Destinations require lifestyle + values + theme match</li>
-                </ul>
-                <p style="margin-top: 15px; color: var(--primary-dark); font-weight: 600;"><i class="fas fa-lightbulb"></i> Why It Matters: Mismatched endorsements fail. Investors penalize actor celebrities endorsing high-tech. Hemsworth's surfer/family lifestyle creates perfect thematic alignment with Abu Dhabi's offerings</p>
-            </div>
-            
         </section>
 
-        <!-- Part 2: The Hemsworth Strategic Fit -->
+        <!-- Chapter 1: The Modern Marketing Crisis -->
         <section class="section">
-            <h2><i class="fas fa-star"></i> Part 2: The Hemsworth Strategic Fit - Theory in Practice</h2>
+            <h2 class="main-section-header collapsed"><i class="fas fa-exclamation-triangle"></i> Chapter 1: The Modern Marketing Crisis</h2>
+            <div class="main-section-content collapsed">
             
-            <div class="hero-statement" style="background: linear-gradient(135deg, rgba(52, 168, 83, 0.1), rgba(52, 168, 83, 0.05)); border-color: var(--secondary);">
-                "Chris Hemsworth exemplifies every strategic principle: Perfect congruence, high credibility, positive meaning transfer"
+            <h3>1.1 The Saturation Problem</h3>
+            
+            <div class="info-card">
+                <h4><i class="fas fa-chart-line"></i> The Numbers</h4>
+                <p>The average person is exposed to approximately <strong>5,000 advertisements per day</strong>, representing a 10x increase since the 1970s. This relentless saturation has resulted in a widespread psychological phenomenon known as "Banner Blindness" - consumers actively disregard static, traditional, or overtly commercial advertisements.</p>
             </div>
             
-            <h3>Perfect Congruence: The Match-Up in Action</h3>
+            <p>Every day, travelers are bombarded with destination marketing messages across multiple channels - social media, display advertising, video pre-rolls, sponsored content, and email campaigns. The human brain, overwhelmed by this cognitive overload, has developed sophisticated filtering mechanisms to ignore promotional messaging.</p>
             
-            <table>
-                <thead>
-                    <tr>
-                        <th>Abu Dhabi Offering</th>
-                        <th>Hemsworth Lifestyle</th>
-                        <th>Alignment</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Surf Abu Dhabi</td>
-                        <td>Avid surfer</td>
-                        <td><span class="checkmark">✓</span> Authentic passion</td>
-                    </tr>
-                    <tr>
-                        <td>Theme parks (Yas Island)</td>
-                        <td>Family entertainment focus</td>
-                        <td><span class="checkmark">✓</span> Family credibility</td>
-                    </tr>
-                    <tr>
-                        <td>Outdoor adventure (kayaking, desert)</td>
-                        <td>Adventure enthusiast</td>
-                        <td><span class="checkmark">✓</span> Lifestyle congruence</td>
-                    </tr>
-                    <tr>
-                        <td>Cultural sites (Louvre)</td>
-                        <td>Cultural appreciation</td>
-                        <td><span class="checkmark">✓</span> Sophistication</td>
-                    </tr>
-                    <tr>
-                        <td>Wellness facilities</td>
-                        <td>Fitness advocate (Centr app)</td>
-                        <td><span class="checkmark">✓</span> Expertise validation</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Source Credibility: Trust & Expertise Signals</h3>
-            
-            <div class="comparison-grid">
-                <div class="info-card">
-                    <h4><i class="fas fa-graduation-cap"></i> Expertise Dimension</h4>
-                    <ul style="margin: 10px 0; padding-left: 20px; color: #ffffff;">
-                        <li>Lifestyle expert: Fitness app (Centr), wellness advocacy</li>
-                        <li>Family expert: Public devotion to parenting</li>
-                        <li>Adventure expert: Known for outdoor activities, surfing</li>
-                        <li>Authenticity: Not just image - genuine practice</li>
-                    </ul>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 25px 0;">
+                <div class="info-card" style="text-align: center;">
+                    <i class="fas fa-brain" style="font-size: 2.5rem; color: var(--gray-500); margin-bottom: 15px;"></i>
+                    <h4 style="color: var(--primary-dark); margin-bottom: 10px;">BARRIER 1</h4>
+                    <h4 style="font-size: 1rem; margin-bottom: 15px;">Cognitive Overload</h4>
+                    <p style="font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 10px;">5,000 Ads/Day</p>
+                    <p style="font-size: 0.9rem; color: #ffffff; margin-bottom: 10px;">10x increase since 1970s</p>
+                    <p style="font-size: 0.9rem; color: #ffffff; line-height: 1.5;">The brain cannot process thousands of competing messages simultaneously. <strong>Result:</strong> Banner blindness epidemic.</p>
                 </div>
                 
-                <div class="info-card">
-                    <h4><i class="fas fa-handshake"></i> Trustworthiness Dimension</h4>
-                    <ul style="margin: 10px 0; padding-left: 20px; color: #ffffff;">
-                        <li><strong>Pre-existing relationship:</strong> Visited Abu Dhabi F1 2023</li>
-                        <li><strong>Leadership connection:</strong> Met with DCT leadership</li>
-                        <li><strong>Genuine interest:</strong> Expressed love for Surf Abu Dhabi</li>
-                        <li><strong>Rare commitment:</strong> Featured children in production</li>
-                        <li><strong>Long-term deal:</strong> 2-year partnership (not transactional)</li>
-                    </ul>
+                <div class="info-card" style="text-align: center;">
+                    <i class="fas fa-eye" style="font-size: 2.5rem; color: var(--gray-500); margin-bottom: 15px;"></i>
+                    <h4 style="color: var(--primary-dark); margin-bottom: 10px;">BARRIER 2</h4>
+                    <h4 style="font-size: 1rem; margin-bottom: 15px;">Pattern Recognition</h4>
+                    <p style="font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 10px;">Instant Filter</p>
+                    <p style="font-size: 0.9rem; color: #ffffff; margin-bottom: 10px;">Automatic ad format identification</p>
+                    <p style="font-size: 0.9rem; color: #ffffff; line-height: 1.5;">Consumers quickly identify and dismiss advertising formats. <strong>Result:</strong> Traditional ads ignored.</p>
+                </div>
+                
+                <div class="info-card" style="text-align: center;">
+                    <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: var(--gray-500); margin-bottom: 15px;"></i>
+                    <h4 style="color: var(--primary-dark); margin-bottom: 10px;">BARRIER 3</h4>
+                    <h4 style="font-size: 1rem; margin-bottom: 15px;">Trust Deficit</h4>
+                    <p style="font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 10px;">79% Trust UGC</p>
+                    <p style="font-size: 0.9rem; color: #ffffff; margin-bottom: 10px;">Over brand content</p>
+                    <p style="font-size: 0.9rem; color: #ffffff; line-height: 1.5;">Skepticism toward corporate messaging has reached historic highs. <strong>Result:</strong> Corporate credibility crisis.</p>
                 </div>
             </div>
             
-            <h3>The Dual-Validation Effect: Elsa Pataky's Multiplier</h3>
+            <h3>1.2 The Trust Crisis</h3>
             
-            <div class="info-card" style="border-left: 4px solid var(--secondary);">
-                <h4><i class="fas fa-users"></i> Partner Validation Strengthens Credibility</h4>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-value">79%</div>
+                    <div class="metric-label">Consumers influenced by user-generated content in purchase decisions</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">60%</div>
+                    <div class="metric-label">Higher interaction with influencer content vs. brand content</div>
+                </div>
+            </div>
+            
+            <p>Modern consumers demand <strong>authentic peer validation</strong> over polished corporate messaging. Research confirms that 79% of consumers report being highly influenced by user-generated content when making purchasing decisions, due to the genuine insights, relatability, and credibility provided by real experiences from actual travelers.</p>
+            
+            <h3>1.3 Tourism's Unique Challenge</h3>
+            
+            <p>Unlike purchasing a consumer product, booking a destination involves:</p>
+            
+            <ul style="list-style: none; padding: 0; margin: 20px 0;">
+                <li style="padding: 12px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-check" style="color: var(--secondary); margin-right: 10px;"></i> <strong>High financial commitment</strong> (flights, accommodation, activities)</li>
+                <li style="padding: 12px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-check" style="color: var(--secondary); margin-right: 10px;"></i> <strong>Emotional investment</strong> (vacation time, family memories)</li>
+                <li style="padding: 12px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-check" style="color: var(--secondary); margin-right: 10px;"></i> <strong>Safety considerations</strong> (unfamiliar location, cultural differences)</li>
+                <li style="padding: 12px 0;"><i class="fas fa-check" style="color: var(--secondary); margin-right: 10px;"></i> <strong>Irreversible time commitment</strong> (can't return a vacation)</li>
+            </ul>
+            
+            <div class="quote-box">
+                <strong>The Strategic Response:</strong> In this environment, celebrity endorsement emerges not as vanity spending, but as strategic psychological leverage. When executed with proper congruence and credibility, a celebrity acts as a trusted filter - signaling safety, quality, and desirability in a noisy, skeptical marketplace.
+            </div>
+            
+            </div>
+        </section>
+
+        <!-- Chapter 2: The Psychology of Persuasion -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-brain"></i> Chapter 2: The Psychology of Persuasion - Why People Listen to Celebrities</h2>
+            <div class="main-section-content collapsed">
                 
-                <p style="margin-bottom: 15px; font-style: italic; color: var(--primary-dark);">"My kids have fallen in love with Abu Dhabi... it gives them a playground for all the things they want to do" - Elsa Pataky</p>
+                <h3>2.1 The Source Credibility Model (SCM)</h3>
                 
-                <p style="margin-bottom: 15px;"><strong>Why This Matters:</strong></p>
-                <ul style="margin: 10px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
-                    <li><strong>Mother's Validation:</strong> Speaks as parent observing genuine children's reactions (not paid endorser), directly addressing "No entertainment for children" barrier</li>
-                    <li><strong>Independent Voice:</strong> Distinct from Chris's adventure focus, proving both partners independently endorse</li>
-                    <li><strong>Family Decision-Maker:</strong> Mothers drive family vacation decisions - Elsa's voice reaches primary booking decision-maker</li>
-                    <li><strong>Spanish-Speaking Markets:</strong> Spanish actress (6.2M followers) extends reach to Latin America and Spain</li>
+                <p>The Source Credibility Model posits that the persuasiveness of a message is directly correlated with the receiver's perception of the source's believability. This model is anchored by two fundamental dimensions:</p>
+                
+                <div class="comparison-grid">
+                    <div class="info-card">
+                        <h4><i class="fas fa-graduation-cap"></i> Factor 1: Expertise</h4>
+                        <p><strong>Definition:</strong> Perceived knowledge or ability concerning the product category.</p>
+                        <p style="margin-top: 15px;"><strong>Why It Matters:</strong> For complex or high-involvement products (such as travel destinations), expertise is a critical determinant that shapes consumer attitudes and purchase intention.</p>
+                        <p style="margin-top: 15px; color: var(--primary-dark); font-weight: 600;">Example: When an athlete endorses sports equipment, consumers believe the recommendation because the athlete possesses relevant expertise. Similarly, when an adventurous family man promotes a family destination with surf and outdoor activities, the expertise match creates credibility.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4><i class="fas fa-handshake"></i> Factor 2: Trustworthiness</h4>
+                        <p><strong>Definition:</strong> The consumer's belief that the endorser is honest, ethical, and unbiased.</p>
+                        <p style="margin-top: 15px;"><strong>Why It Matters:</strong> This dimension often performs superiorly to physical attractiveness, particularly outside beauty/fashion sectors, because consumers are more easily influenced by sources they trust.</p>
+                        <p style="margin-top: 15px; color: var(--primary-dark); font-weight: 600;">Example: A pre-existing relationship (visiting Abu Dhabi for F1 2023, meeting with leadership) signals genuine interest rather than pure transactional engagement, enhancing trustworthiness.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box info">
+                    <h4><i class="fas fa-lightbulb"></i> Critical Insight: The Non-Compensatory Principle</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        Research confirms that <strong>a positive brand cannot elevate a low-credibility celebrity</strong>. While a poorly perceived brand may negatively affect a celebrity's attractiveness by association, the inverse is not guaranteed. This means DMOs cannot rely on destination strength alone to elevate an untrustworthy endorser. The celebrity must possess <strong>innate expertise and perceived honesty</strong> before the partnership begins.
+                    </p>
+                </div>
+                
+                <h4>Impact on Consumer Psychology</h4>
+                <p>When the recommendation credibility is high, consumers who may be unfamiliar with a destination but hold favorable attitudes toward the celebrity become predisposed to transfer those positive attitudes to the destination itself, thereby:</p>
+                
+                <div class="framework-list" style="margin-top: 20px;">
+                    <li>Stimulating <strong>confidence</strong> in the destination choice</li>
+                    <li>Enhancing <strong>desire</strong> to visit</li>
+                    <li>Increasing <strong>motivation</strong> to research and book</li>
+                </div>
+                
+                <h3>2.2 The Meaning Transfer Theory (MTT)</h3>
+                
+                <p>The Meaning Transfer Theory explains how symbolic traits and cultural associations attached to a celebrity are migrated and ingrained into the brand image through the act of endorsement.</p>
+                
+                <div class="strategy-card">
+                    <h4>How It Works: The Three-Step Process</h4>
+                    <p style="margin-bottom: 15px;"><strong>STEP 1: Celebrity Possesses Associations</strong></p>
+                    <p style="margin-left: 20px; margin-bottom: 20px; color: #ffffff;">Celebrities possess a host of non-evaluative associations - traits that can be positive (brave, glamorous, approachable) or negative (arrogant, distant). For Chris Hemsworth: adventurous, family-oriented, fitness-focused, approachable, authentic.</p>
+                    
+                    <p style="margin-bottom: 15px;"><strong>STEP 2: Endorsement Transfers These Traits</strong></p>
+                    <p style="margin-left: 20px; margin-bottom: 20px; color: #ffffff;">When Hemsworth partners with Abu Dhabi, his associations transfer to the destination. Abu Dhabi becomes associated with adventure, family-friendliness, wellness, approachability.</p>
+                    
+                    <p style="margin-bottom: 15px;"><strong>STEP 3: Consumer Perceptions Shift</strong></p>
+                    <p style="margin-left: 20px; color: #ffffff;">"If Hemsworth likes it, maybe Abu Dhabi is more adventurous than I thought" or "If his family enjoys it, maybe it's perfect for my family too."</p>
+                </div>
+                
+                <div class="quote-box">
+                    <strong>Strategic Application:</strong> This meaning transfer is especially powerful for lesser-known destinations (Abu Dhabi vs. Dubai). Lesser-known brands lack established cognitive schemas, so transferred meanings take root quickly and powerfully. Abu Dhabi, fighting perceptions of being "too expensive," "too restrictive," or "just like Dubai," benefits from Hemsworth's relatability (accessibility), openness (welcoming culture), and unique adventure lifestyle (distinctiveness).
+                </div>
+                
+                <h3>2.3 The Match-Up Hypothesis (Congruence Principle)</h3>
+                
+                <p>The Match-Up Hypothesis states that endorsement success depends on the critical <strong>fit</strong> among the celebrity's image, the product's image, and the target audience.</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Category</th>
+                            <th>Required Celebrity Trait</th>
+                            <th>Logic</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Beauty/Fashion Products</td>
+                            <td>Physical Attractiveness</td>
+                            <td>Aspirational image transfer; consumers want to emulate the celebrity's appearance</td>
+                        </tr>
+                        <tr>
+                            <td>Sports Equipment</td>
+                            <td>Athletic Expertise</td>
+                            <td>Performance validation; celebrity has proven ability in the product category</td>
+                        </tr>
+                        <tr>
+                            <td>Destinations/Tourism</td>
+                            <td>Lifestyle + Values + Theme Match</td>
+                            <td>Multi-dimensional fit: personality, activities, family status must align with destination offerings</td>
+                        </tr>
+                        <tr>
+                            <td>Technology Products</td>
+                            <td>Innovation + Credibility</td>
+                            <td>Expertise signals quality; investors penalize actor celebrities endorsing high-tech</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="quote-box">
+                    <strong>Abu Dhabi Application:</strong> The emirate offers diverse experiences (theme parks, beaches, surfing, cultural sites, wellness). Hemsworth's lifestyle (surfer, family-oriented, fitness advocate) creates perfect thematic alignment. This is not a celebrity being paid to promote something unrelated - it's a genuine lifestyle match.
+                </div>
+                
+                <h3>2.4 The Quantifiable Impact</h3>
+                
+                <p>Research using event study methods confirms that celebrity endorsement announcements are treated by capital markets as material events with measurable financial impact.</p>
+                
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">+4%</div>
+                        <div class="metric-label"><strong>Stock Price</strong><br>Average increase following celebrity partnership announcement</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">+4%</div>
+                        <div class="metric-label"><strong>Sales Growth</strong><br>Average increase post-announcement period</div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 25px;">Beyond capital market response, celebrity endorsements drive measurable consumer behavior changes:</p>
+                
+                <ul style="list-style: none; padding: 0; margin: 20px 0;">
+                    <li style="padding: 12px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-arrow-up" style="color: var(--secondary); margin-right: 10px;"></i> Higher willingness to pay premium prices</li>
+                    <li style="padding: 12px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-arrow-up" style="color: var(--secondary); margin-right: 10px;"></i> More favorable attitudes toward advertisements</li>
+                    <li style="padding: 12px 0;"><i class="fas fa-arrow-up" style="color: var(--secondary); margin-right: 10px;"></i> Enhanced purchase intention and booking likelihood</li>
                 </ul>
                 
-                <div style="background-color: var(--secondary-light); padding: 16px; border-radius: 8px; margin-top: 15px; border-left: 4px solid var(--secondary);">
-                    <p style="color: var(--secondary); font-weight: 600; margin: 0;">
-                        <i class="fas fa-certificate"></i> The Multiplier Effect: When both partners endorse, credibility doesn't add—it multiplies. Each validates the other's judgment.
+                <div class="highlight-box info">
+                    <h4><i class="fas fa-university"></i> Investor Validation of Congruence</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        Investors demonstrate sophisticated understanding of the congruence principle. Research shows they respond negatively when actor celebrities endorse high-tech products (lack of expertise) but reward match-up endorsements. This validates that the market recognizes authentic fit as a driver of long-term value.
+                    </p>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Chapter 3: Celebrity vs Influencer Dichotomy -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-balance-scale"></i> Chapter 3: The Celebrity vs. Influencer Dichotomy</h2>
+            <div class="main-section-content collapsed">
+                
+                <h3>3.1 The Reach vs. Resonance Framework</h3>
+                
+                <p>Modern destination marketing requires understanding that celebrities and micro-influencers serve fundamentally different strategic purposes. The choice between them should be dictated by campaign objectives, not popularity alone.</p>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-card celebrity">
+                        <h4><i class="fas fa-bullhorn"></i> CELEBRITY ENDORSEMENT</h4>
+                        <ul class="comparison-list">
+                            <li><i class="fas fa-star" style="color: var(--warning);"></i> <span><strong>Primary Goal:</strong> Mass Awareness, Brand Elevation, Instant Visibility</span></li>
+                            <li><i class="fas fa-chart-line" style="color: var(--warning);"></i> <span><strong>Typical Performance:</strong> 1-3% Engagement Rate, Massive Reach</span></li>
+                            <li><i class="fas fa-dollar-sign" style="color: var(--warning);"></i> <span><strong>Cost Structure:</strong> High Paid Cost, High EMV, Lower Multiplier</span></li>
+                            <li><i class="fas fa-user-tie" style="color: var(--warning);"></i> <span><strong>Perception:</strong> Aspirational, Transactional, Distant</span></li>
+                            <li><i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i> <span><strong>Risk:</strong> High reputational & financial exposure</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="comparison-card influencer">
+                        <h4><i class="fas fa-users"></i> MICRO-INFLUENCER MARKETING</h4>
+                        <ul class="comparison-list">
+                            <li><i class="fas fa-heart" style="color: var(--secondary);"></i> <span><strong>Primary Goal:</strong> Deep Engagement, Community Trust, Conversion</span></li>
+                            <li><i class="fas fa-chart-line" style="color: var(--secondary);"></i> <span><strong>Typical Performance:</strong> 7-9.1% Engagement Rate, Targeted Reach</span></li>
+                            <li><i class="fas fa-dollar-sign" style="color: var(--secondary);"></i> <span><strong>Cost Structure:</strong> Low-Moderate Cost, Lower EMV, Superior Multiplier</span></li>
+                            <li><i class="fas fa-user-friends" style="color: var(--secondary);"></i> <span><strong>Perception:</strong> Relatable, Authentic, Peer-Like</span></li>
+                            <li><i class="fas fa-shield-alt" style="color: var(--secondary);"></i> <span><strong>Risk:</strong> Low, Distributed Across Multiple Partners</span></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>3.2 The Authenticity Premium</h3>
+                
+                <p>The rise of influencer marketing reflects a fundamental shift in consumer behavior. Modern travelers, particularly Gen Z and Millennials, trust content creators over mainstream celebrities.</p>
+                
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">2.4x</div>
+                        <div class="metric-label">UGC perceived as more authentic than brand content</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">79%</div>
+                        <div class="metric-label">Influenced by UGC in purchase decisions</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">60%</div>
+                        <div class="metric-label">Higher interaction with influencer content</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">$6.50</div>
+                        <div class="metric-label">Average ROI per $1 spent on influencer marketing</div>
+                    </div>
+                </div>
+                
+                <h3>3.3 The Strategic Integration Model</h3>
+                
+                <div class="strategy-card" style="background: linear-gradient(135deg, rgba(66, 133, 244, 0.05), rgba(52, 168, 83, 0.05)); border-left: 4px solid var(--primary); box-shadow: 0 4px 12px rgba(66, 133, 244, 0.15);">
+                    <h4 style="font-size: 1.3rem; color: var(--primary); margin-bottom: 20px;"><i class="fas fa-filter" style="margin-right: 10px;"></i>Full-Funnel Approach: Using Both Strategically</h4>
+                    
+                    <div style="background: linear-gradient(135deg, rgba(66, 133, 244, 0.15), rgba(66, 133, 244, 0.08)); padding: 25px; border-radius: 10px; margin: 20px 0; border: 2px solid rgba(66, 133, 244, 0.3);">
+                        <p style="text-align: center; color: var(--primary); font-weight: 700; font-size: 1.1rem; margin-bottom: 12px;">TOP OF FUNNEL (Awareness)</p>
+                        <p style="text-align: center; color: #ffffff; font-size: 1.05rem;"><strong>CELEBRITY:</strong> Mass visibility, instant buzz, brand elevation</p>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 20px 0;">
+                        <i class="fas fa-arrow-down" style="font-size: 2rem; color: var(--primary); filter: drop-shadow(0 2px 4px rgba(66, 133, 244, 0.3));"></i>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, rgba(66, 133, 244, 0.15), rgba(66, 133, 244, 0.08)); padding: 25px; border-radius: 10px; margin: 20px 0; border: 2px solid rgba(66, 133, 244, 0.3);">
+                        <p style="text-align: center; color: var(--primary); font-weight: 700; font-size: 1.1rem; margin-bottom: 12px;">MIDDLE OF FUNNEL (Consideration)</p>
+                        <p style="text-align: center; color: #ffffff; font-size: 1.05rem;"><strong>MID-TIER INFLUENCERS:</strong> Targeted content, niche communities</p>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 20px 0;">
+                        <i class="fas fa-arrow-down" style="font-size: 2rem; color: var(--primary); filter: drop-shadow(0 2px 4px rgba(66, 133, 244, 0.3));"></i>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, rgba(66, 133, 244, 0.15), rgba(66, 133, 244, 0.08)); padding: 25px; border-radius: 10px; margin: 20px 0; border: 2px solid rgba(66, 133, 244, 0.3);">
+                        <p style="text-align: center; color: var(--primary); font-weight: 700; font-size: 1.1rem; margin-bottom: 12px;">BOTTOM OF FUNNEL (Conversion)</p>
+                        <p style="text-align: center; color: #ffffff; font-size: 1.05rem;"><strong>MICRO-INFLUENCERS + UGC:</strong> Trust-building, peer validation, bookings</p>
+                    </div>
+                </div>
+                
+                <div class="quote-box">
+                    <strong>The Strategic Verdict:</strong> The optimal strategy is not either/or but strategic deployment by objective. Full-funnel effectiveness requires both. Celebrity partnerships generate the awareness and prestige that attracts media attention, while micro-influencers and UGC provide the authentic trust that converts awareness into bookings.
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Chapter 4: Global DMO Competitive Landscape -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-globe"></i> Chapter 4: Global DMO Competitive Landscape</h2>
+            <div class="main-section-content collapsed">
+                
+                <h3>4.1 GCC Competitive Strategy Analysis</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Destination</th>
+                            <th>Core Celebrity</th>
+                            <th>Strategic Model</th>
+                            <th>Risk Profile</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>SAUDI ARABIA</strong></td>
+                            <td>Lionel Messi</td>
+                            <td>Flagship Global Icon Strategy: Premium positioning via single mega-celebrity</td>
+                            <td><span class="crossmark">✗ High</span> Single-anchor dependency</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QATAR</strong></td>
+                            <td>David Beckham</td>
+                            <td>Prestige & Yield: High-value luxury positioning</td>
+                            <td><span class="crossmark">✗ High</span> "Sportswashing" criticism</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DUBAI</strong></td>
+                            <td>Multi-Celebrity Portfolio + #MyDubai</td>
+                            <td>Celebrity+UGC Hybrid: Campaign rotation model</td>
+                            <td><span class="checkmark">✓ Low</span> Distributed risk</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ABU DHABI</strong></td>
+                            <td>Multi-Vector Portfolio</td>
+                            <td>Precision & Market-Specific Partnerships</td>
+                            <td><span class="checkmark">✓ Low-Moderate</span> Portfolio mitigation</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="highlight-box success">
+                    <h4><i class="fas fa-trophy"></i> Abu Dhabi's Strategic Edge</h4>
+                    <p style="color: #ffffff; margin-bottom: 15px;"><strong>The Portfolio Approach:</strong></p>
+                    <ul style="margin: 0; padding-left: 20px; color: #ffffff;">
+                        <li>Chris Hemsworth/Elsa Pataky → Global families</li>
+                        <li>Deepika Padukone/Ranveer Singh → India market</li>
+                        <li>Liu Yifei → China market</li>
+                        <li>Basta → Russia market</li>
+                        <li>Regional Arab celebrities → MENA authenticity</li>
+                    </ul>
+                    <p style="color: #ffffff; margin-top: 15px;"><strong>Result:</strong> #1 travel destination on TikTok (organic engagement). Not dependent on one person. Each celebrity serves a specific strategic purpose.</p>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Chapter 5: Risk & Governance -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-shield-alt"></i> Chapter 5: Risk, Governance & The Authenticity Mandate</h2>
+            <div class="main-section-content collapsed">
+                
+                <h3>5.1 The Crisis Factor</h3>
+                
+                <div class="highlight-box">
+                    <h4><i class="fas fa-exclamation-triangle"></i> The $12 Billion Risk</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        Celebrity partnerships carry catastrophic downside risk. The Tiger Woods scandal resulted in an estimated $12 billion in investor losses for associated companies. This demonstrates that the financial exposure from celebrity misconduct can dwarf the initial investment, making robust governance non-negotiable.
+                    </p>
+                </div>
+                
+                <h3>5.2 Governance Framework</h3>
+                
+                <div class="framework-box">
+                    <h4>Mandatory Risk Mitigation Measures</h4>
+                    <div class="framework-list">
+                        <li><strong>Pre-Contract Phase:</strong> Comprehensive background checks, ethical alignment assessment, supply chain due diligence</li>
+                        <li><strong>Contract Phase:</strong> Mandatory morality clauses with termination rights, performance-based KPIs, EMV measurement methodology</li>
+                        <li><strong>Crisis Management:</strong> 24-hour response protocols, monitoring systems across all channels</li>
+                        <li><strong>Portfolio Diversification:</strong> Distribute risk across multiple partnerships to avoid single point of failure</li>
+                    </div>
+                </div>
+                
+                <h3>5.3 The Authenticity Evolution</h3>
+                
+                <p>Gen Z and Millennials increasingly trust content creators over mainstream celebrities. Platform-native content outperforms polished commercials. Long-term partnerships signal authenticity over transactional one-offs.</p>
+                
+                <div class="info-card">
+                    <h4>Abu Dhabi's Authentication Strategy</h4>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff;">
+                        <li>#1 on TikTok demonstrates platform-native execution</li>
+                        <li>Multi-year Hemsworth partnership ensures sustained engagement</li>
+                        <li>Pre-existing relationship (F1 2023 visit) signals genuine interest</li>
+                        <li>Authentic connection (love for Surf Abu Dhabi) enhances credibility</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Chapter 6: The Chris Hemsworth Case Study -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-star"></i> Chapter 6: Case Study - Chris Hemsworth & Abu Dhabi</h2>
+            <div class="main-section-content collapsed">
+            
+            <div class="hero-statement" style="background: linear-gradient(135deg, rgba(52, 168, 83, 0.1), rgba(52, 168, 83, 0.05)); border-color: var(--secondary);">
+                "Theory Meets Practice: Why Hemsworth Exemplifies Every Strategic Principle"
+            </div>
+            
+            <h3>6.1 Perfect Congruence: The Match-Up in Action</h3>
+            
+            <table>
+                    <thead>
+                        <tr>
+                            <th>Abu Dhabi Offering</th>
+                            <th>Hemsworth Lifestyle</th>
+                            <th>Alignment Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Surf Abu Dhabi</td>
+                            <td>Avid surfer</td>
+                            <td><span class="checkmark">✓</span> Authentic passion match</td>
+                        </tr>
+                        <tr>
+                            <td>Yas Island theme parks</td>
+                            <td>Family entertainment focus</td>
+                            <td><span class="checkmark">✓</span> Family-oriented credibility</td>
+                        </tr>
+                        <tr>
+                            <td>Mangrove kayaking</td>
+                            <td>Outdoor adventure enthusiast</td>
+                            <td><span class="checkmark">✓</span> Lifestyle congruence</td>
+                        </tr>
+                        <tr>
+                            <td>Louvre Abu Dhabi</td>
+                            <td>Cultural appreciation</td>
+                            <td><span class="checkmark">✓</span> Sophistication alignment</td>
+                        </tr>
+                        <tr>
+                            <td>Fitness facilities</td>
+                            <td>Wellness advocate (Centr app)</td>
+                            <td><span class="checkmark">✓</span> Expertise validation</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>6.2 Source Credibility: Trust & Expertise Validation</h3>
+                
+                <div class="comparison-grid">
+                    <div class="info-card">
+                        <h4><i class="fas fa-graduation-cap"></i> Expertise Dimension</h4>
+                        <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff;">
+                            <li><strong>Lifestyle Expert:</strong> Fitness app (Centr), wellness advocacy</li>
+                            <li><strong>Family Expert:</strong> Public devotion to parenting, family content</li>
+                            <li><strong>Adventure Expert:</strong> Known for outdoor activities, surfing</li>
+                            <li><strong>Authenticity:</strong> Not just image - genuine practice</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4><i class="fas fa-handshake"></i> Trustworthiness Dimension</h4>
+                        <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff;">
+                            <li><strong>Pre-existing relationship:</strong> Visited Abu Dhabi F1 2023</li>
+                            <li><strong>Leadership connection:</strong> Met with DCT leadership</li>
+                            <li><strong>Genuine interest:</strong> Expressed authentic love for Surf Abu Dhabi</li>
+                            <li><strong>Rare commitment:</strong> Willing to feature children in production</li>
+                            <li><strong>Long-term deal:</strong> 2-year partnership (not transactional)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h4>The Dual-Credibility Effect: Partner Validation</h4>
+                
+                <p>While Chris Hemsworth provides the primary celebrity reach and adventure credibility, <strong>Elsa Pataky's independent endorsement multiplies the trust signal</strong> through partner validation.</p>
+                
+                <div class="quote-box">
+                    <strong>Elsa Pataky:</strong> "My kids have fallen in love with Abu Dhabi... it gives them a playground for all the things they want to do"
+                </div>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-users"></i> Why This Matters Strategically</h4>
+                    
+                    <p style="margin-bottom: 15px;"><strong>1. Mother's Validation:</strong> Elsa speaks as a parent observing her children's genuine reactions, not as a paid endorser. This directly addresses the critical barrier: "No entertainment for children."</p>
+                    
+                    <p style="margin-bottom: 15px;"><strong>2. Independent Voice:</strong> Her statement is distinct from Chris's adventure focus, proving both partners independently chose to endorse. A key authenticity signal.</p>
+                    
+                    <p style="margin-bottom: 15px;"><strong>3. Family Decision-Maker:</strong> Mothers typically drive family vacation decisions. Elsa's voice reaches the primary booking decision-maker in family travel.</p>
+                    
+                    <p style="margin-bottom: 15px;"><strong>4. Spanish-Speaking Markets:</strong> As a Spanish actress (6.2M followers), Elsa extends reach into Latin America and Spain where Chris may have lower recognition.</p>
+                    
+                    <div style="background-color: var(--primary-light); padding: 16px; border-radius: 8px; margin-top: 20px; border-left: 4px solid var(--primary);">
+                        <p style="color: var(--primary-dark); font-weight: 600; margin: 0;">
+                            <i class="fas fa-certificate" style="margin-right: 8px;"></i>The Multiplier Effect: When both partners in a high-profile couple endorse, credibility doesn't simply add, it multiplies. Each validates the other's judgment, creating a reinforcing loop of trust.
+                        </p>
+                    </div>
+                </div>
+                
+                <h3>6.3 Meaning Transfer: Traits That Migrate to Abu Dhabi</h3>
+                
+                <div class="strategy-card">
+                    <h4>How Hemsworth's Image Reshapes Abu Dhabi Perceptions</h4>
+                    
+                    <table style="margin-top: 20px;">
+                        <thead>
+                            <tr>
+                                <th>Hemsworth Trait</th>
+                                <th>→</th>
+                                <th>Abu Dhabi Association</th>
+                                <th>Barrier Addressed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Approachable (humble personality)</td>
+                                <td style="text-align: center;">→</td>
+                                <td>Welcoming destination (not intimidating)</td>
+                                <td>"Too restrictive"</td>
+                            </tr>
+                            <tr>
+                                <td>Adventurous (outdoor lifestyle)</td>
+                                <td style="text-align: center;">→</td>
+                                <td>Diverse activities (not just luxury)</td>
+                                <td>"Nothing to do"</td>
+                            </tr>
+                            <tr>
+                                <td>Family-oriented (devoted father)</td>
+                                <td style="text-align: center;">→</td>
+                                <td>Multigenerational appeal</td>
+                                <td>"No entertainment for children"</td>
+                            </tr>
+                            <tr>
+                                <td>Fitness-focused (wellness advocate)</td>
+                                <td style="text-align: center;">→</td>
+                                <td>Health & wellness destination</td>
+                                <td>"Too fake/not authentic"</td>
+                            </tr>
+                            <tr>
+                                <td>Relatable (down-to-earth despite fame)</td>
+                                <td style="text-align: center;">→</td>
+                                <td>Accessible to all (not too expensive)</td>
+                                <td>"Too expensive"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3>6.4 Strategic Advantages Over Competitors</h3>
+                
+                <div class="highlight-box success">
+                    <h4><i class="fas fa-chess-queen"></i> Abu Dhabi's Competitive Position</h4>
+                    <p style="color: #ffffff; margin-bottom: 15px;"><strong>vs. Saudi Arabia (Ronaldo):</strong> Portfolio approach vs. single-anchor dependency. If Ronaldo faces issues, entire strategy exposed. Abu Dhabi continues with Padukone, Liu Yifei, Basta, regional celebrities.</p>
+                    <p style="color: #ffffff; margin-bottom: 15px;"><strong>vs. Qatar (Beckham):</strong> Pre-existing relationship vs. pure transaction. Hemsworth visited F1 2023, expressed genuine interest. Beckham faced "sportswashing" criticism for praising Qatar as "perfection."</p>
+                    <p style="color: #ffffff; margin: 0;"><strong>vs. Dubai (Campaign Rotation):</strong> Both employ celebrity+UGC hybrid models. Dubai rotates celebrities across campaigns (Shah Rukh Khan, Korean actors, Hollywood stars). Abu Dhabi's differentiation: sustained market-specific partnerships (Hemsworth for global families, Padukone for India, Liu Yifei for China, Basta for Russia) vs. campaign-based celebrity rotation. Different execution of the same hybrid strategy.</p>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Chapter 7: Global Excellence -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-trophy"></i> Chapter 7: Global Excellence - Case Studies Across Industries</h2>
+            <div class="main-section-content collapsed">
+            
+            <div class="hero-statement">
+                "Theory becomes practice: How global brands across industries have executed successful celebrity partnerships"
+            </div>
+            
+            <p style="font-size: 1.05rem; margin-bottom: 30px;">
+                The principles outlined in previous chapters aren't theoretical. They're proven across industries. These case studies demonstrate how congruence, credibility, and authenticity create measurable commercial impact when properly executed.
+            </p>
+            
+            <h3>7.1 Consumer Goods: George Clooney x Nespresso</h3>
+            
+            <div class="info-card" style="border-left: 4px solid var(--warning);">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                    <i class="fas fa-coffee" style="font-size: 2.5rem; color: var(--warning);"></i>
+                    <div>
+                        <h4 style="margin: 0; color: var(--warning);">The Long-Term Partnership Model</h4>
+                        <p style="margin: 5px 0 0 0; color: var(--gray-600); font-size: 0.9rem;">
+                            <i class="fas fa-calendar-alt"></i> 2006–Present (19+ years) | 
+                            <i class="fas fa-handshake"></i> Brand Ambassador & Equity Partner
+                        </p>
+                    </div>
+                </div>
+                
+                <h4><i class="fas fa-chart-line"></i> Impact & Results</h4>
+                <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>Sales Performance:</strong> Sales reportedly tripled within Clooney's first few years</li>
+                    <li><strong>Brand Transformation:</strong> Nespresso became a symbol of sophistication and sustainability</li>
+                    <li><strong>Cultural Integration:</strong> Clooney's ads became iconic parts of brand narrative</li>
+                    <li><strong>Authentic Commitment:</strong> Joined sustainability advisory board, lending credibility to environmental messaging</li>
+                    <li><strong>Longevity:</strong> 19+ year partnership demonstrates sustained value beyond short-term campaign</li>
+                </ul>
+                
+                <div style="background-color: var(--warning-light); padding: 20px; border-radius: 8px; margin-top: 20px;">
+                    <h4 style="color: var(--warning); margin-bottom: 10px;"><i class="fas fa-lightbulb"></i> Why It Worked</h4>
+                    <p style="color: #ffffff; margin: 0; line-height: 1.7;">
+                        Perfect lifestyle fit (sophisticated, globally-minded consumer), long-term alignment demonstrating commitment rather than transaction, and Clooney's credibility across global markets. The equity partnership created authentic financial alignment, where Clooney's success is tied directly to brand success.
                     </p>
                 </div>
             </div>
             
-            <h3>Meaning Transfer in Action</h3>
+            <h3>7.2 Gaming/Culture: Travis Scott x PlayStation</h3>
             
-            <table>
-                <thead>
-                    <tr>
-                        <th>Hemsworth Trait</th>
-                        <th>→</th>
-                        <th>Abu Dhabi Association</th>
-                        <th>Barrier Addressed</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Approachable</td>
-                        <td style="text-align: center;">→</td>
-                        <td>Welcoming (not intimidating)</td>
-                        <td>"Too restrictive"</td>
-                    </tr>
-                    <tr>
-                        <td>Adventurous</td>
-                        <td style="text-align: center;">→</td>
-                        <td>Diverse activities</td>
-                        <td>"Nothing to do"</td>
-                    </tr>
-                    <tr>
-                        <td>Family-oriented</td>
-                        <td style="text-align: center;">→</td>
-                        <td>Multigenerational appeal</td>
-                        <td>"No entertainment for children"</td>
-                    </tr>
-                    <tr>
-                        <td>Fitness-focused</td>
-                        <td style="text-align: center;">→</td>
-                        <td>Health & wellness destination</td>
-                        <td>"Not authentic"</td>
-                    </tr>
-                    <tr>
-                        <td>Relatable</td>
-                        <td style="text-align: center;">→</td>
-                        <td>Accessible to all</td>
-                        <td>"Too expensive"</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-        </section>
-
-        <!-- Part 3: Competitive Context -->
-        <section class="section">
-            <h2><i class="fas fa-globe"></i> Part 3: Competitive Context - Abu Dhabi's Strategic Edge</h2>
-            
-            <h3>GCC Celebrity Strategy Comparison</h3>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Destination</th>
-                        <th>Core Celebrity</th>
-                        <th>Strategic Model</th>
-                        <th>Risk Profile</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>SAUDI ARABIA</strong></td>
-                        <td>Cristiano Ronaldo</td>
-                        <td>Volume & Scale: Rapid transformation</td>
-                        <td><span class="crossmark">✗ High</span> Single-anchor dependency</td>
-                    </tr>
-                    <tr>
-                        <td><strong>QATAR</strong></td>
-                        <td>David Beckham</td>
-                        <td>Prestige & Yield: Luxury positioning</td>
-                        <td><span class="crossmark">✗ High</span> "Sportswashing" criticism</td>
-                    </tr>
-                    <tr>
-                        <td><strong>DUBAI</strong></td>
-                        <td>Multi-Celebrity Portfolio + #MyDubai</td>
-                        <td>Celebrity+UGC Hybrid: Campaign rotation</td>
-                        <td><span class="checkmark">✓ Low</span> Distributed risk</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ABU DHABI</strong></td>
-                        <td>Multi-Vector Portfolio</td>
-                        <td>Precision & Market-Specific</td>
-                        <td><span class="checkmark">✓ Low-Moderate</span> Portfolio mitigation</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="highlight-box success">
-                <h4><i class="fas fa-trophy"></i> Abu Dhabi's Strategic Advantage: The Portfolio Approach</h4>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px;">
+            <div class="info-card" style="border-left: 4px solid var(--primary);">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                    <i class="fas fa-gamepad" style="font-size: 2.5rem; color: var(--primary);"></i>
                     <div>
-                        <p style="margin-bottom: 10px;"><strong>Market-Specific Precision:</strong></p>
-                        <ul style="padding-left: 20px; color: #ffffff; line-height: 1.7;">
-                            <li>Chris Hemsworth/Elsa Pataky → Global families</li>
-                            <li>Deepika Padukone/Ranveer Singh → India</li>
-                            <li>Liu Yifei → China</li>
-                            <li>Basta → Russia</li>
-                            <li>Regional Arab celebrities → MENA</li>
-                        </ul>
+                        <h4 style="margin: 0; color: var(--primary);">The Cultural Event Model</h4>
+                        <p style="margin: 5px 0 0 0; color: var(--gray-600); font-size: 0.9rem;">
+                            <i class="fas fa-calendar-alt"></i> 2020–Present | 
+                            <i class="fas fa-handshake"></i> Strategic Creative Partner
+                        </p>
                     </div>
-                    <div>
-                        <p style="margin-bottom: 10px;"><strong>Competitive Differentiation:</strong></p>
-                        <ul style="padding-left: 20px; color: #ffffff; line-height: 1.7;">
-                            <li><strong>vs. Saudi:</strong> Portfolio vs. single-anchor</li>
-                            <li><strong>vs. Qatar:</strong> Pre-existing relationships vs. transaction</li>
-                            <li><strong>vs. Dubai:</strong> Sustained partnerships vs. campaign rotation</li>
-                            <li><strong>Result:</strong> #1 on TikTok (organic engagement)</li>
-                        </ul>
-                    </div>
+                </div>
+                
+                <h4><i class="fas fa-chart-line"></i> Impact & Results</h4>
+                <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                    <li><strong>Launch Transformation:</strong> Announced as PlayStation's Strategic Creative Partner for PS5 global launch (October 2020)</li>
+                    <li><strong>Content Creation:</strong> Released cinematic promo featuring engineers and designers</li>
+                    <li><strong>Limited Edition Success:</strong> Cactus Jack x PlayStation apparel and co-branded Nike sneakers sold out instantly</li>
+                    <li><strong>Viral Amplification:</strong> Generated massive social media hype and cultural conversation</li>
+                    <li><strong>Cultural Positioning:</strong> Elevated PS5 from tech product to lifestyle and cultural brand</li>
+                </ul>
+                
+                <div style="background-color: var(--primary-light); padding: 20px; border-radius: 8px; margin-top: 20px;">
+                    <h4 style="color: var(--primary); margin-bottom: 10px;"><i class="fas fa-lightbulb"></i> Why It Worked</h4>
+                    <p style="color: #ffffff; margin: 0; line-height: 1.7;">
+                        PlayStation tapped into Travis Scott's deep cultural cachet and credibility across music, fashion, and digital worlds. The partnership turned the PS5 launch into a cultural event rather than just a tech release, demonstrating how celebrity partnerships can transform product categories.
+                    </p>
                 </div>
             </div>
             
-            <h3>Investment Scale & The Earned Media Multiplier</h3>
-            
-            <div class="metric-grid">
-                <div class="metric-card">
-                    <div class="metric-value">$130M</div>
-                    <div class="metric-label"><strong>Tourism Australia</strong><br>Global campaign budget</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">$689M</div>
-                    <div class="metric-label"><strong>Equivalent Ad Value</strong><br>Generated by content</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">5.3x</div>
-                    <div class="metric-label"><strong>Multiplier</strong><br>Earned media amplification</div>
-                </div>
-            </div>
-            
-            <p style="margin-top: 20px; color: var(--gray-700);">
-                <strong>The Multiplier Principle:</strong> Celebrity partnerships function as high-impact content generation engines. Tourism Australia demonstrates how earned media multiplies initial investment by 5.3x, validating the strategic approach.
-            </p>
-            
-        </section>
-
-        <!-- Part 4: Celebrity vs Influencer Strategy -->
-        <section class="section">
-            <h2><i class="fas fa-balance-scale"></i> Part 4: Celebrity vs. Influencer - The Full-Funnel Strategy</h2>
-            
-            <p style="font-size: 1.05rem; margin-bottom: 25px;">
-                Modern destination marketing requires understanding that celebrities and influencers serve fundamentally different strategic purposes. The optimal strategy is not either/or but strategic deployment by objective.
-            </p>
-            
-            <h3>Reach vs. Resonance Framework</h3>
+            <h3>7.3 Strategic Synthesis: Common Success Factors</h3>
             
             <div class="comparison-grid">
-                <div class="comparison-card celebrity">
-                    <h4><i class="fas fa-bullhorn"></i> CELEBRITY ENDORSEMENT</h4>
-                    <ul style="list-style: none; padding: 0; margin: 15px 0;">
-                        <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-star" style="color: var(--warning); margin-right: 8px;"></i> <strong>Goal:</strong> Mass Awareness, Brand Elevation</li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-chart-line" style="color: var(--warning); margin-right: 8px;"></i> <strong>Performance:</strong> 1-3% Engagement, Massive Reach</li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-dollar-sign" style="color: var(--warning); margin-right: 8px;"></i> <strong>Cost:</strong> High Investment, High EMV</li>
-                        <li style="padding: 8px 0;"><i class="fas fa-user-tie" style="color: var(--warning); margin-right: 8px;"></i> <strong>Perception:</strong> Aspirational, Prestigious</li>
-                    </ul>
+                <div class="info-card" style="border: 2px solid var(--secondary);">
+                    <h4 style="color: var(--secondary);"><i class="fas fa-clock"></i> Long-Term Commitment</h4>
+                    <p style="color: #ffffff;">All successful partnerships span <strong>multiple years</strong> (minimum 4+ years, many 10-20+ years). This signals authentic commitment over transactional campaigns.</p>
                 </div>
                 
-                <div class="comparison-card influencer">
-                    <h4><i class="fas fa-users"></i> MICRO-INFLUENCER MARKETING</h4>
-                    <ul style="list-style: none; padding: 0; margin: 15px 0;">
-                        <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-heart" style="color: var(--secondary); margin-right: 8px;"></i> <strong>Goal:</strong> Deep Engagement, Community Trust</li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-chart-line" style="color: var(--secondary); margin-right: 8px;"></i> <strong>Performance:</strong> 7-9% Engagement, Targeted Reach</li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-dollar-sign" style="color: var(--secondary); margin-right: 8px;"></i> <strong>Cost:</strong> Moderate Investment, Superior Multiplier</li>
-                        <li style="padding: 8px 0;"><i class="fas fa-user-friends" style="color: var(--secondary); margin-right: 8px;"></i> <strong>Perception:</strong> Relatable, Authentic</li>
-                    </ul>
+                <div class="info-card" style="border: 2px solid var(--secondary);">
+                    <h4 style="color: var(--secondary);"><i class="fas fa-puzzle-piece"></i> Perfect Congruence</h4>
+                    <p style="color: #ffffff;">Each celebrity's lifestyle, values, and image align seamlessly with brand positioning, such as Clooney's sophistication and Scott's cultural influence.</p>
+                </div>
+                
+                <div class="info-card" style="border: 2px solid var(--secondary);">
+                    <h4 style="color: var(--secondary);"><i class="fas fa-heart"></i> Authentic Integration</h4>
+                    <p style="color: #ffffff;">Beyond paid endorsement through equity partnerships (Clooney), advisory roles, personal storytelling, and creative collaboration (Scott).</p>
+                </div>
+                
+                <div class="info-card" style="border: 2px solid var(--secondary);">
+                    <h4 style="color: var(--secondary);"><i class="fas fa-chart-line"></i> Measurable Impact</h4>
+                    <p style="color: #ffffff;">Documented commercial results such as sales growth, market share gains, cultural buzz, and sustained brand elevation beyond initial campaign period.</p>
                 </div>
             </div>
             
-            <h3>The Full-Funnel Integration Model</h3>
-            
-            <div class="info-card" style="background: linear-gradient(135deg, rgba(66, 133, 244, 0.05), rgba(52, 168, 83, 0.05)); border-left: 4px solid var(--primary);">
-                <div style="background: linear-gradient(135deg, rgba(66, 133, 244, 0.15), rgba(66, 133, 244, 0.08)); padding: 20px; border-radius: 10px; margin: 15px 0; border: 2px solid rgba(66, 133, 244, 0.3);">
-                    <p style="text-align: center; color: var(--primary); font-weight: 700; font-size: 1.1rem; margin-bottom: 10px;">TOP OF FUNNEL (Awareness)</p>
-                    <p style="text-align: center; color: #ffffff; font-size: 1.05rem;"><strong>CELEBRITY:</strong> Mass visibility, instant buzz, brand elevation</p>
-                </div>
-                
-                <div style="text-align: center; margin: 15px 0;">
-                    <i class="fas fa-arrow-down" style="font-size: 2rem; color: var(--primary);"></i>
-                </div>
-                
-                <div style="background: linear-gradient(135deg, rgba(66, 133, 244, 0.15), rgba(66, 133, 244, 0.08)); padding: 20px; border-radius: 10px; margin: 15px 0; border: 2px solid rgba(66, 133, 244, 0.3);">
-                    <p style="text-align: center; color: var(--primary); font-weight: 700; font-size: 1.1rem; margin-bottom: 10px;">MIDDLE OF FUNNEL (Consideration)</p>
-                    <p style="text-align: center; color: #ffffff; font-size: 1.05rem;"><strong>MID-TIER INFLUENCERS:</strong> Targeted content, niche communities</p>
-                </div>
-                
-                <div style="text-align: center; margin: 15px 0;">
-                    <i class="fas fa-arrow-down" style="font-size: 2rem; color: var(--primary);"></i>
-                </div>
-                
-                <div style="background: linear-gradient(135deg, rgba(66, 133, 244, 0.15), rgba(66, 133, 244, 0.08)); padding: 20px; border-radius: 10px; margin: 15px 0; border: 2px solid rgba(66, 133, 244, 0.3);">
-                    <p style="text-align: center; color: var(--primary); font-weight: 700; font-size: 1.1rem; margin-bottom: 10px;">BOTTOM OF FUNNEL (Conversion)</p>
-                    <p style="text-align: center; color: #ffffff; font-size: 1.05rem;"><strong>MICRO-INFLUENCERS + UGC:</strong> Trust-building, peer validation, bookings</p>
-                </div>
+            <div class="quote-box">
+                <strong>The Pattern Across Industries:</strong> Whether consumer goods (Nespresso), gaming (PlayStation), sports apparel, automotive, or destination marketing, the principles remain constant: congruence, credibility, authenticity, and long-term commitment drive measurable commercial success.
             </div>
             
-            <div class="highlight-box">
-                <h4><i class="fas fa-check-circle"></i> Strategic Verdict</h4>
-                <p style="color: #ffffff; margin: 0;">
-                    The optimal strategy is strategic deployment by objective. Full-funnel effectiveness requires both. Celebrity partnerships generate awareness and prestige that attracts media attention, while micro-influencers and UGC provide the authentic trust that converts awareness into bookings. Abu Dhabi's approach integrates both through the portfolio model.
-                </p>
             </div>
-            
         </section>
 
         <!-- Conclusion -->
         <section class="section">
-            <h2><i class="fas fa-flag-checkered"></i> Conclusion: The Abu Dhabi Strategic Approach</h2>
-            
-            <div class="hero-statement" style="background: linear-gradient(135deg, rgba(52, 168, 83, 0.1), rgba(52, 168, 83, 0.05)); border-color: var(--secondary);">
-                "While competitors make single big bets, Abu Dhabi makes strategic, diversified investments. The result: a more resilient, more precise, more authentic approach to destination marketing."
-            </div>
+            <h2 class="main-section-header collapsed"><i class="fas fa-flag-checkered"></i> Conclusion</h2>
+            <div class="main-section-content collapsed">
             
             <h3>What We've Learned</h3>
             
-            <ul style="list-style: none; padding: 0; margin: 25px 0;">
-                <li style="padding: 12px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-check" style="color: var(--secondary); margin-right: 10px;"></i> <strong>Celebrity endorsement works because of psychology, not magic.</strong> Trust + Expertise + Right Fit = Effective persuasion</li>
-                <li style="padding: 12px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-check" style="color: var(--secondary); margin-right: 10px;"></i> <strong>The tool must match the goal.</strong> Celebrity for awareness, Influencer for conversion. Best approach: Use both strategically</li>
-                <li style="padding: 12px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-check" style="color: var(--secondary); margin-right: 10px;"></i> <strong>Context matters.</strong> Saudi uses scale, Qatar uses prestige, Abu Dhabi uses precision</li>
-                <li style="padding: 12px 0; border-bottom: 1px solid var(--gray-300);"><i class="fas fa-check" style="color: var(--secondary); margin-right: 10px;"></i> <strong>Risk can be managed.</strong> Portfolio diversification, genuine relationships, crisis preparedness</li>
-                <li style="padding: 12px 0;"><i class="fas fa-check" style="color: var(--secondary); margin-right: 10px;"></i> <strong>The Hemsworth partnership exemplifies every principle.</strong> Perfect congruence, high credibility, positive meaning transfer</li>
-            </ul>
-            
-            <div class="highlight-box success">
-                <h4><i class="fas fa-lightbulb"></i> Next Steps</h4>
-                <p style="color: #ffffff; margin: 0;">
-                    With the strategic "why" established, we now turn to "how" - the campaign execution, performance data, and measured impact across awareness, perception shifts, and market performance.
-                </p>
+            <div class="framework-list" style="margin: 25px 0;">
+                <li><strong>Celebrity endorsement works because of psychology, not magic.</strong> Trust + Expertise + Right Fit = Effective persuasion</li>
+                <li><strong>The tool must match the goal.</strong> Celebrity for awareness, Influencer for conversion. Best approach: Use both strategically</li>
+                <li><strong>Context matters.</strong> Saudi uses scale (rapid transformation), Qatar uses prestige (high-yield tourists), Abu Dhabi uses precision (sustainable, targeted growth)</li>
+                <li><strong>Risk can be managed.</strong> Portfolio diversification, genuine relationships, crisis preparedness</li>
+                <li><strong>The Hemsworth partnership exemplifies every principle.</strong> Perfect congruence, high credibility, positive meaning transfer, risk mitigation, timing optimization</li>
             </div>
             
+            <div class="hero-statement" style="background: linear-gradient(135deg, rgba(52, 168, 83, 0.1), rgba(52, 168, 83, 0.05)); border-color: var(--secondary);">
+                "While competitors make single big bets, Abu Dhabi makes strategic, diversified investments. The result is a more resilient, more precise, more authentic approach to destination marketing."
+            </div>
+            
+            <div class="quote-box">
+                <strong>Next Steps:</strong> With the strategic "why" established, we now turn to "how" - the campaign execution, performance data, and measured impact across awareness, perception shifts, and market performance.
+            </div>
+            
+            </div>
         </section>
 
         <!-- Continue Reading Navigation -->
@@ -760,5 +1268,21 @@
             </div>
         </footer>
     </div>
+    
+    <script>
+        // Collapsible sections functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const headers = document.querySelectorAll('.main-section-header');
+            headers.forEach(header => {
+                header.addEventListener('click', function() {
+                    this.classList.toggle('collapsed');
+                    const content = this.nextElementSibling;
+                    if (content && content.classList.contains('main-section-content')) {
+                        content.classList.toggle('collapsed');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
