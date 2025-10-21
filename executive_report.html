@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Report: Chris Hemsworth & Elsa Pataky Campaign | DCT Abu Dhabi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* SONER Logo Animation */
+        @keyframes sonerScan { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes sonerBlip { 0%, 20%, 100% { opacity: 0; } 2%, 15% { opacity: 1; } 3% { transform: scale(1.2); } }
+        
+        .soner-logo { display: flex; align-items: center; color: white; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 300; }
+        .soner-radar { width: 24px; height: 24px; border-radius: 50%; border: 1px solid white; margin: 0 3px; position: relative; background-color: rgba(255, 255, 255, 0.05); overflow: hidden; }
+        .soner-scanner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: sonerScan 4s linear infinite; transform-origin: center; }
+        .soner-scanner::before { content: ''; position: absolute; top: 50%; left: 50%; width: 50%; height: 50%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4)); transform-origin: bottom left; clip-path: polygon(0 0, 100% 0, 0 100%); }
+        .soner-scanner::after { content: ''; position: absolute; top: 0; left: 50%; width: 50%; height: 1px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1)); transform-origin: left center; box-shadow: 0 0 4px rgba(255, 255, 255, 0.8); }
+        .soner-blip { position: absolute; width: 2px; height: 2px; background-color: white; border-radius: 50%; opacity: 0; box-shadow: 0 0 4px white; }
+        .soner-blip:nth-child(1) { top: 25%; left: 30%; animation: sonerBlip 4s 1s infinite; }
+        .soner-blip:nth-child(2) { top: 65%; left: 60%; animation: sonerBlip 4s 2.5s infinite; }
+        .soner-tagline { color: white; font-size: 8px; text-transform: uppercase; font-weight: 500; letter-spacing: 0.5em; margin-left: 10px; opacity: 0.8; }
+        
+        :root {
+            --primary: #4285f4;
+            --primary-light: #1a2233;
+            --primary-dark: #8ab4f8;
+            --secondary: #34a853;
+            --secondary-light: #1a2a1e;
+            --warning: #fbbc04;
+            --warning-light: #332a1a;
+            --danger: #ea4335;
+            --danger-light: #331f1e;
+            --gray-100: #1e1e1e;
+            --gray-200: #2d2d2d;
+            --gray-300: #3d3d3d;
+            --gray-400: #4d4d4d;
+            --gray-500: #777777;
+            --gray-600: #a0a0a0;
+            --gray-700: #c0c0c0;
+            --gray-800: #e0e0e0;
+            --gray-900: #f0f0f0;
+            --bg-color: #000000;
+            --card-bg: #121212;
+            --section-bg: #181818;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: #ffffff;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        
+        header {
+            background: linear-gradient(135deg, #1a73e8, #174ea6);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 600; line-height: 1.2; }
+        .subtitle { font-size: 1.2rem; opacity: 0.9; margin-bottom: 20px; }
+        h2 { 
+            font-size: 1.8rem; 
+            color: var(--primary); 
+            margin: 40px 0 25px; 
+            border-bottom: 2px solid var(--primary); 
+            padding-bottom: 12px;
+            font-weight: 600;
+        }
+        h3 { 
+            font-size: 1.4rem; 
+            color: var(--primary-dark); 
+            margin: 30px 0 18px;
+            font-weight: 600;
+        }
+        h4 {
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin: 20px 0 12px;
+            font-weight: 600;
+        }
+        
+        .section {
+            background-color: var(--section-bg);
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .hero-statement {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            text-align: center;
+            margin: 30px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .metric-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--gray-300);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(66, 133, 244, 0.3);
+        }
+        
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            font-size: 0.95rem;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+        
+        .quote-box {
+            background-color: var(--gray-200);
+            border-left: 4px solid var(--secondary);
+            padding: 25px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #ffffff;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.7;
+        }
+        
+        .quote-box strong {
+            color: var(--primary-dark);
+            font-style: normal;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(234, 67, 53, 0.1), rgba(234, 67, 53, 0.05));
+            border: 2px solid var(--danger);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .highlight-box h4 {
+            color: var(--danger);
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box.success {
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.1), rgba(52, 168, 83, 0.05));
+            border-color: var(--secondary);
+        }
+        
+        .highlight-box.success h4 {
+            color: var(--secondary);
+        }
+        
+        .highlight-box.info {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+            border-color: var(--primary);
+        }
+        
+        .highlight-box.info h4 {
+            color: var(--primary);
+        }
+        
+        .highlight-box.warning {
+            background: linear-gradient(135deg, rgba(251, 188, 4, 0.1), rgba(251, 188, 4, 0.05));
+            border-color: var(--warning);
+        }
+        
+        .highlight-box.warning h4 {
+            color: var(--warning);
+        }
+        
+        .info-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .info-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        thead tr {
+            background-color: var(--gray-200);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-dark);
+            border-right: 1px solid var(--gray-300);
+        }
+        
+        th:last-child {
+            border-right: none;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--gray-300);
+            border-right: 1px solid var(--gray-300);
+        }
+        
+        td:last-child {
+            border-right: none;
+        }
+        
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tbody tr:hover {
+            background-color: var(--gray-200);
+        }
+        
+        .main-section-header {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-right: 30px;
+            transition: color 0.2s ease;
+        }
+        
+        .main-section-header:hover { 
+            color: var(--primary-dark); 
+        }
+        
+        .main-section-header:after {
+            content: '\f078';
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            font-size: 0.8em;
+        }
+        
+        .main-section-header.collapsed:after {
+            transform: translateY(-50%) rotate(-90deg);
+        }
+        
+        .main-section-content {
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.3s ease-out;
+            max-height: 9999px;
+            opacity: 1;
+        }
+        
+        .main-section-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .positive { color: var(--secondary); font-weight: bold; }
+        .negative { color: var(--danger); font-weight: bold; }
+        .neutral { color: var(--warning); font-weight: bold; }
+        
+        .breadcrumb {
+            background: linear-gradient(135deg, rgba(26, 35, 51, 0.6), rgba(26, 35, 51, 0.4));
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            color: var(--gray-700);
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb-nav a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .breadcrumb-nav a:hover {
+            color: var(--primary-dark);
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 10px;
+            color: var(--gray-500);
+        }
+        
+        .breadcrumb-current {
+            color: var(--gray-700);
+        }
+        
+        .market-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .market-card.uk { border-left-color: var(--secondary); }
+        .market-card.usa { border-left-color: var(--primary); }
+        .market-card.germany { border-left-color: var(--warning); }
+        .market-card.france { border-left-color: var(--danger); }
+        
+        footer {
+            background-color: var(--gray-100);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--gray-300);
+            color: #ffffff;
+        }
+        
+        @media screen and (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.2rem; }
+            .section { padding: 25px; }
+            .metric-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 15px;">
+                <div class="soner-logo">
+                    S<div class="soner-radar">
+                        <div class="soner-scanner"></div>
+                        <div class="soner-blip"></div>
+                        <div class="soner-blip"></div>
+                    </div>NER
+                    <span class="soner-tagline">Strategic Intelligence</span>
+                </div>
+            </div>
+            <h1>Executive Report</h1>
+            <p class="subtitle">Chris Hemsworth & Elsa Pataky Global Brand Ambassador Campaign</p>
+            <p>Strategic Analysis and Performance Assessment</p>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Campaign Repository</a>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-current">Executive Report</span>
+            </nav>
+        </div>
+    </div>
+    
+    <div class="container">
+        
+        <!-- Campaign Details -->
+        <div style="text-align: center; padding: 20px 0; color: var(--gray-700); font-size: 1.05rem;">
+            <p style="margin: 5px 0;"><strong style="color: var(--primary-dark);">Campaign Period:</strong> November 2024 - March 2025</p>
+            <p style="margin: 5px 0;"><strong style="color: var(--primary-dark);">Markets Analyzed:</strong> USA, United Kingdom, Germany, France</p>
+            <p style="margin: 5px 0;"><strong style="color: var(--primary-dark);">Partnership Duration:</strong> 2-Year Agreement (November 2024 - November 2026)</p>
+        </div>
+        
+        <!-- Executive Summary -->
+        <section class="section">
+            <h2 class="main-section-header"><i class="fas fa-chart-line"></i> Executive Summary</h2>
+            <div class="main-section-content">
+                
+                <div class="hero-statement">
+                    "The Department of Culture and Tourism – Abu Dhabi's inaugural global brand ambassador campaign featuring Chris Hemsworth and Elsa Pataky represents a strategic inflection point in destination marketing effectiveness."
+                </div>
+                
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">7.9B</div>
+                        <div class="metric-label"><strong>Total Impressions</strong><br>Across 60 markets globally</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">88%</div>
+                        <div class="metric-label"><strong>Positive Sentiment</strong><br>vs 42% baseline average</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">+2.5pp</div>
+                        <div class="metric-label"><strong>Consideration Recovery</strong><br>42.2% to 44.7%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">100%</div>
+                        <div class="metric-label"><strong>Markets with Growth</strong><br>Only campaign period achieving this</div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box success">
+                    <h4><i class="fas fa-check-circle"></i> Critical Achievement</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        This was the <strong>only campaign period</strong> in recent history demonstrating positive brand health growth across all metrics and markets, validating the strategic decision to invest in celebrity endorsement over alternative approaches. The campaign's success was predicated on three foundational elements: exceptional celebrity-destination congruence, massive paid media amplification, and authentic family participation that transcended traditional transactional endorsement.
+                    </p>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Strategic Context and Rationale -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-chess-king"></i> Strategic Context and Rationale</h2>
+            <div class="main-section-content collapsed">
+                
+                <h3>The Celebrity Selection Framework</h3>
+                
+                <p style="color: #ffffff; margin-bottom: 25px;">
+                    Chris Hemsworth's selection was grounded in rigorous theoretical alignment across three validated psychological mechanisms:
+                </p>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-certificate"></i> 1. Source Credibility</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        Hemsworth entered the partnership with proven destination marketing expertise (Tourism Australia: $137.6M earned media value), establishing immediate trustworthiness and competence.
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-link"></i> 2. Thematic Congruence</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        Perfect alignment across adventure (Thor franchise, fitness authority), wellness (Centr app founder), and family positioning (married with three children featured in campaign).
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-handshake"></i> 3. Existing Relationship</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        Prior Abu Dhabi F1 2023 visit and genuine interest in Surf Abu Dhabi facility provided authentic foundation beyond transactional arrangement.
+                    </p>
+                </div>
+                
+                <h3>Competitive Positioning</h3>
+                
+                <p style="color: #ffffff; margin-bottom: 25px;">
+                    Abu Dhabi's approach strategically differentiated from regional competitors:
+                </p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Destination</th>
+                            <th>Strategy</th>
+                            <th>Celebrity</th>
+                            <th>Focus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Saudi Arabia</strong></td>
+                            <td>Single megastar strategy</td>
+                            <td>Cristiano Ronaldo</td>
+                            <td>Volume and perception shift</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Qatar</strong></td>
+                            <td>Prestige positioning</td>
+                            <td>David Beckham</td>
+                            <td>High-yield luxury segments</td>
+                        </tr>
+                        <tr style="background-color: rgba(52, 168, 83, 0.1);">
+                            <td><strong>Abu Dhabi</strong></td>
+                            <td>Diversified portfolio approach</td>
+                            <td>Chris Hemsworth & Elsa Pataky</td>
+                            <td>Global reach with market-specific risk mitigation</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </section>
+        
+        <!-- Campaign Performance Analysis -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-chart-bar"></i> Campaign Performance Analysis</h2>
+            <div class="main-section-content collapsed">
+                
+                <h3>Brand Health Transformation</h3>
+                
+                <p style="color: #ffffff; margin-bottom: 25px;">
+                    The celebrity campaign period (Q4 2024 - Q1 2025) delivered exceptional brand health improvements, standing in stark contrast to previous non-celebrity campaigns:
+                </p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campaign Period</th>
+                            <th>Type</th>
+                            <th>Performance</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Winter Q1 2024</strong></td>
+                            <td>Non-Celebrity</td>
+                            <td>Negative trajectory across all metrics</td>
+                            <td class="negative">Decline</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Summer Q2-Q3 2024</strong></td>
+                            <td>Non-Celebrity</td>
+                            <td>Flat despite strong ad recall</td>
+                            <td class="neutral">Stagnant</td>
+                        </tr>
+                        <tr style="background-color: rgba(52, 168, 83, 0.1);">
+                            <td><strong>Q4 2024 - Q1 2025</strong></td>
+                            <td><strong>Celebrity</strong></td>
+                            <td><strong>Positive growth across ALL markets and metrics</strong></td>
+                            <td class="positive">Success</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="quote-box">
+                    <strong>Key Achievement:</strong> First campaign period in recorded history showing universal positive correlation between marketing investment and brand health outcomes.
+                </div>
+                
+                <h3>The Awareness Paradox Resolution</h3>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-puzzle-piece"></i> The Challenge</h4>
+                    <p style="color: #ffffff; margin-bottom: 15px;">
+                        Despite generating 7.9 billion impressions, the "don't know enough about this place" barrier increased (+1pp overall, +4pp in Germany).
+                    </p>
+                    <p style="color: var(--primary-dark); margin: 0;">
+                        <strong>Resolution:</strong> Celebrity endorsement drives attention but requires complementary educational content for knowledge transfer. The awareness-education gap reveals that celebrity endorsement excels at creating interest but must be paired with substantive destination information.
+                    </p>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Key Findings and Strategic Paradoxes -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-lightbulb"></i> Key Findings and Strategic Paradoxes</h2>
+            <div class="main-section-content collapsed">
+                
+                <h3>1. The Unconscious Influence Phenomenon</h3>
+                
+                <div class="info-card" style="border-left: 4px solid var(--primary);">
+                    <h4><i class="fas fa-brain"></i> The Paradox</h4>
+                    <p style="color: #ffffff; margin-bottom: 15px;">
+                        Survey respondents ranked celebrity as lowest inspiration source (4-13%) yet campaign delivered strongest brand health improvements.
+                    </p>
+                    <p style="color: var(--primary-dark); margin: 0;">
+                        <strong>Resolution:</strong> Celebrity influence operates through unconscious mechanisms - trust transfer, cultural conversation, and aspirational association - that traditional surveys fail to capture. This validates the distinction between conscious decision criteria and actual behavioral drivers.
+                    </p>
+                </div>
+                
+                <h3>2. The France Paradox</h3>
+                
+                <div class="info-card" style="border-left: 4px solid var(--warning);">
+                    <h4><i class="fas fa-question-circle"></i> The Challenge</h4>
+                    <p style="color: #ffffff; margin-bottom: 10px;">
+                        <strong>Challenge:</strong> Weakest ad diagnostics (60% appeal, 19% brand association)<br>
+                        <strong>Result:</strong> Strong brand health growth (+2.4% intent, +2.2% consideration)
+                    </p>
+                    <p style="color: var(--primary-dark); margin: 0;">
+                        <strong>Implication:</strong> Celebrity campaigns generate value through unmeasured channels including earned media amplification, social conversation, and cultural impact that transcend traditional ad performance metrics.
+                    </p>
+                </div>
+                
+                <h3>3. Earned Media vs. Paid Media Reality</h3>
+                
+                <div class="highlight-box info">
+                    <h4><i class="fas fa-chart-pie"></i> Critical Finding</h4>
+                    <p style="color: #ffffff; margin-bottom: 15px;">
+                        99% of earned media value concentrated in announcement week ($131K of $133K total)
+                    </p>
+                    <p style="color: #ffffff; margin: 0;">
+                        <strong>Strategic Insight:</strong> Sustained brand health growth correlates with paid impression volume (+60-263% surge), not organic earned media. Celebrity partnerships function as amplifiers of paid media efficiency rather than generators of sustained organic buzz.
+                    </p>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Market-Specific Strategic Insights -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-globe"></i> Market-Specific Strategic Insights</h2>
+            <div class="main-section-content collapsed">
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 25px 0;">
+                    
+                    <div class="market-card uk">
+                        <h4 style="color: var(--secondary);"><i class="fas fa-crown"></i> United Kingdom: The Optimal Market</h4>
+                        <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                            <li><strong>Trust Foundation:</strong> 19% celebrity trust (highest among markets)</li>
+                            <li><strong>Performance:</strong> Strongest brand health improvements (+3.4% consideration)</li>
+                            <li><strong>Barrier Success:</strong> 4 of 6 barriers improved</li>
+                        </ul>
+                        <p style="color: var(--primary-dark); margin: 0;">
+                            <strong>Strategic Position:</strong> Validates that trust foundation enables superior celebrity ROI
+                        </p>
+                    </div>
+                    
+                    <div class="market-card usa">
+                        <h4 style="color: var(--primary);"><i class="fas fa-flag-usa"></i> United States: Quality Over Quantity</h4>
+                        <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                            <li><strong>Challenge:</strong> Lowest celebrity inspiration (4%) yet strong results</li>
+                            <li><strong>Success Factor:</strong> Highest ad appeal (93%) compensated for lower recall</li>
+                            <li><strong>Risk Area:</strong> Safety perception worsened (+2pp) despite being core message</li>
+                        </ul>
+                        <p style="color: var(--primary-dark); margin: 0;">
+                            <strong>Strategic Position:</strong> Quality over quantity approach validated
+                        </p>
+                    </div>
+                    
+                    <div class="market-card germany">
+                        <h4 style="color: var(--warning);"><i class="fas fa-exclamation-triangle"></i> Germany: The Awareness Trap</h4>
+                        <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                            <li><strong>Paradox:</strong> Highest celebrity inspiration (13%) but weakest results</li>
+                            <li><strong>Critical Finding:</strong> Awareness without trust fails to drive conversion</li>
+                            <li><strong>Key Learning:</strong> Knowledge gap widened (+4pp "don't know enough") despite massive impressions</li>
+                        </ul>
+                        <p style="color: var(--primary-dark); margin: 0;">
+                            <strong>Strategic Position:</strong> Requires mid-funnel optimization focus
+                        </p>
+                    </div>
+                    
+                    <div class="market-card france">
+                        <h4 style="color: var(--danger);"><i class="fas fa-puzzle-piece"></i> France: Hidden Value Dynamics</h4>
+                        <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                            <li><strong>Surface Challenge:</strong> Poor ad diagnostics across all metrics</li>
+                            <li><strong>Underlying Success:</strong> Strong brand growth through unmeasured influence channels</li>
+                            <li><strong>Strategic Implication:</strong> Traditional metrics undervalue celebrity impact in certain markets</li>
+                        </ul>
+                        <p style="color: var(--primary-dark); margin: 0;">
+                            <strong>Strategic Position:</strong> Requires creative localization strategy
+                        </p>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Strategic Implications -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-compass"></i> Strategic Implications</h2>
+            <div class="main-section-content collapsed">
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-check"></i> 1. Celebrity Endorsement Superiority Confirmed</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        The campaign definitively resolves the celebrity versus non-celebrity debate. Celebrity endorsement delivered measurably superior brand health outcomes when executed with strategic congruence, source credibility, and substantial paid amplification.
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-handshake"></i> 2. Trust Trumps Reach</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        Market performance directly correlates with pre-existing celebrity trust levels, not inspiration rankings or impression volume. The UK's success (19% trust) versus Germany's challenges (<18% trust despite 13% inspiration) validates trust as the critical success factor.
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-chart-area"></i> 3. Measurement Framework Evolution Required</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        Traditional metrics (earned media value, ad recall, social mentions) fail to capture the full value mechanism of celebrity endorsement. Success measurement must incorporate sentiment quality premiums, brand health correlation, and implicit influence channels.
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-rocket"></i> 4. The Leverage Strategy Validation</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        Abu Dhabi successfully leveraged Chris Hemsworth's existing $100M+ annual earned media value portfolio rather than attempting to build celebrity equity. The campaign represented only 0.13% of his total EMV yet generated superior sentiment quality (+46 percentage points above baseline).
+                    </p>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Strategic Recommendations -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-tasks"></i> Strategic Recommendations</h2>
+            <div class="main-section-content collapsed">
+                
+                <h3>Immediate Actions</h3>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-chart-pie"></i> 1. Optimize Market Investment Allocation</h4>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                        <li><strong>UK:</strong> Increase to 80-100% celebrity content (proven highest ROI)</li>
+                        <li><strong>USA:</strong> Maintain current levels with enhanced safety messaging</li>
+                        <li><strong>Germany:</strong> Implement hybrid strategy - celebrity for awareness, local voices for education</li>
+                        <li><strong>France:</strong> Reduce celebrity investment pending creative strategy revision</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-graduation-cap"></i> 2. Address the Awareness-Education Gap</h4>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                        <li>Layer educational content within celebrity campaigns</li>
+                        <li>Develop "Abu Dhabi 101" series for knowledge transfer</li>
+                        <li>Create market-specific deep-dive content addressing "don't know enough" barrier</li>
+                    </ul>
+                </div>
+                
+                <h3>Long-Term Strategic Evolution</h3>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-microscope"></i> 3. Evolve Measurement Frameworks</h4>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                        <li>Implement sentiment-adjusted metrics replacing raw EMV</li>
+                        <li>Track brand health correlation as primary success metric</li>
+                        <li>Develop implicit influence measurement capabilities</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-shield-alt"></i> 4. Risk Management Enhancement</h4>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                        <li>Maintain diversified celebrity portfolio approach</li>
+                        <li>Strengthen crisis communication protocols</li>
+                        <li>Monitor sentiment thresholds continuously (maintain >95% non-negative)</li>
+                    </ul>
+                </div>
+                
+                <h3>Partnership Optimization for Year 2</h3>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-palette"></i> 5. Creative Enhancement Priorities</h4>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                        <li>Improve brand association scores (currently 19-37% range)</li>
+                        <li>Address creative fatigue through planned refresh cycles</li>
+                        <li>Enhance destination focus to prevent celebrity overshadowing</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Celebrity Partnerships Across Industries -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-industry"></i> Celebrity Partnerships Across Industries</h2>
+            <div class="main-section-content collapsed">
+                
+                <p style="color: #ffffff; margin-bottom: 25px;">
+                    Based on our campaign analysis and industry benchmarking, celebrity partnerships demonstrate varying effectiveness across different sectors and approaches:
+                </p>
+                
+                <h3>Tourism vs Retail Celebrity Effectiveness</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sector</th>
+                            <th>Average ROI</th>
+                            <th>Key Success Factor</th>
+                            <th>Primary Challenge</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: rgba(52, 168, 83, 0.1);">
+                            <td><strong>Tourism (Abu Dhabi)</strong></td>
+                            <td>+2.5pp consideration lift</td>
+                            <td>Destination-celebrity congruence</td>
+                            <td>Education gap persistence</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Retail</strong></td>
+                            <td>15-20% sales uplift typical</td>
+                            <td>Product accessibility</td>
+                            <td>Attribution complexity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hospitality</strong></td>
+                            <td>+25% booking intent average</td>
+                            <td>Aspiration alignment</td>
+                            <td>Price sensitivity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Financial Services</strong></td>
+                            <td>+8% trust scores</td>
+                            <td>Credibility transfer</td>
+                            <td>Regulatory constraints</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Sports vs Entertainment Endorsements</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0;">
+                    <div class="info-card">
+                        <h4 style="color: var(--primary);"><i class="fas fa-running"></i> Sports Endorsements</h4>
+                        <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                            <li><strong>Strengths:</strong> Performance credibility, achievement association</li>
+                            <li><strong>Best for:</strong> Active lifestyle, competition-oriented products</li>
+                            <li><strong>Example:</strong> Cristiano Ronaldo (Saudi Arabia) - Volume focus</li>
+                            <li><strong>Risk:</strong> Performance-dependent value fluctuation</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h4 style="color: var(--secondary);"><i class="fas fa-film"></i> Entertainment Endorsements</h4>
+                        <ul style="margin: 15px 0; padding-left: 20px; color: #ffffff; line-height: 1.8;">
+                            <li><strong>Strengths:</strong> Broader demographic appeal, narrative flexibility</li>
+                            <li><strong>Best for:</strong> Lifestyle brands, experiential products</li>
+                            <li><strong>Example:</strong> Chris Hemsworth (Abu Dhabi) - Family positioning</li>
+                            <li><strong>Risk:</strong> Content release cycle dependency</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>Regional vs Global Ambassador Strategies</h3>
+                
+                <div class="highlight-box info">
+                    <h4><i class="fas fa-globe-americas"></i> Strategic Framework Comparison</h4>
+                    <p style="color: #ffffff; margin-bottom: 15px;">
+                        <strong>Regional Ambassadors:</strong> Higher trust concentration (20-30% in target markets), lower overall reach, cultural authenticity advantage, cost efficiency ratio 1:3
+                    </p>
+                    <p style="color: #ffffff; margin-bottom: 15px;">
+                        <strong>Global Ambassadors:</strong> Massive reach potential (Chris Hemsworth: 65M+ followers), cross-market efficiency, premium positioning capability, cost ratio 1:10
+                    </p>
+                    <p style="color: var(--primary-dark); margin: 0;">
+                        <strong>Abu Dhabi Strategy:</strong> Hybrid approach leveraging global reach with market-specific activations maximizes both efficiency and effectiveness.
+                    </p>
+                </div>
+                
+                <h3>The Family Positioning Advantage</h3>
+                
+                <div class="quote-box">
+                    <strong>Unique Differentiation:</strong> The Chris Hemsworth and Elsa Pataky dual-ambassador approach delivered unique value through authentic family experiences. This addressed the "not family-friendly" barrier more effectively than solo celebrity endorsements, with USA showing -4.0pp improvement in children entertainment perception. The family dynamic created content versatility unavailable to single celebrity partnerships, enabling targeting across demographics from adventure seekers to family travelers.
+                </div>
+                
+                <h3>Updated Earned Media Value Metrics</h3>
+                
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">$133K</div>
+                        <div class="metric-label"><strong>Earned Media EMV</strong><br>Total organic value generated</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">$32.4M</div>
+                        <div class="metric-label"><strong>PR AVE</strong><br>Advertising Value Equivalent</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">AED 108.7M</div>
+                        <div class="metric-label"><strong>Influencer Marketing Value</strong><br>Total influence ecosystem impact</div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Conclusion -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-flag-checkered"></i> Conclusion</h2>
+            <div class="main-section-content collapsed">
+                
+                <div class="hero-statement">
+                    "The Chris Hemsworth and Elsa Pataky campaign represents a watershed moment in destination marketing, proving that celebrity endorsement—when executed with strategic precision—delivers superior brand outcomes compared to all alternative approaches."
+                </div>
+                
+                <p style="color: #ffffff; margin-bottom: 25px; font-size: 1.05rem;">
+                    The campaign's success in achieving both reach and resonance, while maintaining 99% non-negative sentiment despite reputational challenges, validates the investment and strategic approach.
+                </p>
+                
+                <div class="highlight-box success">
+                    <h4><i class="fas fa-graduation-cap"></i> Critical Learning</h4>
+                    <p style="color: #ffffff; margin: 0;">
+                        Celebrity endorsement effectiveness is not inherent but contingent upon three non-negotiable factors: strategic congruence between celebrity and destination, pre-existing trust foundation in target markets, and massive paid media amplification to sustain impact beyond announcement effects.
+                    </p>
+                </div>
+                
+                <p style="color: #ffffff; margin-top: 25px; font-size: 1.05rem;">
+                    As the partnership enters Year 2, the focus must shift from validating the celebrity approach to optimizing market-specific strategies, addressing identified gaps in education and trust-building, and evolving measurement frameworks to capture the full spectrum of celebrity influence mechanisms.
+                </p>
+                
+                <div class="info-card" style="margin-top: 30px; border: 2px solid var(--primary);">
+                    <h4 style="color: var(--primary); text-align: center; font-size: 1.3rem;"><i class="fas fa-trophy"></i> Bottom Line</h4>
+                    <p style="color: #ffffff; margin: 15px 0 0 0; text-align: center; font-size: 1.1rem;">
+                        The celebrity campaign achieved what no other campaign could: universal positive growth across all markets and metrics, validating celebrity endorsement as the superior strategic approach for destination marketing when executed with precision and supported by adequate investment.
+                    </p>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Continue Reading Navigation -->
+        <section class="section" style="margin-top: 50px; background: linear-gradient(135deg, rgba(66, 133, 244, 0.08), rgba(66, 133, 244, 0.03)); border: 2px solid var(--primary);">
+            <div style="text-align: center; margin-bottom: 12px;">
+                <a href="index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--gray-700); text-decoration: none; font-size: 0.85rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--primary-dark)'" onmouseout="this.style.color='var(--gray-700)'">
+                    <i class="fas fa-arrow-left"></i> Back to Campaign Repository
+                </a>
+            </div>
+            
+            <div style="text-align: center;">
+                <h3 style="color: var(--primary-dark); margin-bottom: 12px; font-size: 1.2rem;">
+                    <i class="fas fa-book-open"></i> Explore Related Reports
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; max-width: 900px; margin: 0 auto;">
+                    <a href="brand_impact_analysis.html" style="display: block; text-decoration: none;">
+                        <div style="background-color: var(--card-bg); border: 1px solid var(--primary); border-radius: 8px; padding: 15px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='var(--primary-dark)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--primary)'">
+                            <h4 style="color: var(--primary-dark); margin: 0 0 8px 0;">Brand Impact Analysis</h4>
+                            <p style="color: var(--gray-700); margin: 0; font-size: 0.85rem;">Celebrity campaign effectiveness on brand equity and barrier perception</p>
+                        </div>
+                    </a>
+                    <a href="paid_media_analysis.html" style="display: block; text-decoration: none;">
+                        <div style="background-color: var(--card-bg); border: 1px solid var(--primary); border-radius: 8px; padding: 15px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='var(--primary-dark)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--primary)'">
+                            <h4 style="color: var(--primary-dark); margin: 0 0 8px 0;">Paid Media Analysis</h4>
+                            <p style="color: var(--gray-700); margin: 0; font-size: 0.85rem;">Platform performance comparison across META and YouTube</p>
+                        </div>
+                    </a>
+                    <a href="market_comparison_dashboard.html" style="display: block; text-decoration: none;">
+                        <div style="background-color: var(--card-bg); border: 1px solid var(--primary); border-radius: 8px; padding: 15px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='var(--primary-dark)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--primary)'">
+                            <h4 style="color: var(--primary-dark); margin: 0 0 8px 0;">Market Comparison</h4>
+                            <p style="color: var(--gray-700); margin: 0; font-size: 0.85rem;">Head-to-head performance across UK, USA, Germany, and France</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p style="margin: 0; color: var(--gray-700); font-size: 0.9rem;">© 2025 Research & Insights Unit | Strategic Marketing & Communications | Department of Culture and Tourism – Abu Dhabi</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Collapsible sections functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const headers = document.querySelectorAll('.main-section-header');
+            headers.forEach(header => {
+                // Set all sections as collapsed by default except Executive Summary
+                if (!header.textContent.includes('Executive Summary')) {
+                    header.classList.add('collapsed');
+                    const content = header.nextElementSibling;
+                    if (content && content.classList.contains('main-section-content')) {
+                        content.classList.add('collapsed');
+                    }
+                }
+                
+                // Add click handler for toggling
+                header.addEventListener('click', function() {
+                    this.classList.toggle('collapsed');
+                    const content = this.nextElementSibling;
+                    if (content && content.classList.contains('main-section-content')) {
+                        content.classList.toggle('collapsed');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

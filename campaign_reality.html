@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partnership Reality: Risk & Management | DCT Abu Dhabi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* SONER Logo Animation */
+        @keyframes sonerScan { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes sonerBlip { 0%, 20%, 100% { opacity: 0; } 2%, 15% { opacity: 1; } 3% { transform: scale(1.2); } }
+        
+        .soner-logo { display: flex; align-items: center; color: white; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 300; }
+        .soner-radar { width: 24px; height: 24px; border-radius: 50%; border: 1px solid white; margin: 0 3px; position: relative; background-color: rgba(255, 255, 255, 0.05); overflow: hidden; }
+        .soner-scanner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: sonerScan 4s linear infinite; transform-origin: center; }
+        .soner-scanner::before { content: ''; position: absolute; top: 0; left: 50%; width: 50%; height: 50%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4)); transform-origin: bottom left; clip-path: polygon(0 0, 100% 0, 0 100%); }
+        .soner-scanner::after { content: ''; position: absolute; top: 0; left: 50%; width: 50%; height: 1px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1)); transform-origin: left center; box-shadow: 0 0 4px rgba(255, 255, 255, 0.8); }
+        .soner-blip { position: absolute; width: 2px; height: 2px; background-color: white; border-radius: 50%; opacity: 0; box-shadow: 0 0 4px white; }
+        .soner-blip:nth-child(1) { top: 25%; left: 30%; animation: sonerBlip 4s 1s infinite; }
+        .soner-blip:nth-child(2) { top: 65%; left: 60%; animation: sonerBlip 4s 2.5s infinite; }
+        .soner-tagline { color: white; font-size: 8px; text-transform: uppercase; font-weight: 500; letter-spacing: 0.5em; margin-left: 10px; opacity: 0.8; }
+        
+        :root {
+            --primary: #4285f4;
+            --primary-light: #1a2233;
+            --primary-dark: #8ab4f8;
+            --secondary: #34a853;
+            --secondary-light: #1a2a1e;
+            --warning: #fbbc04;
+            --warning-light: #332a1a;
+            --danger: #ea4335;
+            --danger-light: #331f1e;
+            --gray-100: #1e1e1e;
+            --gray-200: #2d2d2d;
+            --gray-300: #3d3d3d;
+            --gray-400: #4d4d4d;
+            --gray-500: #777777;
+            --gray-600: #a0a0a0;
+            --gray-700: #c0c0c0;
+            --gray-800: #e0e0e0;
+            --gray-900: #f0f0f0;
+            --bg-color: #000000;
+            --card-bg: #121212;
+            --section-bg: #181818;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: #ffffff;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        
+        header {
+            background: linear-gradient(135deg, #1a73e8, #174ea6);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 600; line-height: 1.2; }
+        .subtitle { font-size: 1.2rem; opacity: 0.9; margin-bottom: 20px; }
+        h2 { 
+            font-size: 1.8rem; 
+            color: var(--primary); 
+            margin: 40px 0 25px; 
+            border-bottom: 2px solid var(--primary); 
+            padding-bottom: 12px;
+            font-weight: 600;
+        }
+        h3 { 
+            font-size: 1.4rem; 
+            color: var(--primary-dark); 
+            margin: 30px 0 18px;
+            font-weight: 600;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            margin: 20px 0 15px;
+            font-weight: 600;
+        }
+        
+        .section {
+            background-color: var(--section-bg);
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .hero-statement {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-align: center;
+            margin: 30px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            line-height: 1.5;
+        }
+        
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .metric-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--gray-300);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(66, 133, 244, 0.3);
+        }
+        
+        .metric-card.warning:hover {
+            box-shadow: 0 8px 16px rgba(251, 188, 4, 0.3);
+        }
+        
+        .metric-card.info:hover {
+            box-shadow: 0 8px 16px rgba(66, 133, 244, 0.3);
+        }
+        
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--danger);
+            margin-bottom: 10px;
+        }
+        
+        .metric-value.warning { color: var(--warning); }
+        .metric-value.info { color: var(--primary); }
+        .metric-value.success { color: var(--secondary); }
+        
+        .metric-label {
+            font-size: 0.95rem;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+        
+        .quote-box {
+            background-color: var(--gray-200);
+            border-left: 4px solid var(--danger);
+            padding: 25px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #ffffff;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.7;
+        }
+        
+        .quote-box.warning { border-left-color: var(--warning); }
+        .quote-box.info { border-left-color: var(--primary); }
+        .quote-box.success { border-left-color: var(--secondary); }
+        
+        .quote-box strong {
+            color: var(--danger);
+            font-style: normal;
+        }
+        
+        .quote-box.warning strong { color: var(--warning); }
+        .quote-box.info strong { color: var(--primary-dark); }
+        .quote-box.success strong { color: var(--secondary); }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(234, 67, 53, 0.1), rgba(234, 67, 53, 0.05));
+            border: 2px solid var(--danger);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .highlight-box h4 {
+            color: var(--danger);
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box.success {
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.1), rgba(52, 168, 83, 0.05));
+            border-color: var(--secondary);
+        }
+        
+        .highlight-box.success h4 {
+            color: var(--secondary);
+        }
+        
+        .highlight-box.info {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+            border-color: var(--primary);
+        }
+        
+        .highlight-box.info h4 {
+            color: var(--primary);
+        }
+        
+        .highlight-box.warning {
+            background: linear-gradient(135deg, rgba(251, 188, 4, 0.1), rgba(251, 188, 4, 0.05));
+            border-color: var(--warning);
+        }
+        
+        .highlight-box.warning h4 {
+            color: var(--warning);
+        }
+        
+        .info-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .info-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .comparison-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid var(--gray-300);
+        }
+        
+        .comparison-card h4 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gray-300);
+        }
+        
+        .comparison-card.danger {
+            border-color: var(--danger);
+        }
+        
+        .comparison-card.danger h4 {
+            color: var(--danger);
+        }
+        
+        .comparison-card.warning {
+            border-color: var(--warning);
+        }
+        
+        .comparison-card.warning h4 {
+            color: var(--warning);
+        }
+        
+        .comparison-card.success {
+            border-color: var(--secondary);
+        }
+        
+        .comparison-card.success h4 {
+            color: var(--secondary);
+        }
+        
+        .comparison-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .comparison-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-300);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .comparison-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .comparison-list i {
+            margin-right: 10px;
+            margin-top: 3px;
+            font-size: 0.9rem;
+        }
+        
+        .strategy-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid var(--danger);
+        }
+        
+        .strategy-card h4 {
+            color: var(--danger);
+            margin-bottom: 15px;
+        }
+        
+        .strategy-card.info {
+            border-left-color: var(--primary);
+        }
+        
+        .strategy-card.info h4 {
+            color: var(--primary-dark);
+        }
+        
+        .framework-box {
+            background-color: var(--gray-200);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .framework-box h4 {
+            color: var(--danger);
+            margin-bottom: 20px;
+        }
+        
+        .framework-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .framework-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .framework-list li::before {
+            content: '⚠';
+            position: absolute;
+            left: 0;
+            color: var(--danger);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .framework-list.info li::before {
+            content: '→';
+            color: var(--primary);
+        }
+        
+        .framework-list.success li::before {
+            content: '✓';
+            color: var(--secondary);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        thead tr {
+            background-color: var(--gray-200);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-dark);
+            border-right: 1px solid var(--gray-300);
+        }
+        
+        th:last-child {
+            border-right: none;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--gray-300);
+            border-right: 1px solid var(--gray-300);
+        }
+        
+        td:last-child {
+            border-right: none;
+        }
+        
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tbody tr:hover {
+            background-color: var(--gray-200);
+        }
+        
+        .checkmark {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .crossmark {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .main-section-header {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-right: 30px;
+            transition: color 0.2s ease;
+        }
+        
+        .main-section-header:hover { 
+            color: var(--primary-dark); 
+        }
+        
+        .main-section-header:after {
+            content: '\f078';
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            font-size: 0.8em;
+        }
+        
+        .main-section-header.collapsed:after {
+            transform: translateY(-50%) rotate(-90deg);
+        }
+        
+        .main-section-content {
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.3s ease-out;
+            max-height: 9999px;
+            opacity: 1;
+        }
+        
+        .main-section-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .paradox-visual {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 25px;
+            align-items: center;
+            margin: 30px 0;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--gray-300);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .paradox-side {
+            text-align: center;
+            padding: 30px 25px;
+            border-radius: 10px;
+            transition: transform 0.2s ease;
+        }
+        
+        .paradox-side.positive {
+            background-color: rgba(52, 168, 83, 0.12);
+            border: 2px solid var(--secondary);
+        }
+        
+        .paradox-side.negative {
+            background-color: rgba(234, 67, 53, 0.12);
+            border: 2px solid var(--danger);
+        }
+        
+        .paradox-arrow {
+            font-size: 3rem;
+            color: var(--warning);
+            opacity: 0.9;
+        }
+        
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .risk-item {
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        
+        .risk-item.high {
+            background: linear-gradient(135deg, rgba(234, 67, 53, 0.15), rgba(234, 67, 53, 0.05));
+            border-left-color: var(--danger);
+        }
+        
+        .risk-item.medium {
+            background: linear-gradient(135deg, rgba(251, 188, 4, 0.15), rgba(251, 188, 4, 0.05));
+            border-left-color: var(--warning);
+        }
+        
+        .risk-item.low {
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.15), rgba(52, 168, 83, 0.05));
+            border-left-color: var(--secondary);
+        }
+        
+        .breadcrumb {
+            background: linear-gradient(135deg, rgba(26, 35, 51, 0.6), rgba(26, 35, 51, 0.4));
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            color: var(--gray-700);
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb-nav a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 10px;
+            color: var(--gray-500);
+        }
+        
+        .evidence-box {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.08), rgba(66, 133, 244, 0.03));
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 1px solid var(--gray-300);
+            color: #ffffff;
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .comparison-grid { grid-template-columns: 1fr; }
+            .paradox-visual { grid-template-columns: 1fr; }
+            .paradox-arrow { transform: rotate(90deg); }
+        }
+        
+        @media screen and (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.2rem; }
+            .section { padding: 25px; }
+            .risk-matrix { grid-template-columns: 1fr; }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .metric-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 15px;">
+                <div class="soner-logo">
+                    S<div class="soner-radar">
+                        <div class="soner-scanner"></div>
+                        <div class="soner-blip"></div>
+                        <div class="soner-blip"></div>
+                    </div>NER
+                    <span class="soner-tagline">Strategic Intelligence</span>
+                </div>
+            </div>
+            <h1>Partnership Reality: Risk & Management</h1>
+            <p class="subtitle">Strategic Frameworks for Managing Celebrity Partnership Complexity</p>
+            <p>Department of Culture and Tourism - Abu Dhabi | Strategic Marketing & Communications</p>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Campaign Repository</a>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-current">Campaign Reality</span>
+            </nav>
+        </div>
+    </div>
+    
+    <div class="container">
+        
+        <!-- Opening Statement -->
+        <div class="hero-statement">
+            "In celebrity destination marketing, success and risk are not opposites - they are the same phenomenon viewed from different angles."
+        </div>
+        
+        <!-- Campaign Context -->
+        <div class="section" style="background-color: var(--danger-light); border-left: 4px solid var(--danger);">
+            <p style="font-size: 1.05rem; line-height: 1.8; margin: 0;">
+                This analysis examines the strategic reality of high-profile celebrity partnerships in destination marketing, using expert assessment frameworks to understand how commercial success and reputational risk interweave in modern geopolitical contexts. When celebrities achieve their partnership objectives - generating massive awareness, transferring positive associations, and driving engagement - they simultaneously amplify scrutiny, intensify criticism, and create new vulnerabilities. This report provides strategic frameworks for understanding and managing this inherent paradox.
+            </p>
+        </div>
+
+        <!-- Section 8.1: The Dual-Edged Sword -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-balance-scale"></i> 1. The Dual-Edged Sword of Celebrity Success</h2>
+            <div class="main-section-content collapsed">
+            
+            <h3>The "High Reach, High Risk" Paradox</h3>
+            
+            <div class="paradox-visual">
+                <div class="paradox-side positive">
+                    <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--secondary); margin-bottom: 15px; display: block;"></i>
+                    <h4 style="color: var(--secondary); margin-bottom: 20px; font-size: 1.15rem; font-weight: 700;">COMMERCIAL SUCCESS</h4>
+                    <ul style="list-style: none; padding: 0; text-align: left; color: #ffffff; line-height: 1.8;">
+                        <li style="padding: 8px 0; display: flex; align-items: flex-start;">
+                            <i class="fas fa-check-circle" style="color: var(--secondary); margin-right: 10px; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
+                            <span>Massive media visibility achieved</span>
+                        </li>
+                        <li style="padding: 8px 0; display: flex; align-items: flex-start;">
+                            <i class="fas fa-check-circle" style="color: var(--secondary); margin-right: 10px; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
+                            <span>Brand awareness objectives met</span>
+                        </li>
+                        <li style="padding: 8px 0; display: flex; align-items: flex-start;">
+                            <i class="fas fa-check-circle" style="color: var(--secondary); margin-right: 10px; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
+                            <span>Engagement metrics exceeded</span>
+                        </li>
+                        <li style="padding: 8px 0; display: flex; align-items: flex-start;">
+                            <i class="fas fa-check-circle" style="color: var(--secondary); margin-right: 10px; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
+                            <span>Market penetration increased</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="paradox-arrow">
+                    <div style="text-align: center;">
+                        <i class="fas fa-exchange-alt" style="display: block; margin-bottom: 8px;"></i>
+                        <div style="font-size: 0.75rem; color: var(--warning); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                            Feedback<br>Loop
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="paradox-side negative">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--danger); margin-bottom: 15px; display: block;"></i>
+                    <h4 style="color: var(--danger); margin-bottom: 20px; font-size: 1.15rem; font-weight: 700;">AMPLIFIED SCRUTINY</h4>
+                    <ul style="list-style: none; padding: 0; text-align: left; color: #ffffff; line-height: 1.8;">
+                        <li style="padding: 8px 0; display: flex; align-items: flex-start;">
+                            <i class="fas fa-exclamation-circle" style="color: var(--danger); margin-right: 10px; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
+                            <span>International media attention</span>
+                        </li>
+                        <li style="padding: 8px 0; display: flex; align-items: flex-start;">
+                            <i class="fas fa-exclamation-circle" style="color: var(--danger); margin-right: 10px; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
+                            <span>Activist organization focus</span>
+                        </li>
+                        <li style="padding: 8px 0; display: flex; align-items: flex-start;">
+                            <i class="fas fa-exclamation-circle" style="color: var(--danger); margin-right: 10px; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
+                            <span>Social media debate intensification</span>
+                        </li>
+                        <li style="padding: 8px 0; display: flex; align-items: flex-start;">
+                            <i class="fas fa-exclamation-circle" style="color: var(--danger); margin-right: 10px; margin-top: 3px; font-size: 1rem; flex-shrink: 0;"></i>
+                            <span>Geopolitical criticism amplification</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p>Celebrity partnerships create a feedback loop: the more successful the campaign becomes at achieving visibility and engagement objectives, the more it attracts critical attention from advocacy groups, international media, and political commentators. This creates a strategic paradox where effectiveness and vulnerability increase simultaneously.</p>
+            
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-value">Exponential</div>
+                    <div class="metric-label"><strong>Attention Amplification</strong><br>Celebrity involvement multiplies both positive and negative attention by orders of magnitude</div>
+                </div>
+                <div class="metric-card warning">
+                    <div class="metric-value warning">Double-Edged</div>
+                    <div class="metric-label"><strong>Visibility Impact</strong><br>Every media mention serves dual purposes: brand promotion and criticism platform</div>
+                </div>
+                <div class="metric-card info">
+                    <div class="metric-value info">Strategic</div>
+                    <div class="metric-label"><strong>Risk Management</strong><br>Success must be balanced with reputation protection protocols</div>
+                </div>
+            </div>
+            
+            <h3>The Attention Economics Principle</h3>
+            
+            <div class="info-card">
+                <h4><i class="fas fa-lightbulb"></i> Key Strategic Insight</h4>
+                <p>In the modern attention economy, visibility is currency - but not all currency has equal value. The challenge lies in maximizing <strong>commercially viable positive attention</strong> while minimizing <strong>reputationally damaging negative attention</strong>. Traditional measurement systems that simply count "total mentions" or "reach" fail to distinguish between these fundamentally different types of visibility.</p>
+            </div>
+            
+            <h3>The "Vampire Effect" - Brand Recall Failure</h3>
+            
+            <div class="highlight-box warning">
+                <h4><i class="fas fa-ghost"></i> When Celebrity Fame Eclipses Destination Brand</h4>
+                <p style="color: #ffffff; margin-bottom: 15px;">The "Vampire Effect" occurs when a celebrity's presence is so dominant that audiences remember the star but not the destination being promoted. Marketing experts describe this as the celebrity "hogging the limelight" - the campaign generates massive attention but fails its core purpose of building destination brand recall.</p>
+                
+                <div class="comparison-grid" style="margin-top: 20px;">
+                    <div class="info-card" style="background-color: var(--gray-200); border: 2px solid var(--secondary);">
+                        <h4 style="color: var(--secondary); margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Successful Brand Transfer</h4>
+                        <p style="color: #ffffff; margin: 0;">Celebrity draws attention → Audience engages with content → Destination message resonates → Brand recall established</p>
+                    </div>
+                    
+                    <div class="info-card" style="background-color: var(--gray-200); border: 2px solid var(--warning);">
+                        <h4 style="color: var(--warning); margin-bottom: 10px;"><i class="fas fa-exclamation-triangle"></i> Vampire Effect Failure</h4>
+                        <p style="color: #ffffff; margin: 0;">Celebrity draws attention → Audience focuses on star → Destination becomes backdrop → Celebrity remembered, location forgotten</p>
+                    </div>
+                </div>
+                
+                <div style="background-color: var(--warning-light); padding: 20px; border-radius: 8px; margin-top: 20px; border-left: 4px solid var(--warning);">
+                    <p style="color: #ffffff; margin: 0;">
+                        <strong>The Marketing Failure:</strong> "The brand becomes a runner up while the celebrity hogs the limelight" - resulting in a costly campaign that generates views and likes but leaves little brand recall for the destination itself. When multiple destinations use similar big-name stars, the novelty wears off and audiences may even confuse which celebrity endorsed which place, further blurring brand identities.
+                    </p>
+                </div>
+            </div>
+            
+            </div>
+        </section>
+
+        <!-- Section 8.2: The "Imagewashing" Phenomenon -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-mask"></i> 2. The "Imagewashing" Phenomenon</h2>
+            <div class="main-section-content collapsed">
+            
+            <h3>When Authenticity Becomes a Strategic Liability</h3>
+            
+            <p>"Imagewashing" describes the process by which celebrity authenticity - their genuine connection to causes, values, or lifestyles - becomes a vehicle for destination image management in ways that amplify rather than mitigate criticism.</p>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card success">
+                    <h4><i class="fas fa-heart"></i> Traditional Celebrity Endorsement</h4>
+                    <ul class="comparison-list">
+                        <li><i class="fas fa-check" style="color: var(--secondary);"></i> <span>Paid spokesperson role</span></li>
+                        <li><i class="fas fa-check" style="color: var(--secondary);"></i> <span>Clear transactional relationship</span></li>
+                        <li><i class="fas fa-check" style="color: var(--secondary);"></i> <span>Limited personal investment</span></li>
+                        <li><i class="fas fa-check" style="color: var(--secondary);"></i> <span>Criticism focuses on "selling out"</span></li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-card danger">
+                    <h4><i class="fas fa-fire"></i> Imagewashing Dynamic</h4>
+                    <ul class="comparison-list">
+                        <li><i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i> <span>Authentic personal connection</span></li>
+                        <li><i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i> <span>Values-based relationship</span></li>
+                        <li><i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i> <span>Significant personal investment</span></li>
+                        <li><i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i> <span>Criticism focuses on "legitimizing" policies</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>The Credibility Transfer Mechanism</h3>
+            
+            <div class="strategy-card">
+                <h4>How Imagewashing Works</h4>
+                
+                <div style="background-color: var(--gray-200); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <h4 style="color: var(--danger); margin-bottom: 15px;"><i class="fas fa-arrow-right"></i> Step 1: Authentic Foundation</h4>
+                    <p style="color: #ffffff; margin: 0;">Celebrity possesses genuine values, causes, or lifestyle elements that align with destination offerings (environmental consciousness, family values, wellness advocacy). This authentic foundation is what makes the endorsement credible and powerful.</p>
+                </div>
+                
+                <div style="background-color: var(--gray-200); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <h4 style="color: var(--danger); margin-bottom: 15px;"><i class="fas fa-arrow-right"></i> Step 2: Partnership Formation</h4>
+                    <p style="color: #ffffff; margin: 0;">Celebrity enters authentic partnership with destination, lending their credibility and values to promote the location. The more genuine the connection, the more powerful the endorsement.</p>
+                </div>
+                
+                <div style="background-color: var(--gray-200); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <h4 style="color: var(--danger); margin-bottom: 15px;"><i class="fas fa-arrow-right"></i> Step 3: Criticism Amplification</h4>
+                    <p style="color: #ffffff; margin: 0;">Critics argue that celebrity's authentic values are being used to "legitimize" or "wash" destination's image, making the criticism more potent because it targets genuine beliefs rather than mere commercial transactions.</p>
+                </div>
+            </div>
+            
+            <div class="quote-box warning">
+                <strong>The Imagewashing Trap:</strong> The more authentic and values-driven a celebrity appears, the more vulnerable they become to accusations of using their credibility to legitimize controversial policies or practices. Authenticity becomes the weapon used against them.
+            </div>
+            
+            <h3>Case Study: Beckham & Qatar - When Authenticity Backfires</h3>
+            
+            <div class="highlight-box">
+                <h4><i class="fas fa-book-open"></i> Real-World Example: The Beckham Effect</h4>
+                <p style="color: #ffffff; margin-bottom: 15px;">David Beckham's 2022 ambassadorship for Qatar tourism provides a textbook example of how authentic celebrity praise can amplify rather than mitigate controversy.</p>
+                
+                <div style="background-color: var(--gray-200); padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="color: var(--danger); margin-bottom: 10px;"><i class="fas fa-quote-left"></i> The Campaign</h4>
+                    <p style="color: #ffffff; margin: 0;">Beckham appeared in promotional videos praising Qatar as "perfection," showcasing his genuine enthusiasm for the destination.</p>
+                </div>
+                
+                <div style="background-color: var(--gray-200); padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="color: var(--danger); margin-bottom: 10px;"><i class="fas fa-fire"></i> The Backlash</h4>
+                    <p style="color: #ffffff; margin: 0;">Amnesty International publicly condemned Beckham for making "no mention of the country's appalling human rights record," turning media attention to Qatar's controversies on migrant labor and LGBTQ+ rights rather than tourism attractions.</p>
+                </div>
+                
+                <div style="background-color: var(--gray-200); padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="color: var(--danger); margin-bottom: 10px;"><i class="fas fa-chart-line-down"></i> The Impact</h4>
+                    <p style="color: #ffffff; margin: 0;">The conversation shifted from destination appeal to "Beckham's ethics" - the celebrity partnership backfired, with controversy eclipsing the intended positive image boost.</p>
+                </div>
+                
+                <div style="background-color: var(--danger-light); padding: 20px; border-radius: 8px; margin-top: 15px; border-left: 4px solid var(--danger);">
+                    <p style="color: #ffffff; margin: 0; font-weight: 600;">
+                        <i class="fas fa-exclamation-circle" style="margin-right: 8px;"></i>
+                        <strong>The Paradox:</strong> Beckham's authentic enthusiasm - the very thing that should have made the endorsement credible - became the focal point of criticism. His genuine praise was interpreted as "glossing over" serious issues, making the imagewashing accusation more potent.
+                    </p>
+                </div>
+            </div>
+            
+            </div>
+        </section>
+
+        <!-- Section 8.3: The Double-Bind of Authenticity -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-arrows-alt"></i> 3. The Double-Bind of Authenticity</h2>
+            <div class="main-section-content collapsed">
+            
+            <h3>When Genuine Connection Creates Genuine Backlash</h3>
+            
+            <p>The Double-Bind of Authenticity describes a no-win scenario where celebrities face criticism regardless of their approach to endorsement relationships.</p>
+            
+            <div class="risk-matrix">
+                <div class="risk-item high">
+                    <h4 style="color: var(--danger); margin-bottom: 10px;"><i class="fas fa-times-circle"></i> Scenario 1: Transactional Endorsement</h4>
+                    <p style="color: #ffffff; margin: 0;"><strong>Approach:</strong> Celebrity promotes destination purely for commercial reasons without personal connection.</p>
+                    <p style="color: #ffffff; margin: 10px 0 0 0;"><strong>Risk:</strong> Criticized as "sellout," "mercenary," or "fake." Lacks credibility and authenticity.</p>
+                </div>
+                
+                <div class="risk-item high">
+                    <h4 style="color: var(--danger); margin-bottom: 10px;"><i class="fas fa-times-circle"></i> Scenario 2: Authentic Endorsement</h4>
+                    <p style="color: #ffffff; margin: 0;"><strong>Approach:</strong> Celebrity genuinely connects with destination, aligns with values, shows authentic interest.</p>
+                    <p style="color: #ffffff; margin: 10px 0 0 0;"><strong>Risk:</strong> Criticized for "imagewashing," "legitimizing" controversial practices, "betraying" principles.</p>
+                </div>
+            </div>
+            
+            <h3>The Values Conflict Matrix</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Celebrity Value/Cause</th>
+                        <th>Potential Conflict Points</th>
+                        <th>Criticism Framework</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Environmental Advocacy</td>
+                        <td>Destination's carbon footprint, development practices</td>
+                        <td>"How can you promote travel while claiming to care about climate?"</td>
+                    </tr>
+                    <tr>
+                        <td>Women's Empowerment</td>
+                        <td>Regional gender equality policies, cultural practices</td>
+                        <td>"You're whitewashing women's rights issues"</td>
+                    </tr>
+                    <tr>
+                        <td>Family Values</td>
+                        <td>LGBTQ+ policies, cultural restrictions</td>
+                        <td>"Your family promotion ignores marginalized families"</td>
+                    </tr>
+                    <tr>
+                        <td>Wellness/Health</td>
+                        <td>Labor practices, healthcare access</td>
+                        <td>"You promote wellness while ignoring worker conditions"</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="highlight-box warning">
+                <h4><i class="fas fa-exclamation-triangle"></i> The Strategic Implication</h4>
+                <p style="color: #ffffff; margin: 0;">The Double-Bind means that celebrity partners will face criticism regardless of their approach. The key is not avoiding criticism but managing it strategically - choosing which type of criticism is more manageable and aligns with long-term brand objectives.</p>
+            </div>
+            
+            </div>
+        </section>
+
+        <!-- Section 8.4: Reverse Halo Effect Risk -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-sync-alt"></i> 4. Reverse Halo Effect Risk</h2>
+            <div class="main-section-content collapsed">
+            
+            <h3>When Destination Challenges Damage Celebrity Brands</h3>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card success">
+                    <h4><i class="fas fa-angle-right"></i> Traditional Halo Effect</h4>
+                    <ul class="comparison-list">
+                        <li><i class="fas fa-arrow-right" style="color: var(--secondary);"></i> <span><strong>Flow:</strong> Celebrity reputation → Destination image</span></li>
+                        <li><i class="fas fa-star" style="color: var(--secondary);"></i> <span><strong>Mechanism:</strong> Positive associations transfer from person to place</span></li>
+                        <li><i class="fas fa-shield-alt" style="color: var(--secondary);"></i> <span><strong>Celebrity Risk:</strong> Minimal - their brand remains protected</span></li>
+                        <li><i class="fas fa-chart-line" style="color: var(--secondary);"></i> <span><strong>Outcome:</strong> Destination gains credibility without celebrity losing it</span></li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-card danger">
+                    <h4><i class="fas fa-angle-left"></i> Reverse Halo Effect</h4>
+                    <ul class="comparison-list">
+                        <li><i class="fas fa-arrow-left" style="color: var(--danger);"></i> <span><strong>Flow:</strong> Destination controversies → Celebrity reputation</span></li>
+                        <li><i class="fas fa-fire" style="color: var(--danger);"></i> <span><strong>Mechanism:</strong> Negative associations transfer from place to person</span></li>
+                        <li><i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i> <span><strong>Celebrity Risk:</strong> High - their personal brand becomes compromised</span></li>
+                        <li><i class="fas fa-arrow-trend-down" style="color: var(--danger);"></i> <span><strong>Outcome:</strong> Both destination and celebrity suffer reputational damage</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Risk Assessment Framework</h3>
+            
+            <div class="framework-box">
+                <h4>Reverse Halo Effect Vulnerability Factors</h4>
+                <div class="framework-list">
+                    <li><strong>Partnership Duration:</strong> Longer partnerships create deeper association and higher reverse halo risk</li>
+                    <li><strong>Personal Investment Level:</strong> The more personally invested the celebrity appears, the more they're seen as endorsing all destination policies</li>
+                    <li><strong>Values Alignment Messaging:</strong> Campaigns that emphasize shared values create vulnerability when those values are questioned</li>
+                    <li><strong>Family Involvement:</strong> Including family members amplifies both authenticity and reverse halo risk</li>
+                    <li><strong>Exclusive Partnerships:</strong> Single-destination relationships create higher stakes than diversified endorsement portfolios</li>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <h4><i class="fas fa-shield-alt"></i> Mitigation Strategies</h4>
+                <p><strong>Portfolio Diversification:</strong> Multiple partnerships reduce single-destination risk concentration.</p>
+                <p style="margin-top: 10px;"><strong>Campaign Positioning:</strong> Focus on specific experiences rather than broad destination endorsement.</p>
+                <p style="margin-top: 10px;"><strong>Crisis Preparation:</strong> Pre-developed response frameworks for when destination controversies emerge.</p>
+                <p style="margin-top: 10px;"><strong>Values Boundary Setting:</strong> Clear communication about what celebrity does and doesn't endorse.</p>
+            </div>
+            
+            <div class="quote-box">
+                <strong>The Strategic Reality:</strong> Celebrity partnerships don't eliminate risk - they concentrate and amplify it. The question becomes not "How do we avoid risk?" but rather "How do we manage concentrated, amplified risk for maximum strategic benefit?"
+            </div>
+            
+            </div>
+        </section>
+
+        <!-- Section 8.5: The NSAMV Revolution -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-calculator"></i> 5. The NSAMV Revolution: Beyond Traditional Metrics</h2>
+            <div class="main-section-content collapsed">
+            
+            <h3>Why Earned Media Value (EMV) Fails in Complex Campaigns</h3>
+            
+            <p>Traditional Earned Media Value (EMV) measurement treats all media coverage as equally valuable, failing to distinguish between coverage that builds commercial value and coverage that creates reputational liability.</p>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card warning">
+                    <h4><i class="fas fa-chart-bar"></i> Traditional EMV Limitations</h4>
+                    <ul class="comparison-list">
+                        <li><i class="fas fa-equals" style="color: var(--warning);"></i> <span>Treats positive and negative coverage equally</span></li>
+                        <li><i class="fas fa-dollar-sign" style="color: var(--warning);"></i> <span>Values controversy-driven attention same as brand-building content</span></li>
+                        <li><i class="fas fa-eye" style="color: var(--warning);"></i> <span>Prioritizes reach over sentiment or commercial intent</span></li>
+                        <li><i class="fas fa-chart-line" style="color: var(--warning);"></i> <span>Can show "success" during reputation crises</span></li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-card info">
+                    <h4><i class="fas fa-brain"></i> NSAMV Advantages</h4>
+                    <ul class="comparison-list">
+                        <li><i class="fas fa-balance-scale" style="color: var(--primary);"></i> <span>Weights coverage by sentiment and commercial viability</span></li>
+                        <li><i class="fas fa-filter" style="color: var(--primary);"></i> <span>Distinguishes brand-building from reputation-damaging attention</span></li>
+                        <li><i class="fas fa-bullseye" style="color: var(--primary);"></i> <span>Focuses on commercially convertible engagement</span></li>
+                        <li><i class="fas fa-chart-pie" style="color: var(--primary);"></i> <span>Provides true performance assessment during controversies</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>NSAMV Methodology Framework</h3>
+            
+            <div class="strategy-card info">
+                <h4>Net Sentiment-Adjusted Media Value (NSAMV) Calculation</h4>
+                
+                <table style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>Coverage Type</th>
+                            <th>Sentiment Weight</th>
+                            <th>Commercial Viability</th>
+                            <th>NSAMV Multiplier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Positive Brand-Building</td>
+                            <td>+1.0</td>
+                            <td>High</td>
+                            <td>1.0x</td>
+                        </tr>
+                        <tr>
+                            <td>Neutral/Informational</td>
+                            <td>0.0</td>
+                            <td>Medium</td>
+                            <td>0.5x</td>
+                        </tr>
+                        <tr>
+                            <td>Critical but Constructive</td>
+                            <td>-0.3</td>
+                            <td>Low</td>
+                            <td>0.2x</td>
+                        </tr>
+                        <tr>
+                            <td>Controversy/Crisis Coverage</td>
+                            <td>-0.8</td>
+                            <td>Negative</td>
+                            <td>-0.5x</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="quote-box info">
+                <strong>The NSAMV Insight:</strong> A campaign generating $100M in traditional EMV might show only $40M in NSAMV if significant controversy exists, providing a more accurate picture of actual commercial value created vs. reputation risk incurred.
+            </div>
+            
+            </div>
+        </section>
+
+        <!-- Section 8.6: Managing Partnership Reality -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-calendar-alt"></i> 6. Managing the Two-Year Partnership Reality</h2>
+            <div class="main-section-content collapsed">
+            
+            <h3>Long-Term Partnership Evolution Strategies</h3>
+            
+            <p>Multi-year celebrity partnerships require adaptive management strategies that can respond to changing geopolitical contexts, evolving public sentiment, and emerging controversies while maintaining campaign effectiveness.</p>
+            
+            <div class="metric-grid">
+                <div class="metric-card info">
+                    <div class="metric-value info">Phase 1</div>
+                    <div class="metric-label"><strong>Launch & Awareness</strong><br>Maximum visibility focus, establish partnership narrative, generate initial buzz</div>
+                </div>
+                <div class="metric-card warning">
+                    <div class="metric-value warning">Phase 2</div>
+                    <div class="metric-label"><strong>Adaptation & Response</strong><br>Address emerging controversies, adjust messaging, refine targeting</div>
+                </div>
+                <div class="metric-card success">
+                    <div class="metric-value success">Phase 3</div>
+                    <div class="metric-label"><strong>Optimization & Legacy</strong><br>Focus on sustainable outcomes, long-term brand building, partnership evolution</div>
+                </div>
+            </div>
+            
+            <h3>Content Pivot Strategies</h3>
+            
+            <div class="framework-box">
+                <h4>Strategic Adaptation Options</h4>
+                <div class="framework-list info">
+                    <li><strong>Narrative Shifting:</strong> Move from broad destination endorsement to specific experience focus</li>
+                    <li><strong>Audience Refinement:</strong> Narrow targeting to most receptive demographics and markets</li>
+                    <li><strong>Platform Migration:</strong> Shift from mainstream media to controlled owned channels</li>
+                    <li><strong>Message Modulation:</strong> Reduce values-based messaging, increase experience-based content</li>
+                    <li><strong>Partnership Reframing:</strong> Position as tourism experience rather than destination endorsement</li>
+                </div>
+            </div>
+            
+            </div>
+        </section>
+
+        <!-- Section 8.7: Crisis Communication Framework -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-bullhorn"></i> 7. Crisis Communication Framework</h2>
+            <div class="main-section-content collapsed">
+            
+            <h3>Multi-Stakeholder Coordination Protocols</h3>
+            
+            <p>Effective crisis management in celebrity destination partnerships requires coordinated response across multiple stakeholders with potentially conflicting interests and communication priorities.</p>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card info">
+                    <h4><i class="fas fa-building"></i> Destination Marketing Organization</h4>
+                    <ul class="comparison-list">
+                        <li><i class="fas fa-shield-alt" style="color: var(--primary);"></i> <span><strong>Priority:</strong> Protect destination reputation and tourism objectives</span></li>
+                        <li><i class="fas fa-users" style="color: var(--primary);"></i> <span><strong>Audience:</strong> Potential tourists, travel media, industry stakeholders</span></li>
+                        <li><i class="fas fa-comment" style="color: var(--primary);"></i> <span><strong>Messaging:</strong> Focus on destination strengths, visitor experiences, policy context</span></li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-card warning">
+                    <h4><i class="fas fa-star"></i> Celebrity Management Team</h4>
+                    <ul class="comparison-list">
+                        <li><i class="fas fa-user-shield" style="color: var(--warning);"></i> <span><strong>Priority:</strong> Protect celebrity brand and future earning potential</span></li>
+                        <li><i class="fas fa-heart" style="color: var(--warning);"></i> <span><strong>Audience:</strong> Celebrity fans, entertainment media, brand partners</span></li>
+                        <li><i class="fas fa-balance-scale" style="color: var(--warning);"></i> <span><strong>Messaging:</strong> Emphasize personal values, contextual understanding, ongoing dialogue</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Response Decision Tree</h3>
+            
+            <div class="strategy-card">
+                <h4>Crisis Response Options</h4>
+                
+                <table style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>Crisis Type</th>
+                            <th>Recommended Response</th>
+                            <th>Risk Level</th>
+                            <th>Timeline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Social Media Criticism</td>
+                            <td>Monitor, selective engagement, continue campaign</td>
+                            <td><span style="color: var(--secondary);">Low</span></td>
+                            <td>Ongoing</td>
+                        </tr>
+                        <tr>
+                            <td>Advocacy Group Campaign</td>
+                            <td>Formal statement, stakeholder dialogue, messaging adjustment</td>
+                            <td><span style="color: var(--warning);">Medium</span></td>
+                            <td>24-72 hours</td>
+                        </tr>
+                        <tr>
+                            <td>International Media Focus</td>
+                            <td>Coordinated response, celebrity statement, campaign pause consideration</td>
+                            <td><span style="color: var(--danger);">High</span></td>
+                            <td>12-24 hours</td>
+                        </tr>
+                        <tr>
+                            <td>Policy-Related Controversy</td>
+                            <td>Celebrity clarification, partnership evaluation, potential pivot</td>
+                            <td><span style="color: var(--danger);">High</span></td>
+                            <td>Immediate</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="quote-box">
+                <strong>The Communication Reality:</strong> In celebrity destination partnerships, silence is not an option during controversies. The question becomes not whether to respond, but how to respond in a way that serves both celebrity and destination interests while maintaining authenticity and avoiding further escalation.
+            </div>
+            
+            </div>
+        </section>
+
+        <!-- Strategic Synthesis -->
+        <section class="section">
+            <h2 class="main-section-header collapsed"><i class="fas fa-puzzle-piece"></i> Strategic Synthesis: The New Reality of Celebrity Destination Marketing</h2>
+            <div class="main-section-content collapsed">
+            
+            <div class="hero-statement" style="border-left-color: var(--primary); color: var(--primary);">
+                "The future of celebrity destination marketing lies not in avoiding complexity, but in mastering it."
+            </div>
+            
+            <h3>Key Strategic Learnings</h3>
+            
+            <div class="framework-list success">
+                <li><strong>Success and Risk are Inseparable:</strong> High-impact celebrity partnerships inherently create both massive opportunity and concentrated risk</li>
+                <li><strong>Authenticity is Double-Edged:</strong> Genuine celebrity connections create the most powerful endorsements and the most potent criticism</li>
+                <li><strong>Traditional Metrics Fail:</strong> EMV and reach metrics don't distinguish between valuable and damaging attention</li>
+                <li><strong>Long-term Partnerships Require Adaptive Management:</strong> Multi-year deals need flexible strategies that can evolve with changing contexts</li>
+                <li><strong>Crisis is Inevitable:</strong> The question is not if controversy will emerge, but how prepared you are to manage it</li>
+            </div>
+            
+            <h3>The New Strategic Framework</h3>
+            
+            <div class="comparison-grid">
+                <div class="info-card" style="border: 2px solid var(--primary);">
+                    <h4 style="color: var(--primary);"><i class="fas fa-brain"></i> Strategic Mindset Shift</h4>
+                    <p><strong>From:</strong> "How do we maximize positive attention?"</p>
+                    <p><strong>To:</strong> "How do we optimize the attention equation for net positive commercial impact?"</p>
+                </div>
+                
+                <div class="info-card" style="border: 2px solid var(--secondary);">
+                    <h4 style="color: var(--secondary);"><i class="fas fa-chart-line"></i> Measurement Evolution</h4>
+                    <p><strong>From:</strong> Total EMV and reach metrics</p>
+                    <p><strong>To:</strong> NSAMV and commercial viability assessment</p>
+                </div>
+                
+                <div class="info-card" style="border: 2px solid var(--warning);">
+                    <h4 style="color: var(--warning);"><i class="fas fa-shield-alt"></i> Risk Management</h4>
+                    <p><strong>From:</strong> Risk avoidance and crisis reaction</p>
+                    <p><strong>To:</strong> Risk optimization and proactive crisis preparation</p>
+                </div>
+                
+                <div class="info-card" style="border: 2px solid var(--danger);">
+                    <h4 style="color: var(--danger);"><i class="fas fa-clock"></i> Partnership Approach</h4>
+                    <p><strong>From:</strong> Fixed campaign execution</p>
+                    <p><strong>To:</strong> Adaptive, evolutionary partnership management</p>
+                </div>
+            </div>
+            
+            <div class="quote-box success">
+                <strong>The Strategic Conclusion:</strong> Celebrity destination marketing has evolved beyond traditional endorsement models into a sophisticated balance of authenticity, risk management, and adaptive strategy. Success requires embracing complexity rather than avoiding it, measuring impact rather than just attention, and building partnerships that can evolve with changing global contexts.
+            </div>
+            
+            </div>
+        </section>
+
+        <!-- Continue Reading Navigation -->
+        <section class="section" style="margin-top: 50px; background: linear-gradient(135deg, rgba(66, 133, 244, 0.08), rgba(66, 133, 244, 0.03)); border: 2px solid var(--primary);">
+            <div style="text-align: center; margin-bottom: 12px;">
+                <a href="index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--gray-700); text-decoration: none; font-size: 0.85rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--primary-dark)'" onmouseout="this.style.color='var(--gray-700)'">
+                    <i class="fas fa-arrow-left"></i> Back to Campaign Repository
+                </a>
+            </div>
+            
+            <div style="text-align: center;">
+                <h3 style="color: var(--primary-dark); margin-bottom: 12px; font-size: 1.2rem;">
+                    <i class="fas fa-book-open"></i> Continue Reading
+                </h3>
+                <a href="campaign_execution.html" style="display: block; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="background-color: var(--card-bg); border: 2px solid var(--primary); border-radius: 12px; padding: 16px 20px; margin: 0 auto; max-width: 100%;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+                            <div style="flex: 1; text-align: left;">
+                                <div style="color: var(--primary); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Next</div>
+                                <h4 style="color: var(--primary-dark); margin: 0 0 8px 0; font-size: 1.2rem;">Campaign Execution: How We Did It</h4>
+                                <p style="color: var(--gray-700); margin: 0; font-size: 0.85rem; line-height: 1.5;">Dive into the operational details of campaign implementation: content production, media distribution, and timeline execution.</p>
+                            </div>
+                            <div style="color: var(--primary); font-size: 1.5rem;">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer style="background-color: var(--gray-100); padding: 20px 0; text-align: center; margin-top: 40px; border-top: 1px solid var(--gray-300);">
+            <div class="container">
+                <p style="margin: 0; color: var(--gray-700); font-size: 0.9rem;">© 2025 Research & Insights Unit | Strategic Marketing & Communications | Department of Culture and Tourism – Abu Dhabi</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Collapsible sections functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const headers = document.querySelectorAll('.main-section-header');
+            headers.forEach(header => {
+                header.addEventListener('click', function() {
+                    this.classList.toggle('collapsed');
+                    const content = this.nextElementSibling;
+                    if (content && content.classList.contains('main-section-content')) {
+                        content.classList.toggle('collapsed');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
